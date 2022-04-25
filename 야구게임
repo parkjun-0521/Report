@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<stdlib.h>  // rand 와 srand를 사용하기위한 헤더파일 (난수 생성) 
+#include<time.h>    // time(NULL)을 사용하기 위해 사용한 헤더파일 
+#define MAX 3	    // 출력 및 입력할 원소의 최대 개수
+// 배열 초기화 함수 
+void clean(int n[MAX]) {
+	int i = 0;	    // for문 변수 
+	for (i = 0; i < MAX; i++) {
+		n[i] = 0;	// 배열 안을 0으로 초기화 
+	}
+}
+// 중복이 없는 난수 MAX개수 만큼 생성 
+void random(int n[MAX]) {
+	int i = 0, j = 0; // for문 변수 
+	int flag = 0;	  // 중복을 제거하기 위해 flag 선언 
+	printf("중복되지 않는 무작위 랜덤 숫자 3개 : ");
+	for (i = 0; i < MAX; i++) {
+		n[i] = rand() % 10;  // 0~9사이의 무작위 난수 생성 
+		flag = 0;
+		for (j = 0; j < i; j++) {
+			if (n[i] == n[j]) { // 배열안의 숫자가 같은 것이 있을때 
+				i = i - 1;		// 현재 배열 자리에 있는 중복값을 지우고 다시 값으로 입력하기 위한 로직 
+				flag = 1;		// 중복 값이 있을 때 flag 1증가 
+				break;
+			}
+		}
+		if (flag == 0) {		// 중복 값이 없다면 flag = 0 이다. 따라서 중복값이 제거 된 상태로 출력이 이루어짐 
+			printf("%d ", n[i]);
+		}
+	}
+}
+int main(void) {
+	int i = 0, j = 0;		 // for문을 돌기 위한 변수 
+	int n = 100, m = 1000; 	 // 한번에 입력받은 수를 각각의 배열에 넣어기 위한 나머지 계산 변수 
+	int inpNum = 0;			 // 숫자를 입력받기 위한 변수 	
+	int aNum[MAX], pNum[MAX];// aNum(자동랜덤생성) pNum(player 입력 변수) 배열 선언 
+	int flag = 0;			 // 입력한 숫자가 중복일 경우 처리를 위한 flag
+	int ball = 0, strike = 0, out = 0, count = 0;  // count는 몇번에 걸쳐 맞췄는지 확인하는 변수 
+	clean(aNum);			// aNum 배열 초기화
+	srand(time(NULL));
+	random(aNum);			// random 함수에서 0~9까지 중복이 없는 3개의 난수 출력 
+	printf("\n\n");
+	while (1) {
+		clean(pNum);		// pNum 배열 초기화 
+		ball = 0, strike = 0, out = 0; // while을 돌때마다 변수 초기화 
+		flag = 0;					   //
+		n = 100, m = 1000;			   // 
+		scanf_s("%d", &inpNum);		   // 숫자 입력 
+		printf("\n");
+		for (i = 0; i < MAX; i++) {
+			pNum[i] = (inpNum % m) / n; // 첫번째 배열에 입력받은 수를 1000으로 나눈 나머지를 100으로 나눈 몫, 두번째는 100으로 나눈 나머지를 10으로 나눈 몫...
+			m = m / 10;					// 입력 한 수를 2자리, 1자리 숫자로 만들기 위해 선언 
+			n = n / 10;					// 0,1,2 번째 배열에 각각 백의 자리, 십의자리, 일의자리를 넣기위해 선언 
+			for (j = 0; j < i; j++) {
+				if (pNum[i] == pNum[j]) {// 입력 수 중복 처리 
+					flag = 1;
+					break;
+				}
+			}
+		}
+		if (flag == 1) {				// 중복이 있을때 출력 
+			printf("중복된 숫자가 있습니다.\n");
+			printf("숫자를 다시입력해주세요 : ");
+			continue;					// 중복이 있다면 아래를 다 건너뛰고 continue로 while 처음으로 돌아감 
+		}
+		for (i = 0; i < MAX; i++) {
+			for (j = 0; j < MAX; j++) {
+				if (aNum[i] == pNum[j] && i != j) {			// 숫자는 같지만 자리는 다를때 ball conut를 하나 올린다. 
+					ball = ball + 1;
+				}
+				else if (aNum[i] == pNum[j] && i == j) {	// 숫자도 같고 자리도 같을 때 strike conut를 하나 올린다. 
+					strike = strike + 1;
+				}
+				else if (aNum[i] != pNum[j]) {				// 완전히 다를 때 out conut를 하나 올린다. 
+					out = out + 1;							// 단 배열을 전체 다 비교 하기 때문에 전부다 다를때는 총 9번을 비교하므로 out인 경우는 out = 9일때 이다.
+				}
+			}
+		}
+		if (out == 9) {  //배열을 다 비교해서 총 9번을 돌기 때문에 out = 9 일때 숫자가 다 다르다는 것을 알 수 있다. 
+			count = count + 1;  // 정답까지 몇번을 돌았는지 확인하기 위하여 선언  
+			for (i = 0; i < MAX; i++) {
+				printf("%d ", pNum[i]);
+			}   printf("아웃\n\n");
+		}
+		else if (strike == 3) {  // strike 경우는 &&로 조건이 다 맞는 경우이기 때문에 strike = 3일때는 숫자가 자리까지 다 같다는 것을 알 수 있다.
+			for (i = 0; i < MAX; i++) {
+				printf("%d ", pNum[i]);
+			}   printf("%dS %dB\n\n", strike, ball);
+			printf("%d회에 정답을 맞추셨습니다.\n", count + 1);
+			break;				// 정답을 맞췄다면 프로그램 종료 
+		}
+		else {					// 3 out, 3 strike의 경우를 제외한 나머지 경우의 수 
+			count = count + 1;  // 정답까지 몇번을 돌았는지 확인하기 위하여 선언  
+			for (i = 0; i < MAX; i++) {
+				printf("%d ", pNum[i]);
+			}   printf("%dS %dB\n\n", strike, ball);
+		}
+	}
+	return 0;
+}
