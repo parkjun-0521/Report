@@ -1,0 +1,45 @@
+#include<stdio.h>
+#define MAX_STACK 100							
+static int top = -1;							
+int IsFull() {									 
+	if (top >= MAX_STACK - 1)
+		return 1;
+	else 
+		return 0;  								
+}
+int IsEmpty() {		
+	if (top < 0)
+		return 1;
+	else
+		return 0;								
+}
+void push(char v, char s[]) {	
+	if (IsFull() == 1)
+		printf("스택이 가득찼습니다.\n");
+	else
+		s[++top] = v;
+}
+int pop(char s[]) {								
+	if (IsEmpty() == 1)
+		printf("스택이 비어있습니다.\n");
+	else
+		return s[top--];						
+}
+void main() {
+	char stack[MAX_STACK];					// stack 배열 선언 
+	char a[MAX_STACK];							// 문자열을 입력 받기 위한 배열 선언 
+	int i;										      // for문 변수 
+	scanf("%s", a);
+	for (i = 0; i < MAX_STACK; i++) {
+		if (a[i] >= 'A' && a[i] <= 'Z' || a[i] >= 'a' && a[i] <= 'z')		    // A~Z, a~z 사이의 문자입력시 바로 출력
+			printf("%c", a[i]);
+		else if (a[i] == '+' || a[i] == '-' || a[i] == '*' || a[i] == '/')  // 연산자 입력시 stack에 저장 
+			push(a[i], stack);
+		else if (a[i] == ')')					                                      // ')' 을 만났을 때 연산자 pop하기 
+			printf("%c", pop(stack));
+	}
+	for (i = 0; i < MAX_STACK; i++) 			                                // 만약 stack이 비어있지 않은 경우 스택에 있는것을 다 출력 
+		if (top >= 0)
+			printf("%c", pop(stack));
+	printf("\n");
+}
