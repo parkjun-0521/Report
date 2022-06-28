@@ -1,0 +1,45 @@
+#include<stdio.h>
+#include<string.h>
+void preorder(char T[],int c) {				// 전위 순회 
+	if (T[c] != '0') {                  
+		if (c > strlen(T))                // c 값이 무한으로 늘어나기 때문에 그것을 막고자 배열의 원소개수보다 c값이 커지면 return한다.
+			return;
+		printf("%c", T[c]);					      // 루트 노드 출력
+		preorder(T, c * 2);               // 왼쪽 노드 탐색 ( 왼쪽 노드는 배열의 위치상 n x 2 자리에 위치해 있다.)
+		preorder(T, c * 2 + 1);           // 오른쪽 노드 탐색 ( 오른쪽 노드는 배열의 위치상 (n x 2) + 1 자리에 위치해 있다.)
+	}
+	else
+		return;
+}
+void inorder(char T[], int c) {				// 중위 순회 
+	if (T[c] != '0') {
+		if (c > strlen(T))
+			return;
+		inorder(T, c * 2);                
+		printf("%c", T[c]);					      
+		inorder(T, c * 2 + 1);            
+	}
+	else
+		return;
+}
+void postorder(char T[], int c) {			// 후위 순회 
+	if (T[c] != '0') {
+		if (c > strlen(T))					      
+			return;
+		postorder(T, c * 2);				      
+		postorder(T, c * 2 + 1);			    
+		printf("%c", T[c]);					      
+	}
+	else
+		return;
+}
+int main() {
+	int i = 1;								            // 트리는 1부터 시작한다.
+	char tree[100] = { '7', 'A', 'B', 'C', 'D', '0', 'E', 'F', '0', '0', '0', '0', '0', '0', '0', 'G' };
+	preorder(tree,i);						          // 전위 순회 
+	printf("\n");
+	inorder(tree, i);						          // 중위 순회
+	printf("\n");
+	postorder(tree, i);						        // 후위 순회
+	return 0;
+}
