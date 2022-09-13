@@ -122,7 +122,7 @@ class test {
 	public void setRadius(float r) {
 		radius = r;
 	}
-	public void cicumference() {
+	public void circumference() {
 		float circ;
 		circ = 2 * 3.14f * radius;
 		System.out.println("원 둘레 = " + circ);
@@ -137,9 +137,12 @@ class test {
 public class Cicle {
 	public static void main(String args[]) {
 		test c1=new test( );
+		test c2=new test( );
 		c1.setRadius(4.67f);
-		c1.cicumference( );
-		c1.areaOf( );	
+		c1.circumference( );
+		c1.areaOf( );
+		c2.setRadius(10.5f);
+		c2.areaOf();
 	}
 }
 
