@@ -143,9 +143,13 @@ public class Cicle {
 	}
 }
 
-file:///C:/Users/seoil/Desktop/java/%EC%BA%A1%EC%B2%98.PNG
-
-    
+* staruml 에서
+- 데이터 형은 변수 뒤에 : 을 붙여 써준다 
+- ex ) setRadius(r: float): void 
+- ex2) center_y: int
+- ex3) main(args: sting[]): void
+- 위와 같은 형식으로 작성 
+  
     
     
   
