@@ -1,0 +1,70 @@
+package Student;
+
+public class Student {
+	private String name;
+	private int age;
+	private String tel;
+	
+	public Student(String name, int age, String tel) {
+		this.name = name;
+		this.age = age;
+		this.tel = tel;
+	}
+	
+	public String getName() {
+		
+		return name;
+	}
+	
+	public int getAge() {
+		
+		return age;
+	}
+	
+	public String getTel() {
+		
+		return tel;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	
+}
+===========================================================
+package Student;
+import java.util.Scanner;
+public class SudMain {
+
+	public static void main(String[] args) {
+		Student stud = new Student("홍길동", 20, "010-0000-0000");
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("바꾸기 전 정보");
+		System.out.println("이름 : " + stud.getName());
+		System.out.println("나이 : " + stud.getAge());
+		System.out.println("전화번호 : " + stud.getTel());
+		
+		String name;
+		String tel;
+		
+		System.out.print("이름을 변경해 주세요 : ");
+		name = scan.next();
+		System.out.print("전화번호를 변경해 주세요 : ");
+		tel = scan.next();
+		
+		stud.setName(name);
+		stud.setTel(tel);
+		
+		System.out.println("바뀐 후 정보");
+		System.out.println("이름 : " + stud.getName());
+		System.out.println("나이 : " + stud.getAge());
+		System.out.println("전화번호 : " + stud.getTel());
+		
+		scan.close();
+	}
+}
