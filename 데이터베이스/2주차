@@ -1,0 +1,6 @@
+SELECT 문 
+
+- select 형태 ( select~ from~ where~ ) 
+    select 속성 이름
+    from 테이블 이름 
+    where 검색 조건; 
