@@ -68,3 +68,136 @@ public class SudMain {
 		scan.close();
 	}
 }
+=========================
+
+public class Calurator {
+	public int num1, num2;
+	
+
+	
+	// 덧셈 
+	public int Add(int a, int b) {
+		return a + b;
+	}
+	// 뺼셈 
+	public int Sub(int a, int b) {
+		return a - b;
+	}
+	// 곱셈 
+	public int Mul(int a, int b) {
+		return a * b;
+	}
+	// 나눗셈 
+	public int Div(int a, int b) {
+		if(a==0 || b==0) {
+			System.out.println("0으로는 나눌수 없습니다.");
+			return 0;
+		}
+		return a / b;
+	}
+}
+=======================
+import java.util.Scanner;
+
+public class Cal_Main {
+
+	public static void main(String[] args) {
+		
+		Calurator cal = new Calurator();
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("정수 1을 입력하세요 : ");
+		cal.num1 = scan.nextInt();
+		System.out.print("정수 2을 입력하세요 : ");
+		cal.num2 = scan.nextInt();
+		
+		System.out.println("두 정수의 합 : " + cal.Add(cal.num1, cal.num2)); 
+		System.out.println("두 정수의 차 : " +cal.Sub(cal.num1, cal.num2));
+		System.out.println("두 정수의 곱 : " +cal.Mul(cal.num1, cal.num2));
+		System.out.println("두 정수의 나눗셈 : " +cal.Div(cal.num1, cal.num2));
+		
+		scan.close();
+	}
+
+}
+======================================
+package UserCD;
+
+import java.util.Vector;
+import java.util.Scanner;
+public class User {
+	Vector v = new Vector();
+	
+	public String id;
+	public String pw;
+	public String name;
+	
+	
+	public void add(String id, String pw, String name) {
+		Scanner scan = new Scanner(System.in);
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		
+		id = scan.next();
+		pw = scan.next();
+		name = scan.next();
+		System.out.println("회원가입 정보입니다.");
+		System.out.println(id);
+		System.out.println(pw);
+		System.out.println(name);
+		
+		scan.close();
+	}
+	
+	public boolean delete(String id, String pw) {
+		this.id = id;
+		this.pw = pw;
+		System.out.println("삭제되었습니다");
+		return false;
+	}
+	
+	public boolean update(String id, String pw, String name) {
+		Scanner scan = new Scanner(System.in);
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		
+		id = scan.next();
+		pw = scan.next();
+		name = scan.next();
+		System.out.println("바꿀 정보를 입력하세요 ");
+		System.out.println(id);
+		System.out.println(pw);
+		System.out.println(name);
+		
+		return true;
+	}
+	
+	Vector<User> list = new Vector<User>();
+	
+}
+===================================
+package UserCD;
+
+public class Product {
+	private String productId;
+	private int price;
+	
+	public void addProduct(String productId) {
+		this.productId = productId;
+		System.out.println("아이디를 생성했습니다");
+	}
+	
+	public boolean deleteProduct(String productId) {
+		this.productId = productId;
+		System.out.println("아이디를 삭제했습니다.");
+		return false;
+	}
+	
+	private boolean checkProduct(String productId) {
+		this.productId = productId;
+		System.out.println("아이디를 확인합니다.");
+		return true;
+	}
+}
