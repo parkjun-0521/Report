@@ -1,3 +1,6 @@
+=================================================================================
+Point class 구현 ( Rectangle의 중심 좌표 ) 
+=================================================================================
 package Test;
 
 public class Point {
@@ -20,7 +23,10 @@ public class Point {
 		this.y = y;
 	}
 }
-<========================================================================>
+
+=================================================================================
+Rectangle class 구현 ( 가로, 세로 길이 및 넓이 구하기 )
+=================================================================================
 package Test;
 
 public class Rectangle {
@@ -59,7 +65,9 @@ public class Rectangle {
 		return width * height;
 	}
 }
-<========================================================================>
+=================================================================================
+Controller class 구현 ( main 메소드 구현 ) 
+=================================================================================
 package Test;
 
 public class Controller {
@@ -77,60 +85,22 @@ public class Controller {
 
 	}
 }
-<========================================================================>
-package Test_0927;
-
-public class Controller {
-
-	public static void main(String[] args) {
-		Point p1 = new Point(23, 94);
-		Circle r1 = new Circle(p1, 3);
-		
-		System.out.println("r1의 반지름 = " + r1.getR());
-		System.out.println("r1의 면적 = " + r1.circum());
-		System.out.println("r1의 넓이 = " + r1.area());
-		System.out.println("r1의 점의 x좌표 = " + r1.p.getX());
-		System.out.println("r1의 점의 y좌표 = " + r1.p.getY());
-
-	}
-
-}
-<========================================================================>
-package Test_0927;
-
-public class Circle {
-	private int r;
-	Point p;
-	public Circle(){
-		p = new Point(0,0);
-	}
-	
-	public Circle(Point p, int i) {
-		this.p = p;
-		this.r = i;
-	}
-	public int getR() {
-		return r;
-	}
-	public void setR(int r) {
-		this.r = r;
-	}
-	public double circum() {
-		return (2 * r * 3.14f);
-	}
-	public double area() {
-		return (r * r * 3.14f);
-	}
-}
 
 
+=================================================================================
+=================================================================================
+=================================================================================
 
-package Test_0927;
+개인 실습 
+=================================================================================
+Point class 구현 ( 원의 중심 좌표 지정 ) 
+=================================================================================
+package Circle_Project;
 
 public class Point {
 	private int x;
 	private int y;
-	public Point(int x, int y) {
+	Point(int x, int y){
 		this.x = x;
 		this.y = y;
 	}
@@ -146,4 +116,51 @@ public class Point {
 	public void setY(int y) {
 		this.y = y;
 	}
+}
+
+=================================================================================
+Circle class 구현 ( 원의 면적, 넓이 ) 
+=================================================================================
+package Circle_Project;
+
+public class Circle {
+	private int r;
+	Point p;
+	Circle(){
+		p = new Point(0,0);
+	}
+	Circle(Point p, int r){
+		this.p = p;
+		this.r = r;
+	}
+	public int getR() {
+		return r;
+	}
+	public void setR(int r) {
+		this.r = r;
+	}
+	public double Circum() {
+		return 2 * r * 3.14f;
+	}
+	public double area() {
+		return r * r * 3.14f;
+	}
+}
+
+=================================================================================
+Controller class 구현 ( main 메소드 구현 ) 
+=================================================================================
+package Circle_Project;
+
+public class Controller {
+	public static void main(String[] args) {
+		Point p1 = new Point(10,20);
+		Circle r1 = new Circle(p1, 4);
+		
+		System.out.println("r1의 반지름 : " + r1.getR());
+		System.out.println("r1의 면적 : " + r1.Circum());
+		System.out.println("r1의 넓이 : " + r1.area());
+		System.out.println("r1의 X좌표 : " + r1.p.getX());
+		System.out.println("r1의 Y좌표 : " + p1.getY());
+	}	
 }
