@@ -1,1 +1,93 @@
 - 복합 객체 
+  - obj#1 + obj#2 = 복합객체 
+  - obj#1 => 슈퍼객체 
+  - obj#2 => sub객체, 부분객체 
+  
+- 포함 
+  ● 정의 
+    - 한 객체가 다른 객체를 포함하는 관계
+    - aggregation이라고 함
+    - 복합 객체라고도 함 
+  
+  ● 포함이 발생되는 3가지 경우 
+    - 클래스 내부 정의 에서 
+    - A Class 가 B Class를 포함 
+    ★ Aggregation 관계 
+    - ex ) class A{
+              classB{    => aggregation이라고 한다. ( inner class )
+              }
+          }
+
+    - 클래스 내의 객체 생성함수 내에서     
+    - commposition 관계 ( aggregation 관계보다 더 강하다 ) 
+    - 생성될때 같이 생성되고 사라질때 같이 사라진다. 
+    ★ composition 관계 
+    - ex ) class A{
+              public A(){   
+                B myB = new B();    => composition 라고 한다.
+              }
+          }
+
+    - 부분 객체를 실제 사용하기 직전상태 
+    - 관계가 가장 약하다.
+    - ex ) class A{
+              public A(){   
+              // 추후 여기서 myB 를 사용 
+              }
+              public f1() { B myB = new B(); }
+              class B{
+              }
+          }
+          
+- 포함 관계 강도 
+  - dependency < association < aggregation < composition
+  
+- 포함 예제 
+  - class 생성 
+  Class Engine
+  Class Vehicle{
+    Engine engine;
+    Vehicle(Engine e){
+      engine = e;
+    }
+  }
+  
+  - 객체 생성 
+  Engine e = new Engine( );
+  Vehicle v = new Vehicle(e);
+  
+- 변수와 객체 차이 
+  - 변수는 값을 하나
+  - 객체는 값을 여러개 가져야 하니깐 class 만들어서 생성 
+  - objectype = class 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
