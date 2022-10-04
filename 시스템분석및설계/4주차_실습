@@ -1,0 +1,221 @@
+<=====================================================================================>
+1. 상속의 기본 ( extends 을 사용하여 상속을 한다. ) C++과는 조금 다르다.
+<=====================================================================================>
+package Test;
+
+public class Controller {
+	public static void main(String[] args) {
+		Person p = new Person("박준", "서울 강북구", "010-1234-5678");
+		System.out.println("p 객체의 이름 = " + p.getName());
+		p.printLabel();
+		
+		Student s = new Student("yukino", "서울 강북구", "010-1111-2222");
+		System.out.println("s 객체의 이름 = " + s.getName());
+		s.printLabel();					// 메시지라고 한다
+		s.printTranscript();
+	}
+}
+<=====================================================================================>
+package Test;
+
+public class Person {
+	String name;
+	private String address;
+	private String SSN;
+	private String DOB;
+	private String phone;
+	
+	public Person(String name, String address, String phone) {
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void printLabel() {
+		System.out.println("안녕");
+	}
+	
+	public void changeAddress(String addre) {
+		address = addre;
+	}
+}
+
+class Student extends Person{
+	public Student(String name, String address, String phone) {
+		super(name, address, phone);
+		this.major = "소프투웨어공학";
+		this.minor = "안녕";
+		this.advisor = "안녕2";
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	private String major;
+	private String minor;
+	private String advisor;
+	private String GPA;
+	private String courseeTaken;
+	
+	
+	
+	public void printTranscript() {
+		System.out.println("안녕 2");
+	}
+}
+<=====================================================================================>
+
+<=====================================================================================>
+2. 상속을 활용한 개인 과제 
+<=====================================================================================>
+package Test_2;
+
+public class Controller {
+
+	public static void main(String[] args) {
+		Parent p = new Parent("박준", 24, "010-1234-5678");
+		System.out.println("p 객체의 이름, 나이 = " + p.getName() + " " + p.getAge());
+		
+		Child c = new Child("yukino", 18, "010-1234-5678");
+		c.setHobby("공예");
+		System.out.println("c 객체의 이름, 나이 = " + c.getName() + " " + c.getAge());
+		System.out.println("c 객체의 취미 = " + c.getHobby());
+	}
+}
+<=====================================================================================>
+package Test_2;
+
+public class Parent {
+	String name;
+	int age;
+	String phone;
+	
+	Parent(String name, int age, String phone){
+		this.name = name;
+		this.age = age;
+		this.phone = phone;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public int getAge() {
+		return age;
+	}
+}
+
+class Child extends Parent{
+	private String hobby;
+	Child(String name, int age, String phone){
+		super(name, age, phone);
+	}
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	public String getHobby() {
+		return hobby;
+	}
+}
+<=====================================================================================>
+
+<=====================================================================================>
+3. ( upcasting의 기본 ) 
+<=====================================================================================>
+package Test_3;
+
+class Instrument{
+	public void play() {
+		System.out.println("Instrument playing...");
+	}
+	public static void tunet(Instrument x) {
+		x.play();
+	}
+}
+
+public class Wind extends Instrument {
+	// 상향 형변환 upcasting
+	public static void main(String[] args) {
+		Instrument i = new Instrument();
+		Instrument.tunet(i);
+		
+		Wind w = new Wind();		
+		Instrument.tunet(w);
+	}
+	public void play() {
+		System.out.println("Wind playing...");
+	}
+}
+<=====================================================================================>
+
+<=====================================================================================>
+4. 추상 함수의 정의 ( 기본 abstract을 사용한다. ) 
+<=====================================================================================>
+package Test_4;
+
+public abstract class Figure {
+	public void setColor(String color) {
+		System.out.println("Color를 변경합니다");
+	}
+	
+	// 추상 함수 area() 정의 
+	public abstract void area();
+}
+
+class Circle extends Figure{
+	public void area() {
+		System.out.println("원 면적을 계산합니다");
+	}
+}
+class Rectangle extends Figure{
+	public void area() {
+		System.out.println("사각형 면적을 계산합니다");
+	}
+}
+class Triangle extends Figure{
+	public void area() {
+		System.out.println("삼각형 면적을 계산합니다");
+	}
+}
+<=====================================================================================>
+package Test_4;
+
+public class Controller {
+	
+	// 각 클래스를 하나로 묶어서 저장 
+	static Figure[] figures = new Figure[3];
+	static int i;
+	public static void main(String[] args) {
+		//추상 클래스는 객체를 만들면 error 발생 
+		//Figure f = new Figure();
+		
+		Circle c = new Circle();
+		Rectangle r = new Rectangle();
+		Triangle t = new Triangle();
+		
+		c.area();
+		r.area();
+		t.area();
+		c.setColor("yellow");
+		r.setColor("Red");
+		t.setColor("Blue");
+		addFigure(c);
+		addFigure(r);
+		addFigure(t);
+		areaFigure(c);
+		areaFigure(r);
+		areaFigure(t);
+	}
+	public static void addFigure(Figure f) {
+			figures[i++] = f;
+	}
+	public static void areaFigure(Figure f) {
+		for (int i=0;i<3;i++) {
+			figures[i].area();
+		}
+	}
+}
