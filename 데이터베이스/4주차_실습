@@ -1,0 +1,258 @@
+
+-- Quiz 4-5.
+-- HR부서에서는 신규프로젝트를 성공으로 이끈 해당 업무자들의 연봉을 인상하기로 결정하였다.
+-- 사원은 현재 107명이며, 19개의 직부에 소속되어 근무중이다.
+-- 다음 조건과 조건형식에 맞는 데이타를 조회하시오.
+-- 조건
+--    급여인상 대상자는 회사의 직무(job_id)중 다음 5개 직무에 속하는 사원에 해당된다.
+--    나머지 직무에 대해서는 연봉이 동결된다.
+--    5개 직무 대상 연봉 인상안은 다음과 같다.
+--    HR_ERP(10%), MK_ERP(12%), PR_ERP(15%), SA_ERP(18%), IT_PROG(20%)
+--    case, decode를  각각 사용하여 쿼리를 작성하시오.
+-- 조회형식
+--   사번         이름              직무      연봉      인상된연봉
+--  100	    King Steven	        AD_PRES	    24000	    24000
+--  103	    Hunold Alexander	IT_PROG	    9000	    10800
+-------------------------------------------------------------------------------
+select  employee_id as 사번, 
+        first_name|| ' ' ||last_name as 이름, 
+        job_id as 직무,
+        salary as 연봉,
+        decode(job_id, 'HR_ERP', salary * 1.1,  
+                       'MK_ERP', salary * 1.12,
+                       'PR_ERP', salary * 1.15,
+                       'SA_ERP', salary * 1.18,
+                       'IT_PROG', salary * 1.2, salary) as 인상된연봉
+From employees;
+
+select  employee_id as 사번, 
+        first_name|| ' ' ||last_name as 이름, 
+        job_id as 직무,
+        salary as 연봉,
+        case job_id when 'HR_ERP' then salary * 1.1
+                    when 'MK_ERP' then salary * 1.12
+                    when 'PR_ERP' then salary * 1.15
+                    when 'SA_ERP' then salary * 1.18
+                    when 'IT_PROG' then salary * 1.2
+                    else salary
+        end 인상된연봉
+From employees;
+-------------------------------------------------------------------------------
+
+-- Quiz 4-6.
+-- HR부서에서 최상위 입사일에 해당하는 2001년부터 2003년까지 입사자들의 급여를
+-- 각각 5%, 3%, 1% 인상하여 지분에 따른 배당금으로 지급하고자 한다.
+-- 전체사원중 해당 년도에 해당하는 사원들의 연봉을 검색하여 적용하고 
+-- 다음 조건과 조건형식에 맞는 데이타를 조회하시오.
+-- 조건
+--    배당금 대상자 : 2001년부터 2003년까지 입사자
+--    배당금 : 연봉(salary)에서 2001년도 => 5%, 2002년도 => 3%, 2003년도 =>1% 지급율 지급
+--    정렬 : 입사일자에 따른 오름차순
+--    case 사용하여 쿼리를 작성하시오.
+-- 조회형식
+--   사번         이름             입사일자       연봉     배당금
+--   102	De Haan Lex	01/01/13	  17000	17850
+-------------------------------------------------------------------------------
+select  employee_id as 사번, 
+        first_name|| ' ' ||last_name as 이름, 
+        hire_date as 입사일자,
+        salary as 연봉, 
+        case substr(hire_date,1,2) when '01' then salary * 1.05
+                                   when '02' then salary * 1.03
+                                   when '03' then salary * 1.01
+        end 배당금
+From employees
+order by hire_date;
+
+select  employee_id as 사번, 
+        first_name|| ' ' ||last_name as 이름, 
+        hire_date as 입사일자,
+        salary as 연봉, 
+        case  when lpad(substr(hire_date,1,2),4,'20') = '2001' then salary * 1.05
+              when lpad(substr(hire_date,1,2),4,'20') = '2002' then salary * 1.03
+              when lpad(substr(hire_date,1,2),4,'20') = '2003' then salary * 1.01
+              else salary
+        end 배당금
+From employees
+order by hire_date;
+
+select  employee_id as 사번, 
+        first_name|| ' ' ||last_name as 이름, 
+        hire_date as 입사일자,
+        salary as 연봉, 
+        case  when to_char(hire_date, 'YYYY') = '2001' then salary * 1.05
+              when to_char(hire_date, 'YYYY') = '2002' then salary * 1.03
+              when to_char(hire_date, 'YYYY') = '2003' then salary * 1.01
+              else salary
+        end 배당금
+From employees
+order by hire_date;
+-------------------------------------------------------------------------------
+
+
+
+
+
+---------------------------------------------------
+
+-- 4.5 : 일반 함수
+-- 4.5.1 : NULL값 처리하기 : NVL
+-- 예제 : NULL값 특성
+--       employees테이블에서 사원번,  salary, commission_pct를 조회하시오.
+--       commission_pct로 정렬
+SELECT employee_id, salary,  commission_pct
+FROM   employees
+ORDER BY commission_pct;
+---------------------------------------------------
+---------------------------------------------------------------------------------- 4주차 
+-- 예제 : NULL값 특성 => null 값을 포함하는 산술 연산의 결과는 null임
+--       employees테이블에서 사원번,  salary, commission_pct,
+--       salary * commission_pct를 조회하시오.
+--       commission_pct로 정렬
+SELECT employee_id, salary,  commission_pct, salary * commission_pct as "성과급"
+FROM   employees
+ORDER BY commission_pct;
+---------------------------------------------------
+
+-- 예제 4-13 : employees테이블에서 salary에 commision_pct를
+--             곱하되 commition_pct가 null인 경우는 1로 치환하여
+--             commition_pct를 곱한 값을 출력하시오.
+SELECT employee_id, salary,  NVL(commission_pct,1), salary * NVL(commission_pct,1) as "성과급"
+FROM   employees
+ORDER BY commission_pct;
+---------------------------------------------------
+
+-- 예제 4-13-2 : employees테이블에서 manager_id가 null이면 '임원'이라 출력하고
+--              manager_id 가 null이 아니면 '일반사원및 관리직'이라고 출력하시오.
+select *
+FROM   employees
+where manager_id is null;
+
+select  employee_id,
+        manager_id,
+        NVL2(manager_id,'일반사원및 관리직' ,'임원')
+FROM   employees;
+
+---------------------------------------------------
+
+-- 4.5.2 : 조건 논리 처리하기 : DECODE
+--예제 4-14 : employees 테이블에서 first_name, last_name, department_id, salary를 출력하되
+--           department_id가 60인 경우에는 급여를 10%인상한 값을 출력하고
+--           department_id가 100인 경우에는 급여를 20%인상한 값을 출력하고
+--           나머지의 경우에는 원래의 값을 출력하시오.
+--           그리고 department_id가 60인 경우에는 '10%인상'을 출력하고
+--           그리고 department_id가 100인 경우에는 '20%인상'을 출력하고
+--           나머지 경우에는 '미인상'을 출력하시오.
+select  first_name, last_name, department_id, salary,
+        Round(decode(department_id, 60, salary * 1.1 , 100, salary * 1.2, salary),-1) as 인상된연봉,
+        decode(department_id, 60, '10%인상', 100, '20%인상','미인상') as 인상결과
+From employees;
+
+select  first_name, last_name, department_id, salary,
+        case department_id when 60 then salary * 1.1
+                           when 100 then salary * 1.2
+                           else salary
+        end 인상연봉,
+        case department_id when 60 then '10%인상'
+                           when 100 then '20%인상'
+                           else '미인상'
+        end 인상결과
+From employees;
+---------------------------------------------------
+--4.5.3 복잡한 조건 논리 처리하기 : CASE 표현식  
+--예제 4-15 : employees 테이블에서 job_id가 ;IT_PROG'이라면
+--           employee_id, first_name, last_name, salary를 출력하되
+--           salary가 9000이상이면 '상위급여'
+--           salary가 6000이상 9000미만이면 '중위급여'
+--           그 이하이면 '하위급여'라고 출력되도록 조회하시오.
+select  first_name, 
+        last_name, 
+        department_id, 
+        salary,
+        case when salary >= 9000 then '상위급여'
+             when salary >=6000 then '중위급여'
+             else '하위급여'
+        end 급여
+From employees
+order by salary;
+---------------------------------------------------
+--4.5.4 데이터 값에 순위 매기기 : RANK, DENSE_RANK, ROW_NUMBER  
+-- 예제 4-16 : employees테이블의 salary값이 높은 순서대로 
+--            순위를 매겨 출력하시오.
+select  employee_id,
+        salary,
+        rank() over(order by salary desc) rank,
+        dense_rank() over(order by salary desc) dense_rank,
+        row_number() over(order by salary desc) row_number
+from employees;
+---------------------------------------------------
+-- 예제 4-17 : employees테이블의 사원이 속한 department_id안에서
+--            salary값이 높은 순서대로 순위를 매겨 출력하시오.
+select  department_id,
+        employee_id,
+        salary,
+        rank() over(partition by department_id order by salary desc) rank,
+        dense_rank() over(partition by department_id order by salary desc) dense_rank,
+        row_number() over(partition by department_id order by salary desc) row_number
+from employees
+order by department_id, salary desc;
+---------------------------------------------------
+
+-- 4.6 : 고급그룹함수
+-- 4.6.1 그룹 항목 소집계 출력하기 : group by rollup
+-- 예제 : employees 테이블에서 department_id가 50이상인 사원내역에서
+--       부서별, 직무별 사원수와, 연봉의합계를 조회하고 
+--       부서별 소집계를 하시오.
+select department_id, job_id, count(*) 사원수, sum(salary) 연봉의합계
+from employees
+where department_id >= 50
+group by department_id, job_id
+order by department_id, job_id;
+
+select department_id, job_id, count(*) 사원수, sum(salary) 연봉의합계
+from employees
+where department_id >= 50
+group by rollup(job_id,department_id)
+order by department_id, job_id;
+---------------------------------------------------
+
+-- 4.6.1 그룹 항목 소집계 출력하기 : group by cube
+-- 예제 : employees 테이블에서 department_id가 50이상인 사원내역에서
+--       부서별, 직무별 사원수와, 연봉의합계를 조회하고 
+--       부서별 소집계를 하시오.
+select department_id, job_id, count(*) 사원수, sum(salary) 연봉의합계
+from employees
+where department_id >= 50
+group by cube(department_id,job_id)
+order by department_id, job_id;
+---------------------------------------------------
+
+-- 4.6.1 그룹 항목 소집계 출력하기 : group by grouping sets
+-- 예제 : employees 테이블에서 department_id가 100이상인 사원내역에서
+--       부서별 인원수와
+--       관리자별 인원수를 구하고 소집계하시오
+-- UNION 사용
+select  department_id 그룹명,
+        count(*) 사원수,
+        1 그룹구분
+from employees
+where department_id >= 100
+group by department_id
+UNION
+select  manager_id,
+        count(*) 사원수,
+        2
+from employees
+where department_id >= 100
+group by manager_id;
+
+---------------------------------------------------
+
+-- group by grouping sets 사용
+select  department_id 그룹명,
+        manager_id 매니저명,
+        count(*) 사원수
+from employees
+where department_id >= 100
+group by GROUPING SETS(department_id, manager_id);
+---------------------------------------------------
