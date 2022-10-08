@@ -21,7 +21,7 @@
     
 - 자바에서는 public class 이름이 file 이름이 된다. 
 - file 이름이 되기때문에 public class는 하나만 존재 
-- main 함수를 갔는 class는 반드시 public class 여야 한다. 
+- main 함수를 갖는 class는 반드시 public class 여야 한다. 
 - object class가 java의 최상위 class이다.
 - 자식은 부모클래스의 메소드를 실행 가능 
 
