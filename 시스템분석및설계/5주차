@@ -13,3 +13,233 @@ UML에서의 상속은 generalization 이다.
 오버로딩   : 한 클래스에서 함수의 중첩 
             추상클래스 - 일반클래스 상속구조 
 오버라이딩 : 상속관계에서의 자식과 부모의 함수가 같은경우 
+
+<<<<======================================================================================>>>>
+package Test_1;
+
+// 추상클래스 
+abstract class Figure {
+	public void setColor(String color) {
+		System.out.println("새로운 색으로 변경");
+	}
+	// 가상함수 
+	abstract public void move(int x, int y);
+}
+
+class Point extends Figure{
+	int x,y;
+	public void move(int x, int y) {
+		System.out.println("점이 " + x + ',' + y + "만큼 이동됨.");
+	}
+}
+
+class Circle extends Figure{
+	int x,y;
+	int r;
+	public void move(int x, int y) {
+		System.out.println("원의 중심이 " + x + ',' + y + "만큼 이동됨.");
+	}
+}
+
+class Rectangle extends Figure{
+	int x,y;
+	int width;
+	int height;
+	public void move(int x, int y) {
+		System.out.println("사각형이 " + x + ',' + y + "만큼 이동됨.");
+	}
+}
+
+public class Controller {
+	static Figure figures[] = new Figure[3];
+	static int count = 0;
+	public static void addFigure(Figure f) {
+		figures[count++] = f;
+	}
+	public static void moveAll(int x, int y) {
+		for (int i=0;i<count; i++)
+			figures[i].move(x, y);
+	}
+	
+
+	public static void main(String[] args) {
+		Point p = new Point();
+		Circle c = new Circle();
+		Rectangle r = new Rectangle();
+		
+		// 상속이 되어 있어야 한다. 
+		addFigure(p);
+		addFigure(c);
+		addFigure(r);
+		
+		// 한번의 메시지로 3개의 객체의 함수를 실행, => 동적 바인딩 
+		moveAll(5,5);
+	}
+}
+<<<<======================================================================================>>>>
+
+인터페이스 
+- 서로 관련 없는 객체들이 상호작용 하기 위해 사용하는 도구 
+- 인터페이스는 public 으로 구현을 해야함 
+- 메소드 선언들의 집합 
+- 구현이없어야 한다
+- 경우에 따라 상수 선언 가능 
+
+인터페이스 vs 추상클래스 
+
+공통점 
+- 객체 생성이 불가능 
+
+차이점 
+- 인터페이스는 함수만 선언 가능 
+- 추상클래스는 함수 정의와 함수 선언 모두 가능 
+- 인터페이스는 변수 선언 불가능 
+- 추상클래스는 변수 선언 가능
+
+UML 인터페이스 
+- 인터페이스 생성 후 Formet을 눌러 ( 아이콘, text 등으로 변경 가능 )
+- 메소드 및 변수를 보일수도 있고 압축하여 가릴수도 있음 
+- class와의 관계는 Realization으로 연결 
+
+package Test_1;
+
+public interface Remote_Controller {
+	public void powerOn();
+	public void powerOff();
+}
+
+class BeamProjector implements Remote_Controller{
+
+	public void powerOn() {
+		System.out.println("빔의 전원이 켜졌습니다.");
+	}
+
+	public void powerOff() {
+		System.out.println("빔의 전원이 꺼졌습니다.");				
+	}
+	
+}
+
+package Test_1;
+
+public class Controller {
+	public static void main(String[] args) {
+		BeamProjector bp = new BeamProjector();
+		
+		bp.powerOn();
+		bp.powerOff();
+	}
+}
+
+
+- 다형성 
+  - 두개 이상의 객체들이 동일 메시지에 대해 각자 반응하는 것 
+  - 인터페이스와 구현을 분리시키는 도구 
+  - late binding
+  - dynamic binding 
+  - 메시지와 메소드를 구별 
+    - 서로 다른 메소드들이 한 메시지에 달리 반응할 수 있다.
+    
+class Tree {
+	String name;
+	// 생성자
+	public Tree(){
+		System.out.println("Tree 객체가 생성됨");
+	}
+	// 함수 오버로딩 
+	public Tree(String name) {
+		System.out.println("이름이 " + name + " 인 Tree객체가 생성됨");
+	}
+}
+
+
+public class Controller {
+	public static void main(String[] args) {
+		Tree t1 = new Tree();
+		Tree t2 = new Tree("소나무");
+	}
+}
+
+
+
+
+
+
+package Test_1;
+
+// 추상 클래스라 객체를 생성하지 못함
+abstract class File {
+	String name;
+	public void open() {
+		System.out.println("파일이 열렸습니다");
+	}
+	public abstract void print();
+}
+
+class pdf_File extends File{
+	public void open() {
+		System.out.println("pdf 파일이 열렸습니다");
+	}
+	public void print() {
+		System.out.println("pdf 파일 출력");
+	}
+}
+
+class jpg_File extends File{
+	public void open() {
+		System.out.println("jpg 파일이 열렸습니다");
+	}
+	public void print() {
+		System.out.println("jpg 파일 출력");
+	}
+}
+
+
+public class Controller {
+	public static void main(String[] args) {
+		pdf_File pdf = new pdf_File();
+		jpg_File jpg = new jpg_File();
+		
+		pdf.open();
+		jpg.open();
+		
+		pdf.print();
+		jpg.print();
+	}
+}
+
+
+
+==============================================================================
+UML에서 패키지는 전체 기본 main을 말함 
+- 서로 다른 패키지에 있는것을 가져다 쓸때는 자바에서 import 를 사용하여 연결 
+- UML에서는 dependency로 연결한다 ( 강도가 가장 약하다 ) 
+
+    
+
+- 요구사항 개요
+  - 정의 
+    - 사용자가 필요로 하는 기능/성능 등 시스템이 만족하여야 할 조건 
+    - 시스템이 무엇을 하여야 하는지, 어떤 특성을 가져야 하는지를 기술한 것 
+   
+  - 중요성 
+    - 시스템의 기능을 명세하므로 프로젝트 모든 단계에서 참조해야할 사항 
+   
+  - 요구사항 종류 
+    - 비지니스 요구
+      - 분석 단계 
+      - 사용자 요구 ( 비지니스 요구 ) 
+    - 시스템 요구
+      - 기능적 요구사항
+      - 비기능적 요구사항 
+        - 품질 요구사항 
+        - 제약사항 
+        
+- 웹 개발시 
+  - 문법을 아는 것도 중요하지만 
+  - 기능 설계 및 기능 알고리즘 
+  - 기능을 어떻게 설계할 것인지 
+
+- 유스케이스 다이어그램 
+  - 어떻게 행위자들이 시스뎀의 사용 시나리오를 통하여 스시템을 사용하는지를 기술하는 기능적 다이어그램 
+  - UML을 그릴때 사용자와 관리자는 무조건 Boundary 밖에 
