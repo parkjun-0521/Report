@@ -1,0 +1,355 @@
+단일문서 
+MFC standard
+고급 기능 다 끄기 
+
+화면에 보여주는 것은 View.cpp 에서 보여준다. 
+
+- 중간 정리 
+
+MFC가 하는 역할 ( 나옴 )
+- GUI 기반 프로그램  
+	- 메뉴, 툴바를 기본적으로 제공 대화상자나 폼뷰에 다양한 컨트롤 표현 
+- 이베트 기반 프로그램 
+	- 사용자나 또 다른 누군가에 의해 발생하는 가선을 수행하면 이벤트를 처리하는 함수를 쉽게 만들어 사용 
+- 멀티스레드 기반 프로그램
+	- 복수의 작업을 동기에 처리할 수 있는 다양한 라이브러리 제공  
+
+코드 표기법  ( 기본 ) 
+- 모든 클래스는 대문자 C로 시작 
+- 클래스의 멤버 변수는 m_를 붙여서 다른 지역변수와 구분 
+- 멤버 함수의 이름은 대문자로 시작 
+- 전역함수에는 접두어 Afx를 붙임 
+
+클래스의 계층 구조
+- CObject : 모든 MFC 클래스의 기반 클래스  ( 나옴 ) 
+
+단일문서 
+- CProjectApp : CWinApp		=> 문서 이름을 Win으로 한거임 
+- CMainFrame: CFrameWnd
+- CObjectView:CView
+- CProjectDoc:CDocument
+
+디바이스 콘텍스트 
+- CDC 객체 
+- pDC 
+- CRect 클래스 ( 보이지 않는 사각형 틀을 그림 
+
+글자 관련 함수
+- 배경색 : pDC->SetBkColor(RGB(255,0,0));
+- 글자색 : pDC->SetTextColor(RGB(255,0,0));
+- 글꼴  :
+- 정렬  : pDC->SteTextAlign(TA_CENTER)
+
+Format 사용하는 방법
+// 문자를 원하는 데이터 형으로 변경 가능 
+CString str = _T("안녕하세요");
+CString val;
+float x = 100.12;
+val.Format(_T("%f"), x);
+pDC->TextOutW(20, 100, val);
+
+
+직선 그리기 
+
+SetTimer()  : 타이머 설정 
+KillTimer() : 타이머 이벤트 종료 
+
+
+선, 원, 사각형, 텍스트 ( Draw로 그리기 )
+
+과제 
+- 볼에 색 추가하기 ( Brush 추가 )
+- 코드는 복사해서 붙이고 결과는 캡쳐
+
+
+
+
+
+
+
+
+
+
+// project_1017View.cpp: Cproject1017View 클래스의 구현
+//
+
+#include "pch.h"
+#include "framework.h"
+// SHARED_HANDLERS는 미리 보기, 축소판 그림 및 검색 필터 처리기를 구현하는 ATL 프로젝트에서 정의할 수 있으며
+// 해당 프로젝트와 문서 코드를 공유하도록 해 줍니다.
+#ifndef SHARED_HANDLERS
+#include "project_1017.h"
+#endif
+
+#include "project_1017Doc.h"
+#include "project_1017View.h"
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+
+// Cproject1017View
+
+IMPLEMENT_DYNCREATE(Cproject1017View, CView)
+
+BEGIN_MESSAGE_MAP(Cproject1017View, CView)
+	ON_WM_CHAR()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
+//	ON_WM_MOVE()
+ON_WM_MOUSEMOVE()
+END_MESSAGE_MAP()
+
+// Cproject1017View 생성/소멸
+
+Cproject1017View::Cproject1017View() noexcept
+{
+	// TODO: 여기에 생성 코드를 추가합니다.
+
+}
+
+Cproject1017View::~Cproject1017View()
+{
+}
+
+BOOL Cproject1017View::PreCreateWindow(CREATESTRUCT& cs)
+{
+	// TODO: CREATESTRUCT cs를 수정하여 여기에서
+	//  Window 클래스 또는 스타일을 수정합니다.
+	cs.lpszClass = L"edit";
+	return CView::PreCreateWindow(cs);
+}
+
+// Cproject1017View 그리기
+
+void Cproject1017View::OnDraw(CDC* pDC)
+{
+	Cproject1017Doc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+
+	pDC->SetTextColor(RGB(255, 255, 0));
+	pDC->SetBkColor(RGB(50, 100, 10));
+	pDC->TextOutW(20,20,L"안녕하세요");
+
+	int r, g, b;
+
+	// 랜덤값 출력 
+	srand(time(NULL));
+	r = rand() % 256;
+	g = rand() % 256;
+	b = rand() % 256;
+
+	// 글자색 바꾸기 
+	pDC->SetTextColor(RGB(r, g, b));
+
+	// 글을 출력하는 방법은 두가지 
+	pDC->TextOutW(20,50,L"가나다라마");
+	pDC->TextOutW(20,70, _T("가나다라마아자차카"));
+
+	// 보이지 않는 사각형 틀을 만들고 그안에 글자 출력 
+	// CRect 사각형 틀 만들기 t( 왼쪽, 위, 오른쪽, 아래 )
+	CRect t(100, 100, 500, 400);
+	pDC->DrawText(_T("사각형\n 영역"),&t,DT_CENTER|DT_VCENTER);
+
+	// 원을 사각형 보다 먼저 그리면 원이 지워진다.
+	// 사각형 그리기 ( 왼쪽, 위, 오른쪽, 아래 )
+	pDC->Rectangle(200, 300, 300, 400);
+	// 원 그리기 ( 왼쪽, 위, 오른쪽, 아래 )
+	pDC->Ellipse(200, 300, 300, 400);
+
+	// MoveTo => 시작 x, y 좌표 
+	// LineTo => 끝 x, y 좌표 
+	// 시작 끝 기준으로 선 그리기 
+	pDC->MoveTo(50, 70);
+	pDC->LineTo(100, 70);
+
+	// 선 10줄 그리기 
+	for (int i = 1; i <= 10; i++) {
+		pDC->MoveTo(500, 200 + (i * 20));
+		pDC->LineTo(400, 200 + (i * 20));
+	}
+	
+	// Format 사용하는 방법
+	// 문자를 원하는 데이터 형으로 변경 가능 
+	CString str = _T("안녕하세요");
+	CString val;
+	int x = 100.12;
+	val.Format(_T("%d"), x);
+	pDC->TextOutW(20, 100, val);
+
+
+	// 선그리기 
+	pDC->MoveTo(m_start);
+	pDC->LineTo(m_End);
+
+	
+	pDC->TextOutW(k, y, val);
+	y += 20;
+	if (y == 500) {
+		y = 0;
+		k += 80;
+	}
+
+
+	// 사각형 그리기 
+	CPen pen, * oldPen;
+	pen.CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
+	oldPen = pDC->SelectObject(&pen);
+	// pDC->SelectObject(&pen);    => oldPen을 사용하지 않을 때 이런식으로 작성
+	pDC->Rectangle(m_start.x, m_start.y, m_End.x, m_End.y);
+	// pDC->SelectObject(pDC->SelectObject(&pen));    => oldPen을 사용하지 않을 때 
+	pDC->SelectObject(oldPen);
+	pen.DeleteObject();
+
+	// 원 안에 색 체워넣기 
+	CBrush brush, * oldbrush;
+	brush.CreateSolidBrush(RGB(0, 25, 255));
+	oldbrush = pDC->SelectObject(&brush);
+	pDC->Ellipse(200,200,300,300);
+	pDC->SelectObject(oldbrush);
+	brush.DeleteObject();
+
+
+	CClientDC dc(this);
+	dc.Rectangle(300,300,450,500);
+
+	// TODO: 여기에 원시 데이터에 대한 그리기 코드를 추가합니다.
+}
+
+
+// Cproject1017View 진단
+
+#ifdef _DEBUG
+void Cproject1017View::AssertValid() const
+{
+	CView::AssertValid();
+}
+
+void Cproject1017View::Dump(CDumpContext& dc) const
+{
+	CView::Dump(dc);
+}
+
+Cproject1017Doc* Cproject1017View::GetDocument() const // 디버그되지 않은 버전은 인라인으로 지정됩니다.
+{
+	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(Cproject1017Doc)));
+	return (Cproject1017Doc*)m_pDocument;
+}
+#endif //_DEBUG
+
+
+// Cproject1017View 메시지 처리기
+
+
+void Cproject1017View::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	// 키보드 입력시 사각형을 그림 
+	y += 20;
+	if (y == 500) {
+		y = 0;
+		k += 80;
+	}
+	CClientDC dc(this);
+	dc.Rectangle(600 + k, 300+ y, 850 + k, 400+ y);
+	CView::OnChar(nChar, nRepCnt, nFlags);
+}
+
+// 왼쪽 마우스가 눌렸을때 
+void Cproject1017View::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	m_start = point;
+
+	CView::OnLButtonDown(nFlags, point);
+
+	CClientDC dc(this);
+	dc.Rectangle(600, 300, 850, 400);
+}
+
+// 왼쪽 마우스가 떨어졌을 때
+void Cproject1017View::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+
+	m_End = point;
+
+	CView::OnLButtonUp(nFlags, point);
+}
+
+
+void Cproject1017View::OnMouseMove(UINT nFlags, CPoint point)
+{
+	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	if (nFlags & MK_LBUTTON) {
+		m_End = point;
+		// 다시 그려라 라는 의미 
+		Invalidate();
+	}
+
+	CView::OnMouseMove(nFlags, point);
+}
+
+
+==================================================================== .h
+
+// project_1017View.h: Cproject1017View 클래스의 인터페이스
+//
+
+#pragma once
+
+
+class Cproject1017View : public CView
+{
+protected: // serialization에서만 만들어집니다.
+	Cproject1017View() noexcept;
+	DECLARE_DYNCREATE(Cproject1017View)
+
+// 특성입니다.
+public:
+	Cproject1017Doc* GetDocument() const;
+
+// 작업입니다.
+public:
+
+// 재정의입니다.
+public:
+	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.
+	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
+protected:
+
+// 구현입니다.
+public:
+	virtual ~Cproject1017View();
+#ifdef _DEBUG
+	virtual void AssertValid() const;
+	virtual void Dump(CDumpContext& dc) const;
+#endif
+
+protected:
+
+// 생성된 메시지 맵 함수
+protected:
+	DECLARE_MESSAGE_MAP()
+public:
+	CString m_str;
+	CPoint m_start;
+	CPoint m_End;
+	int k = 20;
+	int y = 0;
+	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+};
+
+#ifndef _DEBUG  // project_1017View.cpp의 디버그 버전
+inline Cproject1017Doc* Cproject1017View::GetDocument() const
+   { return reinterpret_cast<Cproject1017Doc*>(m_pDocument); }
+#endif
+
