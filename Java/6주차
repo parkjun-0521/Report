@@ -1,0 +1,261 @@
+배열하면 인덱스가 존재한다. 
+배열은 연속적인 메모리공간에 데이터들이 저장이 된다. 
+배열로 선언할 경우 배열의 첫 주소만 알면 나머지의 데이터를 알 수 있다.
+자바의 배열은 0번부터 시작 
+
+// 배열 선언 방법1 
+int[] a;            // 레퍼런스 변수만 선언 
+a = new int[10];    // 배열의 방 생성 
+		
+// 배열 선언 방법2 
+int[] Array = new int[10];
+
+// 배열 선언 오류 
+int intArray [5];
+-> c언어처럼 사용 불가 
+
+int[] Array;
+Array[1] = 8;
+-> 레퍼런스만 선언하고 배열의 방을 선언을 안함 
+-> 배열의 크기 없이 값을 넣으므로 오류가 됨 
+
+// 배열 생성 및 초기화 
+int[] Array = {4,3,2,1,0}  // 5개의 정수 배열 생성 및 값 초기화 
+
+
+레퍼런스 치환으로 두 레퍼런스가 하나의 배열을 공유 가능 
+
+. => . 연산자는 '참조연산자' 라고 한다. 
+
+
+// 자바의 배열의 크기 
+length로 알아낸다.
+
+// 자바의 foreach문 
+- for ( 변수 : 배열레퍼런스 ) {
+      반복문 작성 
+}
+
+**
+new 라는 예약어로 변수를 잡으면 heap영역에 메모리가 잡힌다 
+따라서 배열을 리턴하면 그 리턴하는 메소드의 지역변수는 사라지지만 그 값이 heap에 올라가 있기때문에 
+main함수에서 그 heap을 참조한다
+
+
+
+자바의 예외처리 
+- 예외 
+  - 실행중 오작동이나 결과에 악영향을 미치는 예상치 못한 상황 발생
+  - 실행 중 발생하는 에러를 예외로 처리 
+
+- 실행중 예외가 발생하면 
+  - 자바 플랫폼은 실행 중인 응용프로그램에게 예외를 전달하여 응용프로그램이 예외를 처리하도록 함
+  
+- 예외 발생 경우 
+  - 정수를 0으로 나누는 경우
+  - 배열의 크기보다 큰 인텍스로 배열의 원소를 접근하는 경우
+  - 정수를 읽는 코드가 실행되고 있을 때 사용자가 문자를 입력한 경우 
+  
+실습
+==========================================================================================================
+  package test_1017;
+
+public class Array {
+	public static void main(String[] args) {
+		// 배열 선언 방법1 
+		int[] a;
+		a = new int[10];
+		
+		// 배열 선언 방법2 
+		int[] Array = new int[10];
+		
+		for (int i = 0; i < 10; i++) {
+			for (int j = 1; j < 10; j++) {
+				Array[j] = j;
+				a[i] = (i+1) * Array[j];
+				System.out.print(Array[j] + " * " + (i+1) + " = " + a[i] + "\t");
+			}
+			System.out.println("");
+		}
+		
+		// foreach문 작성법 
+		System.out.println("============================================================================================");
+		int[] b = {1,2,3,4};
+		int sum = 0;
+		for(int i : b)
+			sum += i;
+		System.out.println(sum);
+	}
+}
+==========================================================================================================
+package test_1017;
+
+import java.util.Scanner;
+
+public class MAX {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int max = -99999;
+		int[] maxNum = new int[5];
+		System.out.print("정수 5개를 입력하세요");
+		
+		// 값이 없기때문에 foreach문으로 바꿀 수 없다.
+		for (int i=0;i<maxNum.length;i++) {
+			maxNum[i] = scan.nextInt();
+			if(maxNum[i] > max) {
+				max = maxNum[i];
+			}
+		}
+		
+		// for문 출력 
+		System.out.print("for문 -> 입력한 변수 5개 : ");
+		for (int i=0;i<maxNum.length;i++) {
+			System.out.print(maxNum[i] + " ");
+		}
+		System.out.println("");
+		// foreach문 출력 
+		System.out.print("foreach문 -> 입력한 변수 5개 : ");
+		for (int i : maxNum) {
+			System.out.print(i + " ");
+		}
+		
+		System.out.println("\n가장 큰수는 " + max);
+		scan.close();
+	}
+}
+==========================================================================================================
+package test_1017;
+
+import java.util.Scanner;
+
+public class Double_Array {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+
+		System.out.print("==============2차원 배열=================\n");
+		int[][] Array = new int[2][5];
+		
+		for (int i=0;i<2;i++) {
+			for (int j=0;j<5;j++) {
+				Array[i][j] = i + j;
+				System.out.print(Array[i][j] + "\t");
+			}
+			System.out.println("");
+		}	
+		System.out.println("=======================================");
+		
+		// 배열 리턴 ( 출력시 foreach문 사용 ) 
+		int[] intArray;
+		intArray = makeArray();
+		intArray[3] = 1000;
+		
+		// foreach 문 
+		for (int i : intArray)
+			System.out.print(i + " ");
+		System.out.println("");
+		
+		// for 문 
+		for ( int i = 0; i < intArray.length; i++)
+			System.out.print(intArray[i] + " ");
+		
+		
+		scan.close();
+	}
+	
+	// 배열 리턴 관련된 외부 함수 
+	static int[] makeArray(){
+		// 지역변수 배열 
+		 int[] temp = new int[4];
+		 for (int i = 0;i < temp.length; i++)
+			 temp[i] = i + 10;
+		 return temp;
+	}
+}
+==========================================================================================================
+package test_1017;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class DividebyZero {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int dividend;
+		int divisor;
+		try{
+			System.out.print("나뉨수를 입력하시오 : ");
+			dividend = scan.nextInt();
+			System.out.print("나눔수를 입력하시오 : ");
+			divisor = scan.nextInt();	
+			System.out.println(dividend + "를 " + divisor + "로 나누면 몫은 " + dividend/divisor + "입니다.");
+		}
+		catch(ArithmeticException e) {
+			System.out.println("0으로 나눌수 없습니다.");
+		}
+		catch(InputMismatchException e1) {
+			System.out.println("정수를 입력하세요");
+		}
+		finally {
+			System.out.println("계산 끝");
+			scan.close();
+		}		
+	}
+
+}
+==========================================================================================================
+package test_1017;
+
+public class test {
+
+	public static void main(String[] args) {
+		// 1  c배열 선언
+		char[] C = new char[10];
+		
+		// 2 n배열 0~5로 초기화
+		int[] n = {0,1,2,3,4,5};
+		
+		// 3 bay 배열 일~월 초기화
+		char[] day = {'일', '월', '화', '수', '목', '금','토'};
+		
+		// 4 foreach사용 
+		boolean[] b = {true, false, true, true};
+		for(boolean boo : b) {
+			System.out.println(boo);
+		}
+		
+		// 5 실수형 배열 선언 
+		float[][] d_1 = new float[5][4];
+		double[][] d = new double[5][4];
+		
+		// 6 2차원 배열 초기화 
+		int[][] val = {{1,2,3,4},{5,6,7,8},{9,10,11,12}};
+		
+		// 7  
+		// int[] a = new int[];
+		// int a[5] = new int[5];  // 레퍼런스변수는 크기가 필요없다
+		int[] a = new int[5];
+		// int[5] a = {1,2,3,4,5};
+		
+		// 8
+		static char[] makeCharArray() {
+			char[] c = new char[4];
+			return c;
+		}
+		
+		// 9 
+		double[] n1;
+		n1 = allocArray();
+		
+		// 10
+		char[];
+		char[] charArray;
+		
+	}
+}
+ 
+  
+  
