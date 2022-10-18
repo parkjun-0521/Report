@@ -1,0 +1,185 @@
+package test;
+
+class A {
+	private int x;
+	private int y;
+	
+	public int add() {
+		return x + y;
+	}
+	public int sub() {
+		return x - y;
+	}
+	public int mul() {
+		return x * y;
+	}
+	public double div() {
+		return x / y;
+	}
+	A(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+}
+
+public class Controller {
+
+	public static void main(String[] args) {
+		int x = 6;
+		int y = 3;
+		A myA = new A(x,y);
+		
+		System.out.print(x + " + " + y + " = " + myA.add() + ", ");
+		System.out.print(x + " - " + y + " = " +myA.sub() + ", ");
+		System.out.print(x + " * " + y + " = " +myA.mul() + ", ");
+		System.out.print(x + " / " + y + " = " +myA.div());
+	}
+}
+
+=================================================================================
+package test_1;
+
+class Slide {
+	int num;
+	String size;
+	String dir;	
+	public Slide(int num, String size, String dir) {
+		this.num = num;
+		this.size = size;
+		this.dir = dir;
+		// composition 관계 
+		/*Contents C = new Contents("컨텐츠 이름", "컨텐츠 형태" );
+		System.out.println(C.getName());
+		System.out.println(C.getShape());*/
+	}	
+	public void setSizeChage(String size) {
+		this.size = size;
+		System.out.println("슬라이드가 변경됨");
+	}	
+	public void setDecChage(String dir) {
+		this.dir = dir;
+		System.out.println("방향 변경");
+	}
+	public void ContentsAdd() {
+		Contents C = new Contents("컨텐츠 이름", "컨텐츠 형태" );
+		System.out.println(C.getName());
+		System.out.println(C.getShape());
+	}
+}
+class Contents {
+	String name;
+	String shape;
+	public Contents(String name, String shape) {
+		this.name = name;
+		this.shape = shape;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getShape() {
+		return shape;
+	}
+}
+public class Controller {
+
+	public static void main(String[] args) {
+		Slide S = new Slide(1,"A4", "가로");				
+		S.setSizeChage("A3");
+		S.setDecChage("세로");		
+		
+		System.out.println(S.num);
+		System.out.println(S.size);
+		System.out.println(S.dir);
+		S.ContentsAdd();
+	}
+
+}
+=================================================================================
+
+package test_2;
+
+abstract class Object{
+	String name;
+	int price;
+	String brand;
+	abstract void disPlay();
+	public int disCount(int ract) {
+		return ract;
+	}
+}
+
+class Book extends Object{
+	String witer;
+	
+	public Book(String name, int price, String witer, String brand) {
+		this.name = name;
+		this.price = price;
+		this.witer = witer;
+		this.brand = brand;
+	}
+	
+	public void disPlay() {
+		System.out.println("도서명" + name);
+		System.out.println("가격" + price);
+		System.out.println("저자" + witer);
+		System.out.println("출판사" + brand);
+	}
+}
+
+class Moniter extends Object{
+	String make;
+	int screen;
+	public Moniter(String name, int price, String make, String brand, int screen) {
+		this.name = name;
+		this.price = price;
+		this.make = make;
+		this.brand = brand;
+		this.screen = screen;
+	}
+	public void disPlay() {
+		System.out.println("모니터 모델명 " + name);
+		System.out.println("가격" + price);
+		System.out.println("제조사" + make);
+		System.out.println("브랜드명" + brand);
+		System.out.println("해상도" + screen);		
+	}
+}
+
+class Bag extends Object{
+	String make;
+	public Bag(String name, int price, String make, String brand) {
+		this.name = name;
+		this.price = price;
+		this.make = make;
+		this.brand = brand;
+	}
+	public void disPlay() {
+		System.out.println("가방 모델명" + name);
+		System.out.println("가격" + price);
+		System.out.println("제조사" + make);
+		System.out.println("브랜드명" + brand);	
+	}
+}
+
+public class Cart {
+	static Object object[] = new Object[10];
+	static int count = 0;
+	public static void addCart(Object o) {
+		object[count++] = o;
+	}
+	public static void disPlayAll() {
+		for (int i=0; i < count; i++) {
+			object[i].disPlay();
+		}
+	}
+	public static void main(String args[]) {
+		Book book = new Book("가", 1, "나", "다");
+		Moniter moniter = new Moniter("가", 1, "나", "다", 1);
+		Bag bag = new Bag("가", 1, "나", "다");
+		
+		addCart(book);
+		addCart(moniter);
+		addCart(bag);
+		disPlayAll();
+	}
+}
