@@ -1,0 +1,149 @@
+package test_1024;
+
+class Rectangle{
+	private String name;
+	private double height;
+	private double width;
+	
+	Rectangle(String name, double height, double width){
+		this.name = name;
+		this.height = height;
+		this.width = width;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public double getArea() {
+		return height * width;
+	}
+	
+}
+
+public class Circle {
+	int radius;
+	String name;
+	
+	public double getArea() {
+		return 3.14 * radius * radius;
+	}
+	
+	public static void main(String[] args) {
+		Circle pizza = new Circle();
+		pizza.radius = 10;
+		pizza.name = "자 바 피 자";
+		
+		double area = pizza.getArea();
+		
+		System.out.println("피자 이름 : " + pizza.name);
+		System.out.println("피자 면적 : " + area);
+		
+		Circle donut = new Circle();
+		donut.radius = 2;
+		donut.name = "자 바 도 넛";
+		
+		area = donut.getArea();
+		
+		System.out.println("도넛 이름 : " + donut.name);
+		System.out.println("도넛 면적 : " + area);
+		
+		String n = "스폰지밥";
+		int x = 5;
+		int y = 10;
+		Rectangle rec = new Rectangle(n ,x, y);
+		
+		rec.setName(n);	
+		area = rec.getArea();
+		
+		System.out.println("사각형 이름 : " + rec.getName());
+		System.out.println("사각형 면적 : " + area);
+	}
+}
+==========================================================================================================
+
+package test_1024;
+
+import java.util.Scanner;
+
+public class DevideByZero2 {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		
+		int dividend;
+		int divisor;
+		
+		System.out.print("나뉨수를 입력하시오 :");
+		dividend = scan.nextInt();
+		
+		System.out.print("나뉫수를 입력하시오 :");
+		divisor = scan.nextInt();
+		try {
+			divide(dividend, divisor);
+		}
+		catch(ArithmeticException e) {
+			System.out.println("0 으로 나눌수 없다");
+		}
+
+	}	
+
+	static void divide(int dividend, int divisor) throws ArithmeticException{
+		System.out.println(dividend + "를 " + divisor + "로 나누면 몫은 " + dividend/divisor);
+	}
+	
+}
+	
+
+==========================================================================================================
+
+
+package test_1024;
+
+import java.util.Scanner;
+
+
+class Rectangle_1{
+	private double height;
+	private double width;
+	public double getHeight() {
+		return height;
+	}
+	public void setHeight(double height) {
+		this.height = height;
+	}
+	public double getWidth() {
+		return width;
+	}
+	public void setWidth(double width) {
+		this.width = width;
+	}
+	public double getArea() {
+		return height * width;
+	}
+}
+
+public class RecApp {
+
+	public static void main(String[] args) {
+		Rectangle_1 rect = new Rectangle_1();		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.print("가로, 세로를 입력하세요");
+		rect.setHeight(scan.nextDouble());
+		rect.setWidth(scan.nextDouble());
+		
+		System.out.println("가로" + rect.getHeight());
+		System.out.println("세로" + rect.getWidth());
+		System.out.println("넓이" + rect.getArea());
+
+		scan.close();
+	}
+
+}
+
+
