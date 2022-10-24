@@ -104,7 +104,7 @@
 	  - 클래스 내의 객체 생성함수 내에서 	commposition
 	  - 부분 객체를 실제 사용하기 직전 	association
 	  - 포함의 강도 
-	    - dependency -> association -> commposition -> aggregation
+	    - dependency -> association -> aggregation -> commposition
 
 - 상속 
 	- 특수화 
