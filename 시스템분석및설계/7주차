@@ -1,0 +1,109 @@
+UML의 기능 하나하나가 1UseCase라고 한다. 
+
+유즈케이스 표기법 ( Use Case ) 
+- Actor + usecase 
+- 여러 Actor끼리 서로 관련된 1usecase에 접근하는 것을 association 이라고 한다.
+- Actoc는 시스템 밖의 존재 
+- generalization, include, extend는 actor와 usecase 사이에서 쓸수 없다
+- generalization은 actor와 actor 또는 usecase와 usecase 사이에서 밖에 쓸 수 없다. 
+
+요구모델링 
+- usecase 다이어그램을 그린다 
+- 각각의 usecase의 내용을 세세히 기록하는것을 usecasedescription(유스케이스 명세서)
+- 유즈케이스 명세서 
+  1. 텍스트로 작성 
+  2. activity diagram
+  3. sequence diagram / collaboration diagram 
+  
+- sequence diagram 
+- 각 클래스에 메시지를 보내 서로 연결한다.
+- 값을 보낼때는 call로 표현 ( 실선 ) 
+- 값을 반환할 때는 return으로 표현한다. ( 점선 ) 
+
+- 시퀀스다이어그램에서 클래스 끼리 서로 연결이 하나라도 되면 
+- 클래스다이어그램에서 assosiation으로 연결 
+
+==================================================================== 실습 
+import java.util.Scanner;
+class Calculator{
+	int result;
+	int num1;
+	int num2;
+	String cal;
+	Calculator(int num1, String cal ,int num2){
+		this.num1 = num1;
+		this.cal = cal;
+		this.num2 = num2;
+	}
+	
+	public void add(int num1, int num2) {
+		result = num1 + num2;
+	}
+	public void sub(int num1, int num2) {
+		result = num1 - num2;
+	}
+	public void mul(int num1, int num2) {
+		result = num1 * num2;
+	}
+	public void div(int num1, int num2) {
+		if(!(num1 ==0 || num2 ==0))
+			result = num1 / num2;
+		else 
+			System.out.println("0으로 나눌수 없습니다.");
+	}
+	public void displayAdd() {
+		System.out.println(num1 + " + " + num2 + " = " + result);
+	}
+	public void displaySub() {
+		System.out.println(num1 + " - " + num2 + " = " + result);
+	}
+	public void displayMul() {
+		System.out.println(num1 + " * " + num2 + " = " + result);
+	}
+	public void displayDiv() {
+		if(!(num1 ==0 || num2 ==0))
+			System.out.println(num1 + " / " + num2 + " = " + result);
+	}
+}
+
+public class Controller {
+	public static void main(String[] args) {
+		int num1 = 0;
+		int num2 = 0;
+		String cal;
+		// scanner 객체 생성 
+		Scanner scan = new Scanner(System.in);
+		System.out.print("식을 입력하세요 : ");
+		// 실제 값을 입력 
+		num1 = scan.nextInt();
+		cal = scan.next();
+		num2 = scan.nextInt();
+		
+		// Calculator 객체 생성 
+		Calculator calculator = new Calculator(num1, cal ,num2);
+				
+		switch (cal) {
+			case "+":
+				calculator.add(num1, num2);
+				calculator.displayAdd();	
+				break;
+			case "-":
+				calculator.sub(num1, num2);
+				calculator.displaySub();
+				break;
+			case "*":
+				calculator.mul(num1, num2);
+				calculator.displayMul();
+				break;
+			case "/":
+				calculator.div(num1, num2);
+				calculator.displayDiv();
+				break;
+			default :
+				System.out.print("연산자를 잘못 입력하였습니다.");
+				break;
+		}
+	
+		scan.close();
+	}
+}
