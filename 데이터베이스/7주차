@@ -1,0 +1,90 @@
+-- 9. 부속질의 1
+-- 9.1 스칼라부속질의
+-- 실습예제 9.1 : 사원의 부서명을 스칼라 부속질의를 통하여 조회
+--------------------------------------------------------------------------------
+select  E.employee_id as 사원번호,
+        E.first_name || ' ' || E.last_name as 이름,
+        D.department_name
+from    employees E, departments D
+where   E.department_id = D.department_id;
+
+
+select  E.employee_id as 사원번호,
+        E.first_name || ' ' || E.last_name as 이름,
+        ( select department_name 
+          from   departments D
+          where  D.department_id = E.department_id) as 부서명
+from    employees E
+order by 부서명, 사원번호;
+
+-- 실습예제 9.2 : 부서의 지역명을 스칼라 부속질의를 통하여 조회
+--------------------------------------------------------------------------------
+select ( Select country_name 
+         from   countries C
+         where  C.country_id = L.country_id) as 지역명 
+from    departments D, locations L
+where   D.location_id = L.location_id;
+
+
+select  E.employee_id as 사원번호,
+        E.first_name || ' ' || E.last_name as 이름,
+        E.salary as 사원연봉,
+        ( select max(salary)
+          from employees) 최대연봉,
+        ( select min(salary)
+          from employees) 최소연봉
+from    employees E;
+        
+
+-- 9.2 : 인라인뷰 부속질의
+-- 실습예제 9.3 : IT부서 소속직원의 모든정보를 조회하시오.(인라인 뷰 사용)
+--------------------------------------------------------------------------------
+-- 인라인 뷰 사용 
+select  *
+from    employees E, 
+        -- 인라인 뷰 : 다중 행, 다중 열 => 비상관부속질의!!
+        ( select department_id
+          from   departments D
+          where  D.department_name = 'IT' ) D_IT
+where   E.department_id = D_IT.department_id;
+----------------------------------------------------------------
+-- 그냥 조인 
+select  *
+from    employees E, departments D
+where   E.department_id = D.department_id
+and     D.department_name = 'IT';
+
+-- 실습예제 9.4 : 사원의 부서와 부서지역정보를 인라인 뷰를 사용하여 조회하시오.
+--------------------------------------------------------------------------------
+select  E.employee_id as 사원번호,
+        E.first_name || ' ' || E.last_name as 이름,
+        D.dname 부서명,
+        D.city 지역명,
+        D.Cname 나라명,
+        D.Rname 대륙명
+from    employees E, 
+        ( select D.department_id did,
+                 D.department_name dname,
+                 L.city city,
+                 C.country_name Cname,
+                 R.region_name Rname
+          from   departments D, locations L, countries C, regions R 
+          where  D.location_id = L.location_id
+          and    L.country_id = C.country_id
+          and    C.region_id = R.region_id) D
+where   E.department_id = D.did;
+
+
+
+
+
+-- QUIZ 9
+--------------------------------------------------------------------------------
+-- Quiz 9.1 사원명(last_name)이 'Taylor'인 사원의 직무이력을 조회하시오.
+-- 부속질의(where절)
+--------------------------------------------------------------------------------
+select  *
+from    job_history J
+where   J.employee_id in ( select   E.employee_id
+                          from     employees E
+                          where    E.last_name = 'Taylor');
