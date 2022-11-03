@@ -70,4 +70,69 @@ public class Circle {
 
 // 예제 3번
 // 
+//====================================================================================================================================//
+package project_1103;
+
+public class Call_by_value {
+
+	static int increase(int m) {
+		m = m + 1;
+		System.out.println("M = " + m);
+		return m;
+	}
+	
+	public static void main(String[] args) {
+		int n = 10;
+		
+		int a = increase(n);
+		
+		// call by value 
+		// 호출자가 건네는 값이 매개변수에 복사되어 전달.
+		// 실제 값은 변하지 않음 
+		System.out.println("N = " + n);
+		
+		// call by reference
+		// 실제값이 변환 되어 반환 됨 
+		System.out.println("A = " + a);
+	}
+
+}
+//====================================================================================================================================//
+package project_1103;
+
+public class Callbyreference {
+
+	static void increase(Circle m) {
+		m.radius++;
+	}
+	
+	public static void main(String[] args) {
+		Circle pizza = new Circle(10);
+		// 레퍼런스 데이터 타입이 전달이 되면 callbyreference의 형태가 나타남 
+		increase(pizza);
+		
+		System.out.println(pizza.radius);
+	}
+}
+//====================================================================================================================================//
+package project_1103;
+
+public class ArrayPassing {
+
+	static void increase(int[] array) {
+		for (int i=0; i< array.length; i++) {
+			array[i]++;
+		}
+	}
+	
+	public static void main(String[] args) {
+		int[] a = {1,2,3,4,5};
+		increase(a);
+
+		for (int i=0; i<a.length;i++) {
+			System.out.print(a[i] + " ");
+		}
+	}
+}
+
 
