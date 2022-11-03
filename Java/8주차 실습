@@ -40,6 +40,21 @@ public class Circle {
 		System.out.println(donut.name + " 의 면적은 " + donut.getArea());
 		
 		Circle c = new Circle(100, "원");
+		//==================================================================//
+		// 객체 배열에 대한 레퍼런스 변수 선언 및 
+		// 레퍼런스 배열 생성 
+		Circle[] cArr = new Circle[5];
+		
+		// 각 원소의 객체 생성 
+		for ( int i = 0; i < cArr.length; i++) 
+			cArr[i] = new Circle((i+1) * 10);
+		
+		// 각 원소의  값을 출력 
+		// foreach 문으로 출력 
+		for(Circle d: cArr) {
+			System.out.println(d.getArea());
+		}
+		
 		
 	}
 }
@@ -56,6 +71,3 @@ public class Circle {
 // 예제 3번
 // 
 
-
-
-===========================================================================================================================
