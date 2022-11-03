@@ -1,0 +1,61 @@
+package project_1103;
+
+public class Circle {
+	
+	int radius;
+	String name;
+	
+	// 내부에 아무것도 없으면 디폴트생성자라고 한다. 
+	public Circle() {
+		//this.radius = 1;
+		//this.name = " ";
+		//this(1, " "); 		// this() 로 다른 생성자 호출 
+								// 위에 두줄 보다 아래 한줄이 유지보수가 더 좋다. 
+								// 이렇게 쓰는 법을 연습하자. 
+		
+		this(1);				// 매개변수하나의 생성자를 이용하여 생성 
+	}
+	
+	public Circle(int radius) {
+		//this.radius = radius;
+		//this.name = " ";
+		this(radius, " ");	//  this() 호출자를 사용하여 변경해봄  
+	}
+	
+	public Circle(int radius, String name) {
+		this.radius = radius;
+		this.name = name;
+	}
+	
+	public double getArea() {
+		return 3.14 * radius * radius;
+	}
+	
+	public static void main(String[] args) {
+		Circle pizza = new Circle(10, "자바피자");
+		System.out.println(pizza.name + " 의 면적은 " + pizza.getArea());
+		
+		Circle donut = new Circle();
+		donut.name = "도넛피자";
+		System.out.println(donut.name + " 의 면적은 " + donut.getArea());
+		
+		Circle c = new Circle(100, "원");
+		
+	}
+}
+
+
+
+
+
+// 예제 2번 
+// this(w, 2);
+// this(1, 2); 		->       this(1);
+
+
+// 예제 3번
+// 
+
+
+
+===========================================================================================================================
