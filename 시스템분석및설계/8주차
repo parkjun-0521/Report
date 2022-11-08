@@ -1,7 +1,7 @@
 가장 기본으로 3view는 되어야 한다.
 4+1view가 3view보다 다양하고 정확하게 표현할 수 있다.
 
-
+기능적 : usecase diagram
 
 uscase 명세서 
 - text diagram
@@ -9,3 +9,13 @@ uscase 명세서
 - sequence diagram
 
 usecase 에는 명사를 쓸 수 없다.
+기능은 쓰되 기능이 아닌 명사는 사용할 수 없다. 
+동사적 표현으로 많이 쓴다.
+
+usecase diagram 
+- 최대한 구체적으로 작성 
+- 안에 여러 Actor 생성 가능 
+
+sequence diagram
+- () 안에 변수를 쓰면 Arguments에 저장이 된다. 
+- 조건을 적을 때는 [ ] 안에 조건을 적고 뒤에 결과를 써준다.
