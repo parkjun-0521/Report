@@ -1,1 +1,11 @@
+가장 기본으로 3view는 되어야 한다.
+4+1view가 3view보다 다양하고 정확하게 표현할 수 있다.
 
+
+
+uscase 명세서 
+- text diagram
+- activity diagram
+- sequence diagram
+
+usecase 에는 명사를 쓸 수 없다.
