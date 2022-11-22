@@ -96,6 +96,7 @@ drop view vw_emp_detail;
 -- db 테이블 계정, 테이블 생성 예제 
 
 -- 1) table space생성
+-- 1) table space생성
 CREATE TABLESPACE CBOOKTS DATAFILE 
 'D:\cdbproject\oradata\myoracle\cbookts.dbf' SIZE 100M  
 AUTOEXTEND ON NEXT 5M;
@@ -135,3 +136,23 @@ alter table NewBook MODIFY isbn number;
 
 -- table 속성 삭제 
 alter table NewBook drop column isbn;
+
+-- book data NewBook으로 insert
+insert into Newbook
+select * from Book;
+
+-- 삽입하고 롤백하기 ( 이전 결과를 취소 ??)
+rollback;
+
+-- commit 저장. 롤백을 해도 commit 결과로 돌아간다.
+commit;
+
+--  
+select  *
+from    NewBook;
+
+-- 데이터 짜르기 
+truncate table NewBook;
+select * from Newbook;
+
+drop table NewBook;
