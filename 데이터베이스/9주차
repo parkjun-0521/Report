@@ -16,3 +16,122 @@
   - 중요한 질의의 경우 내용을 암호화 가능 
 - 독립성 
   - 미리 정의된 뷰를 일반 테이블처럼 사용할 수 있기 때문에 편리함 
+
+
+-- 12.1 INDEX
+-- 직원 현황 View
+
+
+-- 실습 예제 
+--    12.1 사원의 모든 정보와 사원이름, 직무명, 부서명을 가진 vw_emp_detail view를 생성하시오.
+-- 뷰 생성 
+CREATE VIEW vw_emp_detail
+as 
+select  E.*,
+        E.first_name || ' ' || E.last_name as 이름, 
+        D.department_name as 직무명,
+        J.job_title as 부서명
+from employees E, departments D, jobs J
+where E.department_id = D.department_id
+and   E.job_id = J.job_id;
+    
+-- 뷰 문법 수정     
+CREATE OR REPLACE VIEW vw_emp_detail
+as 
+select  E.*,
+        E.first_name || ' ' || E.last_name as 이름, 
+        D.department_name as 부서명,
+        J.job_title as 직무명
+from employees E, departments D, jobs J
+where E.department_id = D.department_id
+and   E.job_id = J.job_id;
+-- 부서가 IT이고 직무가 Programmer인 사원의 이름을  뷰에서 조회하시오.    
+select *
+from vw_emp_detail
+where 부서명 = 'IT'
+and 직무명 = 'Programmer';
+-- 실습 예제 
+--    12.2 모든 부서의 위치명, 나라명, 지역명을 가진  vw_dep_detail view 를 생성하시오.
+create view vw_dep_detail
+as
+select  D.*,
+        L.city as 위치명,
+        C.country_name as 나라명,
+        region_name as 지역명
+from    departments D, locations L, countries C, regions R
+where   D.location_id = L.location_id
+and     L.country_id = C.country_id
+and     C.region_id = R.region_id;
+
+-- 모든 사원이 근무하는 부서의 위치명과 나라, 지역명을 조회하시오.
+select  E.employee_id as 사번,
+        E.first_name || E.last_name as 이름,
+        위치명, 나라명, 지역명
+from employees E, vw_dep_detail V
+where E.department_id = V.department_id;
+
+-- 실습 예제
+--    12.3 사원의 모든 정보와 사원이름, 직무명, 부서명, 부서의 위치명, 나라명, 지역명을 
+--         가진 vw_emp_detail view로 수정하시오.
+CREATE or REPLACE VIEW vw_emp_detail
+as 
+select  E.*,
+        E.first_name || ' ' || E.last_name as 이름, 
+        D.department_name as 부서명,
+        J.job_title as 직무명,
+        L.city as 위치명,
+        C.country_name as 나라명,
+        region_name as 지역명
+from employees E, departments D, jobs J, locations L, countries C, regions R
+where E.department_id = D.department_id
+and   E.job_id = J.job_id
+and   D.location_id = L.location_id
+and   L.country_id = C.country_id
+and   C.region_id = R.region_id; 
+-- 실습 예제
+--    12.4 view vw_emp_detail view를 삭제하시오.
+drop view vw_emp_detail;
+-----------------------------------------------------------------------------------------------------------------------
+
+-- db 테이블 계정, 테이블 생성 예제 
+
+-- 1) table space생성
+CREATE TABLESPACE CBOOKTS DATAFILE 
+'D:\cdbproject\oradata\myoracle\cbookts.dbf' SIZE 100M  
+AUTOEXTEND ON NEXT 5M;
+     
+-- DB사용자 계정 생성
+CREATE USER cbook IDENTIFIED BY cbook1234
+DEFAULT TABLESPACE cbooktS
+TEMPORARY TABLESPACE TEMP;
+
+-- dba권한 부여
+GRANT DBA TO cbook;
+
+--role 생성 
+create role programmer;
+
+-- role이 가질수 있는 권한 부여 
+grant create any table, create any view to programmer;
+
+-- role 권한을 사용자에게 부여 
+grant programmer to cbook;
+
+
+-- 데이터 변경
+CREATE TABLE NewBook (
+bookid NUMBER(2) PRIMARY KEY,
+bookname VARCHAR2(40),
+publisher VARCHAR2(40),
+price NUMBER(8)
+);
+
+
+-- table 속성 추가 
+alter table NewBook add isbn varchar2(13);
+
+-- table 속성 변경 
+alter table NewBook MODIFY isbn number;
+
+-- table 속성 삭제 
+alter table NewBook drop column isbn;
