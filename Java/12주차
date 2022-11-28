@@ -15,3 +15,42 @@
   컴퓨터 시스템의 불필요한 부담 감소 
   
   
+자바 JDK의 주요 패키지 
+ - java.lang
+ - java.util
+ - java.io
+ - java.awt
+ - javax.swing
+ 
+
+Object 클래스  ( PPT 31쪽 주요 메소드 외우기 ) 
+- 모든 자바 클래스는 반드시 Object를 상속받도록 자동 컴파일 
+  - 최상위 클래스, 모든 클래스의 슈퍼 클래스 
+  - 모든 클래스가 상속 받아 사용할 공통 기능 포함 
+  - java.lang 패키지에 속함 
+- 주요 메소드 
+  - boolean equals(Object obj)
+  - class getClass()
+  - int hashCode()
+  - String toString()
+  - void notify()
+  - void notifyAll()
+  - void wait()
+    
+
+6장 PPT.36쪽 엄청엄청 진짜 매우 중요함 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
