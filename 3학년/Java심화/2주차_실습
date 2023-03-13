@@ -126,3 +126,40 @@ public class Number extends JFrame{
 	}
 
 }
+==============================================================================================================================
+5.
+import java.awt.*;
+import javax.swing.*;
+
+public class SwingEx8 extends JFrame{
+	public SwingEx8() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("OpenChallenge 8");	// 페이지 이름 		 
+		setSize(300,300);				// 페이지 크기 
+		
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();
+		panel1.setLayout(new FlowLayout());
+		panel2.setLayout(null);
+		
+		panel1.add(new JButton("Open"));
+		panel1.add(new JButton("Read"));
+		panel1.add(new JButton("Close"));
+		
+		JLabel jla = new JLabel("Hello Java!");
+		jla.setSize(100,20);
+		jla.setLocation(100,50);
+		panel2.add(jla);
+		
+		add(panel1, BorderLayout.NORTH);
+		add(panel2, BorderLayout.CENTER);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new SwingEx8();
+	}
+
+}
