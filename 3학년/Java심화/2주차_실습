@@ -45,16 +45,11 @@ public class test1  extends JFrame{
 		Container cpane = getContentPane();		// 컨테이너 생성
 		cpane.setLayout(new FlowLayout());		// 컨테이너에 순서대로 배치 
 		cpane.setBackground(Color.ORANGE);		// 배경색 orange로 변경 
-		
-		JLabel text = new JLabel("화씨 온도");		// text lable 생성 
-		cpane.add(text);						// 컨테이너에 text 부착 
-		
-		JTextField field1 = new JTextField(15);	// textField 생성 크기는 15
-		cpane.add(field1);						// 컨테이너에 textField 부
-		
+		 
+		cpane.add(new JLabel("화씨 온도"));						// 컨테이너에 text 부착 
+		cpane.add(new JTextField(15));						// 컨테이너에 textField 부
 		cpane.add(new JLabel ("섭씨 온도"));
-		cpane.add(new JTextField(15));
-		
+		cpane.add(new JTextField(15));	
 		cpane.add(new JButton("변환"));
 		
 		setLocationRelativeTo(null);
