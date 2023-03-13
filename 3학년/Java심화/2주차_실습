@@ -1,0 +1,133 @@
+1.
+import java.awt.*;
+import javax.swing.*;
+
+public class MyFrame extends JFrame{
+	// 생성자 
+	public MyFrame() {
+		setTitle("첫번째 프레임");		// 띄워지는 페이지의 상단 이름 
+		setSize(300,200);			// 페이지의 크기  ( 가로, 세로 )
+		
+		// 컨테이너를 만들고 버튼을 부착 
+		Container cpane = getContentPane();		// 컨테이너 만들기 
+		cpane.setLayout(new FlowLayout()); 		// 컨테이너pane에 배치관리자 달기 ( 들어오는 순서대로 배치하고 싶을때 사용 )
+												// 윈도우 크기에 따라 배치가 달라짐 ( 이걸 해줘야 버튼이 3개가 생김)
+		cpane.setBackground(Color.YELLOW);		// 배경색을 변경 
+		JButton btnl = new JButton("ok");		// 버튼을 만들기 
+		cpane.add(btnl);						// 버튼을 만들었으면 그것을 컨테이너에 부착 
+		cpane.add(new JButton("cancel"));		// 버튼을 만듬과 동시에 컨테이너에 부착 ( 위와 같은 방식을 줄인것 )
+		cpane.add(new JButton("ignore"));
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		// x 버튼을 눌렀을 때 프레임과 함께 종료시키는 함수
+		setLocationRelativeTo(null);						// 페이지를 가운대로 띄워줌 
+		
+		setVisible(true);			// 페이지를 실제로 보여지도록 띄워줌 
+	}
+	// Frame의 main()
+	public static void main(String[] args) {
+		new MyFrame();
+	}
+
+}
+==============================================================================================================================
+2. 
+import java.awt.*;
+import javax.swing.*;
+
+public class test1  extends JFrame{
+	public test1() {
+		// 프레임 종료 시 프레임과 함께 프로그램을 종료시는 방법 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("온도변환기");	// 페이지 이름 		 
+		setSize(280,150);		// 페이지 크기 
+		
+		Container cpane = getContentPane();		// 컨테이너 생성
+		cpane.setLayout(new FlowLayout());		// 컨테이너에 순서대로 배치 
+		cpane.setBackground(Color.ORANGE);		// 배경색 orange로 변경 
+		
+		JLabel text = new JLabel("화씨 온도");		// text lable 생성 
+		cpane.add(text);						// 컨테이너에 text 부착 
+		
+		JTextField field1 = new JTextField(15);	// textField 생성 크기는 15
+		cpane.add(field1);						// 컨테이너에 textField 부
+		
+		cpane.add(new JLabel ("섭씨 온도"));
+		cpane.add(new JTextField(15));
+		
+		cpane.add(new JButton("변환"));
+		
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new test1();
+	}
+
+}
+==============================================================================================================================
+3. 
+import java.awt.*;
+import javax.swing.*;
+
+public class Login extends JFrame{
+	public Login() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("로그인 화면");	// 페이지 이름 		 
+		setSize(250,150);		// 페이지 크기 
+		
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();
+		panel1.setLayout(new GridLayout(2,2)); 
+		panel1.add(new JLabel("ID"));
+		panel1.add(new JTextField(""));					
+		panel1.add(new JLabel("PASSWORD"));
+		panel1.add(new JPasswordField(""));
+		
+		panel2.add(new JButton("확인"));
+		panel2.add(new JButton("취소"));
+
+		add(panel1, BorderLayout.CENTER);
+		add(panel2, BorderLayout.SOUTH);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Login();
+	}
+
+}
+==============================================================================================================================
+4.
+import java.awt.*;
+import javax.swing.*;
+
+public class Number extends JFrame{
+	public Number() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("로그인 화면");	// 페이지 이름 		 
+		setSize(250,250);		// 페이지 크기 
+		
+		Container cpane = getContentPane(); 
+		cpane.setLayout(new GridLayout(4, 3)); 
+
+		for (int i = 0; i < 10; i++) {
+			String text = Integer.toString(i);
+			cpane.add(new JButton(text));
+		}
+		cpane.add(new JButton("*"));
+		cpane.add(new JButton("+"));
+		
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Number();
+	}
+
+}
