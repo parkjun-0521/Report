@@ -1,0 +1,442 @@
+package ch0320;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.event.*;
+
+public class Action extends JFrame{
+	public Action() {
+		// 종료시 프레임도 같이 종료 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		// 페이지 이름과 페이지 크기 
+		setTitle("Action Button");	 		 
+		setSize(250,150);			
+		
+		// 컨테이너 생성 및 레이아웃 추가 
+		Container cpane = getContentPane();
+		cpane.setLayout(new FlowLayout());
+		
+		// 버튼 생성 및 버튼 추가 
+		JButton btn = new JButton("Action");
+		cpane.add(btn);
+	
+		// 익명 클래스 
+		btn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				// 버튼형식으로 강제 형변환 ( 사용자가 클릭한 버튼을 알아내기 위함 ) 
+				JButton b = (JButton)e.getSource();
+				if(b.getText().equals("Action")) 
+					b.setText("액션");
+				else 
+					b.setText("Action");
+				
+				setTitle(b.getText());	 
+			}	
+		});
+		
+		// 이벤트 리스너 등록 
+		// 독립, 내부 클래스에서는 객체 생성을 해야함 
+		//MyActionListener listener = new MyActionListener();
+		//btn.addActionListener(listener);
+		
+		setLocationRelativeTo(null);
+		setVisible(true);				// 페이지를 보여질 수 있도록 함 
+	}
+	
+	public static void main(String[] args) {
+		new Action();	
+	}
+	
+	// 이벤트 이스너 클래스 작성 
+	// 인터페이스라서 추상메소드를 구현해줘야한다. 
+	// 내쿠 클래스 
+	/*
+	class MyActionListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			// 버튼형식으로 강제 형변환 ( 사용자가 클릭한 버튼을 알아내기 위함 ) 
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("Action")) 
+				b.setText("액션");
+			else 
+				b.setText("Action");
+			
+			setTitle(b.getText());	 
+		}	
+	}
+	*/
+}
+
+// 독립 클래스 
+/*
+class MyActionListener implements ActionListener{
+	public void actionPerformed(ActionEvent e) {
+		// 버튼형식으로 강제 형변환 ( 사용자가 클릭한 버튼을 알아내기 위함 ) 
+		JButton b = (JButton)e.getSource();
+		if(b.getText().equals("Action")) 
+			b.setText("액션");
+		else 
+			b.setText("Action");		
+		setTitle(b.getText());	 
+	}	
+}
+*/
+
+
+=====================
+package ch0320;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import ch0320.Temperatur.ConverterListener;
+
+public class Login extends JFrame{
+	JTextField j0 = new JTextField(20);
+	JTextField j1 = new JTextField("");
+	JTextField j2 = new JTextField("");
+	public Login() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("로그인 화면");	// 페이지 이름 		 
+		setSize(250,150);		// 페이지 크기 
+		
+		JPanel panel0 = new JPanel();
+		JPanel panel1 = new JPanel();
+		JPanel panel2 = new JPanel();
+		panel0.add(j0);	
+		panel1.setLayout(new GridLayout(2,2)); 
+		panel1.add(new JLabel("ID"));
+		panel1.add(j1);					
+		panel1.add(new JLabel("PASSWORD"));
+		panel1.add(j2);
+		
+		JButton b1 = new JButton("확인");
+		panel2.add(b1);
+		JButton b2 = new JButton("취소");
+		panel2.add(b2);
+
+		LoginListener Llistener = new LoginListener();
+		CancelListener Clistener = new CancelListener();
+		b1.addActionListener(Llistener);
+		b2.addActionListener(Clistener);
+		
+		
+		add(panel0, BorderLayout.NORTH);
+		add(panel1, BorderLayout.CENTER);
+		add(panel2, BorderLayout.SOUTH);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	public static void main(String[] args) {
+		new Login();
+	}
+	
+	class LoginListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("확인")) {
+				String s1 = j1.getText(); 
+				String s2 = j2.getText();
+				if(s1.equals("seoil") && s2.equals("1234")) 
+					j0.setText("로그인성공!!");	
+				else 
+					j0.setText("로그인실패!!");	
+			}
+		}	
+	}
+	
+	class CancelListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("취소")) {
+				j0.setText("");
+				j1.setText("");
+				j2.setText("");
+			}
+		}	
+	}
+}
+
+====================
+package ch0320;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+import ch0320.MouseEventEx.MyMouseListener;
+
+public class MouseColor extends JFrame {
+	JLabel la = new JLabel();
+	MouseColor(){
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setTitle("마우스 이벤트 클릭");
+		Container c = getContentPane();
+		
+		c.addMouseListener(new MyMouseListener());
+		c.setLayout(null);
+		
+		la.setSize(70, 20); // 레이블의 크기 50x20 설정
+		la.setLocation(50, 50); // 레이블의 위치 (30,30)으로 설정
+		c.add(la); 
+
+		setSize(300, 300);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	// 어탭터 클래스 사용 
+		class MyMouseListener extends MouseAdapter{
+			public void mousePressed(MouseEvent e) {
+				int x = e.getX(); // 마우스의 클릭 좌표 x
+				int y = e.getY(); // 마우스의 클릭 좌표 y
+				la.setText("(" + x + "," + y + ")");
+				la.setLocation(x, y); // (x,y) 위치로 레이블 이동
+				la.setForeground(Color.black);
+			}
+			
+			public void mouseReleased(MouseEvent e) {
+				la.setForeground(Color.red);
+			}
+			
+		}
+
+		public static void main(String[] args) {
+			new MouseColor();
+		}
+
+}
+====================
+package ch0320;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+public class MouseEventEx extends JFrame{
+	JLabel la = new JLabel();
+	
+	MouseEventEx(){
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setTitle("마우스 이벤트 클릭");
+		Container c = getContentPane();
+		
+		
+		/*c.addMouseListener(new MouseListener(){
+			public void mousePressed(MouseEvent e) {
+				int x = e.getX(); // 마우스의 클릭 좌표 x
+				int y = e.getY(); // 마우스의 클릭 좌표 y
+				la.setText("(" + x + "," + y + ")");
+				la.setLocation(x, y); // (x,y) 위치로 레이블 이동
+			}
+
+			public void mouseReleased(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+		});*/
+		c.addMouseListener(new MyMouseListener());
+		c.setLayout(null);
+		
+		la.setSize(70, 20); // 레이블의 크기 50x20 설정
+		la.setLocation(50, 50); // 레이블의 위치 (30,30)으로 설정
+		c.add(la); 
+
+		setSize(300, 300);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	// 어탭터 클래스 사용 
+	class MyMouseListener extends MouseAdapter{
+		public void mousePressed(MouseEvent e) {
+			int x = e.getX(); // 마우스의 클릭 좌표 x
+			int y = e.getY(); // 마우스의 클릭 좌표 y
+			la.setText("(" + x + "," + y + ")");
+			la.setLocation(x, y); // (x,y) 위치로 레이블 이동
+		}
+	}
+
+	public static void main(String[] args) {
+		new MouseEventEx();
+	}
+}
+====================
+package ch0320;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class MouseXEx extends JFrame {
+	JLabel la = new JLabel("Hello"); // "Hello" 출력용 레이블
+
+	MouseXEx() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setTitle("마우스 이벤트 클릭");
+		Container c = getContentPane();
+		
+		c.addMouseListener(new MyMouseListener());
+		c.setLayout(null);
+		
+		la.setSize(50, 20); // 레이블의 크기 50x20 설정
+		la.setLocation(30, 30); // 레이블의 위치 (30,30)으로 설정
+		c.add(la); 
+
+		setSize(200, 200);
+		setVisible(true);
+
+	}
+
+	class MyMouseListener implements MouseListener {
+		public void mousePressed(MouseEvent e) {
+			int x = e.getX(); // 마우스의 클릭 좌표 x
+			int y = e.getY(); // 마우스의 클릭 좌표 y
+			la.setLocation(x, y); // (x,y) 위치로 레이블 이동
+		}
+
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+	}
+
+	public static void main(String [] args) {
+		new MouseXEx();
+	}
+
+}
+=================
+package ch0320;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+import ch0320.MouseColor.MyMouseListener;
+
+public class Number extends JFrame{
+	JButton star = new JButton("*");
+	JButton pul = new JButton("+");
+	public Number() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("로그인 화면");	// 페이지 이름 		 
+		setSize(250,250);		// 페이지 크기 
+		
+		Container cpane = getContentPane(); 
+		cpane.setLayout(new GridLayout(4, 3)); 
+
+		for (int i = 0; i < 10; i++) {
+			String text = Integer.toString(i);
+			JButton but = new JButton(text);
+			but.addMouseListener(new MyMouseListener() {
+				public void mousePressed(MouseEvent e) {
+				but.setBackground(Color.cyan);
+			}});
+			cpane.add(but);
+		}
+		cpane.add(star);
+		cpane.add(pul);
+		
+		star.addMouseListener(new MyMouseListener());
+		pul.addMouseListener(new MyMouseListener());
+		
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	class MyMouseListener extends MouseAdapter{	
+		JButton j1 = new JButton();
+		public void mousePressed(MouseEvent e) {
+			star.setBackground(Color.cyan);
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Number();
+	}
+
+}
+
+-==================================
+
+package ch0320;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class Temperatur  extends JFrame{
+	JTextField field1 = new JTextField(15);
+	JTextField field2 = new JTextField(15);
+	JButton btn = new JButton("변환");
+	
+	public Temperatur() {
+		// 프레임 종료 시 프레임과 함께 프로그램을 종료시는 방법 
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		setTitle("온도변환기");	// 페이지 이름 		 
+		setSize(280,150);		// 페이지 크기 
+		
+		Container cpane = getContentPane();		
+		cpane.setLayout(new FlowLayout());		
+		cpane.setBackground(Color.ORANGE);		 
+		 
+		cpane.add(new JLabel("화씨 온도"));						 
+		cpane.add(field1);						
+		
+		cpane.add(new JLabel ("섭씨 온도"));		
+		cpane.add(field2);	
+		
+		cpane.add(btn);
+		
+		// 이벤트 리스너 객체 생성 
+		ConverterListener listener = new ConverterListener();
+		btn.addActionListener(listener);
+			
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new Temperatur();
+	}
+	
+	class ConverterListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("변환")) {
+				double cel = 0;
+				double f = Double.parseDouble(field1.getText());
+				cel = (f-32) / 1.8f;
+				
+				field2.setText(cel + "");
+				b.setText("완료");
+			}
+			else {
+				field1.setText("");
+				field2.setText("");
+				b.setText("변환");
+			}
+		}	
+	}
+}
+
+
