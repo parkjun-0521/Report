@@ -1,0 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Hello page 입니다.</title>
+<script type="text/javascript">
+    function showClock()
+    {
+        var currentDate=new Date();
+        var divClock=document.getElementById("divClock");
+        var apm=currentDate.getHours();
+        if(apm<12)
+            apm="오전";
+        else
+            apm="오후";     
+        var msg = "현재시간 : "+apm +(currentDate.getHours()-12)+"시";
+        msg += currentDate.getMinutes() + "분";
+        msg += currentDate.getSeconds() + 1 + "초";
+        divClock.innerText=msg;   
+        setTimeout(showClock,1000);
+    }
+</script>
+</head>
+<body onload="showClock()">
+<div id="divClock" class="clock"></div>
+안녕하세요<br/>
+<a href="https://chat.openai.com/auth/login" style="text-decoration: none; border-bottom: 1px solid black;">chat gpt</a><br/>
+<%
+	String strVar = "Korea Fighting!!!";
+%>
+JSP 명령어로 작성한 <%=strVar %><br/>
+HTML 태그로 작성한 뭐시깽이 입니다. 11
+</body>
+</html>
+////////////=========================================================================================///////////
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	int i = 24; 		// 페이지 안에서는 전역변수 
+	out.println("하루는" + i + "시간 <br/>");
+	//out.println("하루는" + i*60 + "분 <br/>");
+	//out.println(i);
+%>
+<!-- 표현식 사용 -->
+하루는 <%=i %> 시간이며, <br/>
+하루는 <%=i*60 %> 분입니다.
+</body>
+</html>
+////////////=========================================================================================///////////
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class MyServlet
+ */
+@WebServlet("/MyServlet")
+public class MyServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void service(HttpServletRequest request, 
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("<title>Myservlet</title>");
+		out.println("</head>");
+		out.println("<body>");
+		out.println("<h1>파이팅 정찬영</h1>");		
+		out.println("</body>");
+		out.println("</html>");
+	}
+
+}
