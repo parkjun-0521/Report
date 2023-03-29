@@ -18,3 +18,51 @@
 - 주석 
   - <!-- --> : HTML 주석 
   - <%-- --> : JSP 주석 
+
+- 지시자 
+  - JSP 페이지가 실행이 될 떄 필요한 정보를 JSP 컨테이너에 알려줌 
+  
+  - 사용법 
+    - <@ 지시자 property = "property-value"%>
+    - 지시자와 property 모두 대소문자를 구분 
+    - property-value 는 반드시 큰따옴표를 사용 
+  
+  - 종류
+    - page    : <%@ page property=”property-value” %>
+    - include : <%@ include file=”file-name” %>
+    - taglib  : <%@ taglib uri=”uri-value” prefix=”pfx-value” %>
+    
+- page 지시자 ( 3개는 무조건 외우기 ) 
+  ★ contentType : 문자 집합 
+    - JSP 페이지의 MIME 유형을 지정하는 속성 
+    - <%@page contentType=“text/html” %>                  // 이 문서의 특성을 HTML이다
+    - <%@page contentType=“text/html; charset=EUC-KR” %>  // 언어는 한국어 
+    - 실행할때 파일을 해석하기위해 사용된다.
+    
+  ★ import      : 클래스 / 패키지 이름 
+    - 자바의 import 문장을 대체하는 속성 
+    - 필요하면 구분자 (,) 를 이용하여 여러개의 클래스를 지정 
+    - 
+    - ex : <%@page import=“java.util.*,java.sql.*” import=“java.io.*” %> 
+    - 자바는 자동적으로 java.lang의 폴더를 import하기 때문에 Math, System 같은 것을 그냥 사용할 수 있다. 
+    
+    - JSP 페이지에서 자동으로 import 되는 패키지 
+      - java.lang.*
+      - javax.servlet.*
+      - javax.servlet.http.*
+      - javax.servlet.jsp.*
+    
+  ★ pageEncoding: 페이지의 캐릭터 인코딩 값 
+  
+  - session 
+    - JSP 페이지가 session을 사용할지 여부를 지정하는 속성 
+    - True가 기본값이므로 기본적으로 세션이 사용 가능함 
+    
+  - buffer 
+    - 버퍼란 동작 속도가 다른 두 장치 간의 인터페이스가 서로의 속도 차를 조정하기 위해 이용하는 일시적인 기억 장소 
+    - 출력 버퍼의 기본값은 8KB
+    - 버퍼를 쓰지 않으면 데이터 유실이 된다 
+    
+
+
+-
