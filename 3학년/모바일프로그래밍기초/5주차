@@ -1,0 +1,97 @@
+- 0331
+- 5주차 이론 
+
+- 만드는 순서 
+  - 1. 화면 디자인 ( 레이아웃 작성 ) => resource 부분에서 작성  
+  - 2. 레이아웃 요소와 기능코드를 연결  => java 부분에서 작성 
+  - 3. 설계내용대로 구현 => java 부분에서 작성 
+
+- ConstraintLayout 
+  - Design Tool 중심의 작업 
+  - 일정한 비율 구성, 쉽고 빠른 배치 등의 장점을 가짐 
+  - 기준점 설정 등, 세부적인 기능 습득 과정이 일부 
+- LinearLayout  : 수직 또는 수평 방향으로 배치 
+- TableLayout   : 기본 테이블 만드는 레이아웃 
+- FrameLayout   : 기본 특성이 겹쳐 있고, 내가 필요한 요소를 앞으로 뺐다가 뒤로 넣었다 할 수 있다.
+
+- androidx.  : 나중에 추가된 모듈들이 합쳐진것이다. ( 원래 처음에는 없던 기술 ) 
+
+- 레이아웃 변경 
+  - 선택된 레이아웃에 따라 추가적으로 속성 정의 필요 
+  - 변경한 레이아웃 속성이 같아야 한다.
+  
+- attribute : 그 요소의 속성 
+- predicate : 상대적인 속성 
+
+- 안드로이드 위치 
+  - 위쪽 : Top
+  - 아래 : Bottom
+  - 왼쪽 : Start
+  - 오른쪽 : End
+  
+- 길이 설정 
+  - 가로 길이를 0dp로 주게 되면 
+  - 가로 길이를 내가 따로 설정 하지 않겠다. 좌우가 잡혀있으니깐 알아서 크기를 조절하겠다. 
+  
+  - 크기를 직접 지정해 주는 것이 아닌 0dp로 설정하여 알아서 자동으로 조절하게 한다. 
+  - 그래야 다른 화면크기, 해상도 에서 알맞게 조절이 된다. 
+  
+- 기준점은 4개 중에 최소 2개 이상은 잡아줘야한다. 
+  - 위아래 중에 최소 한개 
+  - 좌우 중에 최소 한개 
+  
+- 움직이는 쪽에서 안움직이는 쪽으로 화살표 연결 
+
+- click : 클릭하고 뗐을 때 발생하는 이벤트 
+- touch : 클릭을 했을 때, 움직였을 때, 뗐을 때 를 구분하여 각각 이벤트 적용 
+
+- 시험에 나온다고 한다면 
+        android:id="@+id/edit01"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="TestText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent
+  이러한 코드가 있을 때 
+  이 코드가 무엇을 의미하는가 
+  - id가 edit01 이고 
+  - 가로 길이가 선택되어 있지 않는구나 
+  - 오브젝트의 가로 길이가 46이고 높이가 32
+  - 왼쪽 여백 32 위쪽 여백 32 오른쪽 여백 32
+  
+  - android : 
+    - android :   => 안드로이드가 가지고 있는 기본적인 속성 
+    
+  - app : 
+    - app :       => 추가적인 속성 
+    - 이런건 끊어서 해석해야함 
+                                1        3         2         : 해석 순서 
+    - app:layout_constraint / End_to / EndOf / ="parent"     : 레이아웃 속성 / editText의 End(왼쪽) 이 / parent에 / EndOf에 붙어있다
+    
+    - Alt + Enter => 기본적인 자동 import
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+- JSP 랑 모바일 실습 만들어 보기  
