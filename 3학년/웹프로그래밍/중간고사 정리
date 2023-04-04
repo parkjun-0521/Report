@@ -202,10 +202,85 @@
     - include : <%@ include file="file-name" %>                 : 태그 부분에 지정한 페이지를 정적으로 삽입 
     - taglib  : <%@ taglib uri="uri-value" prefix="pfx-value"%> : 새로운 태그를 정의하여 이용 
   
+- page 지시자 속성 종류 
+  - info 
+    - JSP 페이지 대한 설명이나 버전, 작성자, 작성일자와 같은 정보를 문자열로 기술 
+    - 길이에 제한이 없음 
+    - EX : <%@page info="JspStude.com"%>
     
+  - language
+    - JSP 페이지의 스크립트 요소에서 사용할 언어를 지정 
+    - 기본 값은 java
+    - EX : <%@page language="java"%>
     
+  ★contentType
+    - JSP 페이지의 MIME 유형을 지정하는 속성 
+    - <%@page contentType="text/html" %>
+    - EX : <%@page contentType="text/html; charset=EUC-KR" %>
     
+  - extends
+    - JSP 페이지가 servlet으로 변환되는 시점에서 상속받을 클래스를 지정 
+    - EX : <%@page extends="com.jspstudy" %> 
     
+  ★import
+    - 자바의 import 문장을 대체하는 속성, 사용할 클래스의 패키지를 지정하는 방법 
+    - 필요하면 구분자 ,(콤마)를 이용하여 여러개의 클래스를 지정 
+    - JSP 페이지에 여러개의 import페이지 속성도 기술 가능 
+    - EX : <%@page import="java.util.*, java.sql.*" import="java.io.*" %>
+    - JSP 페이지에서 자동으로 import 되는 패키지 
+      - java.lang.*
+      - javax.servlet.*
+      - javax.servlet.http.*
+      - javax.servlet.jsp.*
     
+  - seesion
+    - JSP 페이지가 session을 사용할지 여부를 지정하는 속성
+    - True가 기본값이므로 기본적으로 세션이 사용 가능함 
+    - EX : <%@ page session="false" %>
     
+  - buffer
+    - 버퍼한 동작 속도가 다른 두 장치 간의 인터페이스가 서로의 속도 차를 조정하기 위해 이용하는 일시적인 기억 장소 
+    - 버퍼링 : 일반적으로 입력이나 출력에 이용하는 방식으로 프로세스의 처리 속도보다
+              입출력의 속도가 느리기 때문에 어느 정도 자료를 모아서 입출력을 처리하는 방법 
+    - 출력 버퍼의 기본값을 8KB
+    - EX : <%@page buffer="16kb" %> or <%@page buffer="none" %>
+    - 출력버퍼 
+      - 1. 클라이언트 요청을 받음 
+      - 2. JSP 페이지의 출력결과를 버퍼에 저장 
+      - 3. 출력버퍼에서 버퍼에 저장된 내용을 클라이언트에 전송 
+    
+  - autoFlush
+    - 버퍼가 모두 찼을 때 자동으로 출력하는지를 지정하는 방법 
+    - 버퍼 크기의 자료가 모두 찼을 때 자동으로 웹 브라우저에 출력한다는 의미 
+    - 기본값 : true 
+    - EX : <%@ page autoFlush="false" %>
+    - 버퍼 크기만큼 차기 전, 중간에 수동으로 직접 버퍼를 비워랴 출력이 가능  
+    
+  - isThreadSafe
+    - 하나의 JSP 페이지가 동시에 여러 브라우저의 요청을 처리할 수 있는지 여부를 설정 
+    - 기본값 : true
+    - EX : <%@ page isThreaSafe="false" %>
+    - 요청을 동시에 처리하지 않고 요청한 순서대로 처리 
+    
+  ★error-Page
+    - JSP 페이지를 처리하는 도중에 예외가 발생할 경우, 다른 페이지에서 예외를 처리하도옥 지정하는 속성 
+    - EX : <%@ page errorPage="error.jsp" %>
+    
+  ★isErrorPage
+    - 현재 JSP 페이지가 에러 처리를 담당하는 페이지인지 아닌지의 여부를 지정할 때 사용하는 속성 
+    - EX : <%@ page isErrorPage="true" %>
+    
+  ★pageEncoding
+    - JSP 페이지에서 사용하는 character의 인코딩을 지정할 때 사용 
+    - EX : <%@ page contentType="text/html; charset=UTF-8" 
+               pageEncoding="UTF-8" %>
+    - EX : <%@ page pageEncoding="EUC-KR" %>
+    
+- include 지시자 
+  - include 지시자는 태그를 기술한 부분에 지정한 파일 삽입함 
+  - 홈페이지에서 공통적으로 포함하는 내용을 별도의 파일에 저장해 두었다가 include 지시자를 사용하여 삽입함 
+  - EX : <%@include file="로컬URL" %>
+  
+  
+
     
