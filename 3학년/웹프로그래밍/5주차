@@ -1,2 +1,75 @@
 - 0405  
 - 5주차 이론
+
+- 태그를 합칠 때 같은 태그가 있으면 그 태그끼리 충돌이 발생한다.
+- 이 태그의 충돌을 방지하는것이 '접두어'(네임스페이스) 이다. 
+- 액션태그사용 시 '접두사'는 중복 태그의 충돌을 방지하기 위해 써주는 것이 좋다.
+
+- 액션태그 
+  - <접두사:태그명 속성"속성값"/>    => 접두사 == 네임스페이스 
+  
+  - XML 스타일의 태그 
+    - <jsp:태그명 속성="속성값"/>
+    EX) <jsp:include page="sub.jsp"/>
+  
+  - 액션 태그에서 매개변수 지정 
+    - <jsp:태그명 속성="값">  
+                매개변수 지정 
+      </jsp:태그명>
+      
+    EX) <jsp:include page="includesub.jsp" >
+            <jsp:param name="weeks“ value="52" />
+        </jsp:include>
+        
+- 액션태그 6가지 종류 
+  ★ forward 
+  ★ include
+  - getProperty
+  - sertProperty 
+  - userBean
+  
+- include 액션태그
+  - 포함시킬 페이지의 처리 결과를 현재 페이지에 포함 시킴 
+  - <jsp:include page="로컬URL" fiush="true"/>
+  - flush : 포함시킬 페이지의 처리 결과를 삽입하기 이전에 현재 페이지가 지금까지 버퍼에 저장한 내용을 출력함 
+
+- 지시자 include를 사용할 시 변수 중복 에러가 발생 
+
+- 액션태그 처리과정 
+  - 메소드나 함수처럼 처리가 된다. 
+  - PPT 4장 39p
+  
+- forward 액션 태그 
+  - JSP 페이지 내에서 forward 태그를 만나면 forward 태그가 있는 현재 페이지의 작업은 모두 중지 되고
+  - 출력 버퍼에 있는 모든 내용을 버리고 forward 태그가 지정한 다른 페이지로 모든 제어를 이동 
+  
+- 스크립트릿 
+  - <jsp:declaration> : 선언문 ( <%@   %> ) 
+  - <jsp:scriptlet>   : 스크립트릿 ( <%   %> ) 
+  - <jsp:expression>  : 표현식 ( <%=   %> ) 
+
+- 내부 객체 ( 3개는 배울 예정 ) 
+  - request
+  - response
+  - session
+  
+- 내부객체란?
+  - 스크립트 요소에서 내부 객체와 동일한 변수명은 선언할 수 없음 
+  - <%! int out=0; %>  => 사용불가 
+  
+- 내부객체의 공통 메소드
+  - setAtrribute(key, value)
+  - getAttributeNames()
+  - getAttribute(key)
+  - removeAttribute(key)
+  
+- JSP 페이지 입출력 관련 내부 객체 
+  - request
+  - response
+  - out
+  
+- request
+  - setCharacterEncoding(String env)
+  - getParameter(String name)
+  - getParameterValues(String name)
+  - getParameterNames()
