@@ -69,7 +69,10 @@
   - out
   
 - request
-  - setCharacterEncoding(String env)
-  - getParameter(String name)
-  - getParameterValues(String name)
-  - getParameterNames()
+  - setCharacterEncoding(String env)    : 요청 페이지에 env의 인코딩 방법을 적용 
+  - getParameter(String name)           : name의 용청 인자 값을 반환, 없으면 null 반환, 만일 값이 여러 개이면 첫 번째 값만 반환 
+  - getParameterValues(String name)     : 지정한 name의 요청 인자 값을 문자열 배열로 반환, 없으면 null을 반환 
+  - getParameterNames()                 : 모든 인자의 이름을 Enumeration으로 반환 
+
+- 내부객체 예제1 
+  - 
