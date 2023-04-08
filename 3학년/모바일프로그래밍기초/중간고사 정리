@@ -19,4 +19,41 @@
 - 0408
 - 중간고사 정리 
 
-- 
+* 1장 page.56 이후 내용 
+- 프로젝트 구조 ( manifests, java, res 외우기 ) 
+  - manifests : 애플리케이션 수행에 필요한 필수 정보 
+  - java      : 소스코드, 단위 테스트등을 위해 필요 
+  - res       : 각종 리소스 저장 폴더 ( resources ) 
+                레이아웃, 그림, 문자열 등의 리소스 저장 
+                layout : 레이아웃 ( 화면디자인 ), 화면 구성 형태, 관련 내용 저장 
+  - Gradle Script : 빌드 스크립트 
+  
+★ manifests 
+  - 애플리케이션의 이름, 버전 등의 정보 저장 
+  - 애플리케이션에서 선언한 구성 요소, 기능, 요구사항 등에 대하여 기록하는 파일, 애플리케이션에 적재된 모든 컴포넌트에 대하여 기술하는 파일 
+  - 외부 라이브러리에 대한 정의 포함 
+  
+  - 내부 코드 설명 
+    ★ android:label = " " 
+      - 사용 아이콘, 타이틀 라벨 등 
+    ★ android:name = ".Main"
+      - 클래스 이름 정의, 정의되지 않은 액티비티는 실행 불가 ( 여기서 클래스 이름은 Main 인것이다. )
+    ★ <intent-filter> 
+      - 액티비티를 동작시키는 인텐트 결정 
+  
+★ layout ( 레이아웃 ) 
+  - 사용자 인터페이스 작성 
+  
+  - 내부 코드 설명
+    ★ View의 넓이 및 높이 지정 
+      - match_parent : 부모 객체 기준으로 
+      - wrap_content : 필요한 만큼 
+
+    ★ android:text =" "
+      - TextView가 가지는 메시지 지정 
+
+    ★ </androidx.constraintlayout.widget.ConstraintLayout>
+      - 안드로이드 속성을 정의한 네임스페이스 ( 제공하는 레이아웃이 여러 종류 ( Linearlayout, Framelayout, Relativelayout 등등 ) 
+
+★ Java 
+  - 
