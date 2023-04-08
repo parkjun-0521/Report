@@ -56,4 +56,155 @@
       - 안드로이드 속성을 정의한 네임스페이스 ( 제공하는 레이아웃이 여러 종류 ( Linearlayout, Framelayout, Relativelayout 등등 ) 
 
 ★ Java 
+  - public class MainActivity extends AppCompatActivity { }
+    - 기본 액티비티 생성, 여러 액티비티 존재 가능, AppCompatActivity에서 상속해서 사용 
+    
+  - protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+  } 
+    - onCreate() : 어플리케이션 실행 
+    - onCreate() 메소드가 호출되면서 액티비티 생성 
+    - super.onCreate() : 상위 클래스의 onCreate() 메소드를 호출하여 정의된 작업을 수행 
+    - setContentView() : 액티비티 화면을 구성하는 역할 
+                         화면에 표시할 뷰를 설정, 제공 리소스 이용 ( R.layout.activity_main )
+    
+
+* 2장 
+- 액티비티 생명주기 
+  - 액티비티는 액티비티 스택을 통해서 관리 
+  - 액티비티의 3가지 상태 
+    ★ 활성 혹은 실행 상태  ( avtive 또는 running ) 
+      - 전경 화면에 있을 경우 
+      - 해당 액티비티가 사용자 동작에 대한 초점을 가짐 
+      - 사용자와 상호작용 
+      
+    ★ 중지 상태 ( paused ) 
+      - 초점을 보유하지 않았지만 사용자에게 일부 보임 
+      - 메모리가 극도로 부족할 경우 시스템에 의하여 강제 종료 
+      - 사용자와 상호작용 불가 
+    
+    ★ 정지 상태 ( stopped )
+      - 사용자에게 전혀 보이지 않지만 여전히 모든 상태와 멤버 정보 유지 
+      - 다른 컴포넌트가 메모리를 요청하면 시스템에 의하여 강제 종료 
+    
+   ★ 생명 주기 사이클 
+    - onCreate() -> onStart() -> onResume() -> runnitg상태 -> 'onPause()' -> 'onStop()' -> onDestroy() -> shut down상태
+    - onPause() 상태에서 onResume90() 상태로 갈 수도 있지만 보통은 onStop() 으로 간다고 함 => 이런 경우가 화면위에 작게 팝업창으로 띄워져 있는경우를 말함 
+    - onStop() 상태에서 onRestart() 상태로 갈 수도 있음 이후 onStart() 로 가서 다시 실행 => 앱을 종료하지 않고 백그라운드로 넣어놨을 떄 상황인거 같음 
+    
+- 액티비티를 위한 콜백 메소드
+  ★ onCreate()
+    - 액티비티가 생성될 때 처음으로 호출되는 메소드 
+    - 전역 상태의 모든 리소스를 초기화 ( layout 과 date, binding 등을 초기화 )
+    - 액티비티는 기본적으로 위젯들이 배치되어 있는 레이아웃을 구성하고, 위젯들이 사용자와 상호작용을 하는 코드를 포함  
+  - onStart() 
+    - 액티비티가 초기화 과정을 마친 후 사용자에게 보여줄 준비가 되었을 때 호출  
+  ★ onResume()
+    - 액티비티가 사용자에게 보여지고 사용자의 입력을 처리할 수 있음 
+    - 액티비티 스택의 최상위에 위치 
+  ★ onPause()
+    - 사용자와 상호작용을 중지 
+    - 액티비티 종료 등을 대비해 상태를 '저장'하는 등의 작업을 수행 
+  ★ onStop() 
+    - 더 이상 액티비티가 사용자에게 보이지 않음 
+    - 더 이상 액티비티 스택의 최상위에 위치하지 않음 
+  - onDestroy()
+    - 존재하는 모든 리소스를 해제
+    - 시스템 내에 액티비티가 존재하지 않게 됨 
+  - onRestart()
+    - onStart() 메소드 호출 이후 정지 상태에 있던 액티비티를 다시 화면에 표시할 때 호출 
+    
+- 액티비티 상태 저장하기 
+  ★ 일반적으로 정지된 액티비티는 사용자가 다시 사용할 것을 대비하여 '메모리에 상주'
+  ★ 만약 메모리가 '부족하게' 되면 '강제 종료' 
+  - 액티비티를 다시 호출 하면 
+    - 강제 종료된 상태 : '다시 액티비티를 생성'한 후 액티비티를 실행 
+    - 강제 종료되지 않은 상태 : 액티비티를 다시 만들 필요가 없고 액티비티를 '다시 시작'하여 화면에 표시 
+  
+  - onSaveInstanceState()
+    - onPause() 혹은 onStop() 이후 메모리가 부족할 경우 프로세스가 메모리에서 제거될 수 있음 
+    - 메모리에서 제거되기 전 액티비티 상태를 기록할 수 있는 'Bundle 오브젝트'를 가짐  
+  - onRestoreInstanceState()
+    - onCreate() 혹은 onState() 이후 저장된 액티비티 상태를 복원 
+    
+  - onSaveInstanceState() 와 onRestoreInstanceState()는 생명주기 메소드가 아니다.
+  - 따라서 항상 호출되지 않는다. 개발자가 해당 코드의 메소드를 재정의하여 구현 
+  
+  - 매개변수로 사용되는 savedInstanceState는 저장된 인스턴스의 상태, 즉 액티비티의 UI 상태를 의미 
+
+★ 리소스 형식 
+  - 속성 애니메이션 : animator
+  - 애니메이션 : anim
+  - 색상 상태 목록 : color
+  - 그래픽 : drawable
   - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+-
+
+
