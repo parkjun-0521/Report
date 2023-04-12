@@ -1,0 +1,33 @@
+- 0412
+- 6주차 이론 
+
+- request 내부 객체 
+  - 7장 p.37 
+    - get 방식의 한글 처리 URL 알아두기 
+    - 값 중간에 공백이 있으면 URL에 + 로 표기가 된다. ( ex) 이름 변수에 "홍 길 동" 을 저장하면 URL에 홍+길+동 으로 표시 )
+
+  - URL : HTML에서는 모든 주소 ( http://localhost:8080/myapp/ch07/a.jsp )
+  - URI : 원래는 URL을 포함하는 큰 개념 
+          HTML 에서는 hhttp, 포트번호 제외한 주소 ( /myapp/ch07/a.jsp )
+
+  - 7장 p.40
+    - 메소드 정리 알아두기 
+    - int getServerPort : 서버의 포트를 반환 
+
+    - 메타 정보 ( 메타 데이터 ) : 일반적으로 데이터에 관한 구조화된 데이터로
+
+    - 알아 둬야할 것 
+    - getRequestURI   : 요청에 사용된 URL로 부터 URI를 반환합니다.
+    - getRequestAddr  : 클라이언트의 주소를 반환합니다
+    - getHeader       : HTTP 요청 헤더에 지정된 name의 값을 반환합니다.
+  
+- response 내부 객체 
+  - 클라이언트의 요청에 대한 응답을 보내기 위해서 응답 관련 데이터를 저장하는 객체 
+  ★ sendRedirect : 지정된 URL로 요청을 재전송합니다.
+  
+  - Cache를 사용하지 않는 예제 
+    - Resopnse.setHeader("Pragma", "no-cache");   // 캐쉬를 사용하지 않겠다. 
+   
+  - 클라이언트가 response1.jsp로 sendRedirect를 하고 
+  - 서버가 response1_1.jsp을 가지고 클라이언트에게 '너 값을 다시 보내줘' 라고 요청한다. 
+  - 따라서 URL에는 response1_1.jsp의 주소가 남는다. 
