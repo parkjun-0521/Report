@@ -365,7 +365,7 @@
   
   ★ request 내부 객체 
     - 웹 브라우저에서 웹 서버에 있는 JSP 페이지로 전송하는 데이터를 저장하고 처리하는 객체 
-    - setCHaracterEncoding       반환값 : void                 인코딩 방식 지정 
+    - setCharacterEncoding       반환값 : void                 인코딩 방식 지정 
     - getParameter(String name)  반환값 : String               파라미터 값을 가져옴 
     - getParameterValues(String name)  반환값 : String[]       파라미터 값을 배열로 받아옴 
     - getParameterNames()        반환값 : Enumeraion
@@ -374,9 +374,10 @@
     
     - <form method="post" action="로컬.jsp">
     - <input name="num">
+    - <input type="submit" value="보내기">
     - 로컬 JSP 페이지로 num이라는 파라미터 값을 전송 
     - 로컬 JSP 페이지 안에는 
-    - <% request.setCHaracterEncoding("EUC-KR");        // 코딩 방식 설정 
+    - <% request.setCharacterEncoding("EUC-KR");        // 코딩 방식 설정 
          String num = request.getParameter("num"); %>
     - 숫자 : <%=num %> 
     - 이런식으로 getParameter를 활용하여 값을 받아와서 사용할 수 있다. 
