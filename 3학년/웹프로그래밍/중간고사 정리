@@ -419,4 +419,36 @@
       - flush()           : 현재 출려 버퍼의 내용을 flush하여 클라이언트로 전송합니다. 
       - close()           : 출력 버퍼의 내용을 flush하고 스트림을 닫습니다. 
   
+  - JSP 페이지 외부 환경 정보 
+    - session
+    - application
+    - pageContenxt
+    
+    
+  - seeeion 내부 객체 
+    - 클라이언트 요청에 대한 context 정보릐 세션과 관련된 정보를 저장하고 관리하는 객체 
+    
+  - application 내부 객체 
+    - 서블릿 또는 웹 어플리케이션에서 유지 관리하는 외부 환경 정보를 나타내는 객체 
+    - 서버의 정보와 자원 그리고 이벤트 로그 같은 정보 제공 
+    - 자료형 : javax.servlet.ServletContext 
+    
+  - pageContext 내부 객체 
+    - 현재 JSP 페이지의 context를 나타내는 객체 
+    - pageContext 객체를 통해서 다른 내부 객체에 접근 
+    - 자료형: javax.servlet.jsp.PageContext
+    
+  - page 내부 객체 
+    - JSP 페이지 그 자체를 나타내는 객체 
+    - 변환된 서블릿 객체 자체 
+    - JSP 페이지 내에서 this를 사용하여 참조 
+  
+  - config 내부 객체 
+    - Servlet이 초기화 될 때 설정한 호나경 정보를 접근할 수 있는 객체 
+    
+  - 예외 관련 기본객체  
+    - exception 내부 객체 
+      - 개발자가 JSP 페이지에서 발생한 예외를 처리하는 페이지를 지정한 경우 에러 페이지에 전달되는 예외객체 
+      - page 지시자의 isErrorPage 속성을 true로 지정한 JSP페이지만 사용 가능한 객체 
+      - 예외처리를 설정한 JSP페이지에는 errerPage 속성에 예외처리 페이지를 설정해야 함 
   
