@@ -1,0 +1,68 @@
+- 0428
+- 8주차 이론
+
+- 데이터 저장
+  - 프레퍼런스
+  - 파일 ( 내부파일 저장, 외부파일 저장 )
+  - 데이터베이스 
+  
+- 프레퍼런스
+  - 제일 단순한 저장 형태 
+  - 키와 값으로 구분이 된다. 
+  - 저장 정보가 xml파일로 저장이 된다. 
+  - 대규모의 데이터를 저장하는데 적합하지 않다. 
+  - xml 파일이기 때문에 이미지 같은 것은 저장하지 못하고 기본적인 값만 저장할 수 있다.
+  
+  - 주요 메소드
+    - SharedPreferences 인터페이스
+    - getSharedPreferences()에 의해 반환된 프레퍼런스 객체를 접근, 수정 제공 
+    - spref = getSharedPreferences("gpref",MODE_PRIVATE);
+    - 파일명이 gpref.xml 로 저장이 된다. 
+
+============================ 프레퍼런스 사용 실습 ============================     
+- 프레퍼런스 경로 
+  - Data -> Data -> package 경로 
+  - 실시간으로 변화하지 않는다. 
+  - 프레퍼런스를 만들고 실제 적용을 하면 xml 파일로 저장이 된다. 
+  - pref = getSharedPreferences("gpref",MODE_PRIVATE);
+  - gpref.xml 로 저장이 된다. 
+  
+- 프레퍼런스 사용 
+  // 프레퍼런스 객체 생성, edit 객체 생성 
+  - SharedPreferences spref;
+  - SharedPreferences.Editor editor;
+  
+  // 프레퍼런스를 가져옴 ( 거의 MODE_PRIVATE만 사용을 한다. ) 
+  - spref = getSharedPreferences("gpref",MODE_PRIVATE);
+  - editor = spref.edit();
+  
+  // getString(key, defValue);
+  // defValue : 기본 값을 가져오는 것을 말한다.
+  // temp1 에 저장된 값이 무엇인가? 사용자가 입력한 값이거나 아니면 1의 값이저장되어 있다.
+  - String temp1 = spref.getString("editText01", "1");
+  - String temp2 = spref.getString("editText02", "2");
+  
+  
+============================ 파일 사용 실습 ============================ 
+- 파일 저장 
+  - 메모장과 같이 작성한 내용을 저장할 수 있도록 함 
+  - 작성한 내용을 저장하는 파일이 없거나 처음 실행하는 경우에는 기본적으로 지정해서 가지고 있는 파일을 보여줌 
+
+- 파일 
+  - 디바이스나 저장 매체에 직접적으로 파일 저장 
+  - 데이터 읽기 
+    - Context.openFileInput() 메소드 호출 
+  - 데이터 쓰기 
+    - Context.openFileOutput() 메소드 호출 
+  
+  - 작성된 파일을 패키지에 포함시키는 방법 
+    - 파일 위치 : res/raw
+    - 특징 : 읽을 수만 있음 
+    - Resource 클래스의 openRawResource() 메소드를 호출, 매개변수로 파일명 대신 리소스 ID를 지정하여 이용 
+    
+  - 고정된 선을 생성   
+  - percent : 비율 위치에 선을 생성 
+  - end : 밑 또는 오른쪽을 기준으로 얼만큼 떨어져 있는가 
+  - begin : 위 또는 왼쪽을 기준으로 얼만큼 떨어져 있는가 
+
+- 
