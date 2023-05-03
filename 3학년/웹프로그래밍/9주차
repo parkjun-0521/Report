@@ -19,7 +19,7 @@
   - PreparedStatement : 사전에 컴파일 된 SQL문을 실행 
   - ResultSet         : SQL의 Select문의 실행 결과를 얻어올 때 사용 
   
-- JDBC 프로그래밍 순서 
+- JDBC 프로그래밍 순서 ( 예외 처리를 잡아줘야한다. ( try-catch ) ) 
 
   - JDBC 드라이버를 로딩하여 인스턴스 생성 
     - Class.ForName("드라이버_이름");
