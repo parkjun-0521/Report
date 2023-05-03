@@ -1,0 +1,65 @@
+- 0503
+- 9주차 필기 
+
+- JSP에서의 자바 빈즈 사용 목적 ( 9장 PPT.4p 그림 중요 ) 
+- JBDC란 
+  - 데이터베이스를 다루기 위한 자바 
+  - JDBC를 통해서 DBMS의 종류와 관계없이 질의문을 던져서 데이터를 수신 
+  - 각 데이터베이스의 접속에 대한 상세한 정보가 불필요 
+  
+- JSP에서 JDBC의 프로그래밍 
+  - JDBC API: 프로그래머에게 쉬운 데이터베이스와 연동되는 프로그램을 작성할 수 있게 하는 도구 
+  - JDBC 드라이버 매니저 : JDBC드라이버 관히 
+  - JDBC 드라이버 : JDBC 인터페이스를 구현하여 실제로 DBMS를 작동시켜서 질의를 던지고 결과를 받음 
+  
+- JDBC API ( java.sql 패키지 ) 
+  - Driver manager    : 드라이버를 로드하고 데이터베이스에 연결  
+  - Connection        : 특정 데이터베이스와의 연결 
+  - Statement         : SQL문을 실행해 작성된 결과를 반환 
+  - PreparedStatement : 사전에 컴파일 된 SQL문을 실행 
+  - ResultSet         : SQL의 Select문의 실행 결과를 얻어올 때 사용 
+  
+- JDBC 프로그래밍 순서 
+
+  - JDBC 드라이버를 로딩하여 인스턴스 생성 
+    - Class.ForName("드라이버_이름");
+    - 지정한 JDBC 드라이버를 실행시간에 메모리에 적재 
+    
+  - DBMS에 대한 연결 생성 
+    - Connection conn = DriverManager.getConnection("DB주소", "계정", "패스워드");
+    - DriverManager : JDBC 드라이버를 관리하는 클래스 
+    
+  - Statement 생성 
+    - Statement stmt = conn.createStatement();
+    - Statement
+      - 단순한 SQL문장 보낼 때 사용 
+      - 성능과 효율성이 낮음 
+    - PreparedStatement
+      - 여러 번 반복해서 사용되는 SQL을 다룰 때 편리
+      
+  ★ 질의문 실행 ( Select문일 때, ResultSet으로 결과를 받음 ) ★ 
+    - ResultSet rs = stmt.executeQuery("SQL질의 문");
+    
+    - ResultSet executeQuery(SQL)
+      - DB의 구조와 테이블의 내용에 영향을 미치지 않는 질의에적합
+      - Select 문반환값
+      
+    - int executeUpdate(SQL)
+      - DB의 구조와 테이블의 내용에 영향을 미치는 질의에 적합
+      - create, drop, insert, delete, update 문
+      - 반환값: create, drop -> 0
+               insert, delete, update -> sql문 실행으로 영향을 받는다. 
+    
+    - ResultSet
+      - 테이블 형태의 결과를 추상화한 인터페이스 
+      - BOF와 EOF 를 가지고 있다. 
+      - rs.next(); : 커서를 다음 행으로 이동 
+    
+  - ResultSet 해지 
+    - rs.close();
+    
+  - Srarement 해지
+    - stmt.close();
+    
+  - 데이터베이스와 연결 해지 
+    - conn.close();
