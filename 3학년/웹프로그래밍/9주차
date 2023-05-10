@@ -21,15 +21,15 @@
   
 - JDBC 프로그래밍 순서 ( 예외 처리를 잡아줘야한다. ( try-catch ) ) 
 
-  - JDBC 드라이버를 로딩하여 인스턴스 생성 
+  - 1. JDBC 드라이버를 로딩하여 인스턴스 생성 
     - Class.ForName("드라이버_이름");
     - 지정한 JDBC 드라이버를 실행시간에 메모리에 적재 
     
-  - DBMS에 대한 연결 생성 
+  - 2. DBMS에 대한 연결 생성 
     - Connection conn = DriverManager.getConnection("DB주소", "계정", "패스워드");
     - DriverManager : JDBC 드라이버를 관리하는 클래스 
     
-  - Statement 생성 
+  - 3. Statement 생성 
     - Statement stmt = conn.createStatement();
     - Statement
       - 단순한 SQL문장 보낼 때 사용 
@@ -37,7 +37,7 @@
     - PreparedStatement
       - 여러 번 반복해서 사용되는 SQL을 다룰 때 편리
       
-  ★ 질의문 실행 ( Select문일 때, ResultSet으로 결과를 받음 ) ★ 
+  ★ 4. 질의문 실행 ( Select문일 때, ResultSet으로 결과를 받음 ) ★ 
     - ResultSet rs = stmt.executeQuery("SQL질의 문");
     
     - ResultSet executeQuery(SQL)
@@ -54,12 +54,14 @@
       - 테이블 형태의 결과를 추상화한 인터페이스 
       - BOF와 EOF 를 가지고 있다. 
       - rs.next(); : 커서를 다음 행으로 이동 
+      - 11장 PPT.14p
     
-  - ResultSet 해지 
+  - 5. ResultSet 해지 
     - rs.close();
     
-  - Srarement 해지
+  - 6. Srarement 해지
     - stmt.close();
     
-  - 데이터베이스와 연결 해지 
+  - 7. 데이터베이스와 연결 해지 
     - conn.close();
+
