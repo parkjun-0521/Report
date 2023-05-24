@@ -38,7 +38,7 @@
   - 쿠키 동작 방법 
     - 쿠키는 서버에서 생성함 
     - 서버에서 클라이언트의 브라우저로 전송되어 클라이언트의 컴퓨터에 저장됨 
-    - 저장된 쿠키는 다ㄱ시 해당하는 웹페이지에 접속할 때, 요청정보에 실려 클라이언트에서 서버로 전송됨 
+    - 저장된 쿠키는 다시 해당하는 웹페이지에 접속할 때, 요청정보에 실려 클라이언트에서 서버로 전송됨 
     - 서버는 쿠키를 읽어서 클라이언트를 분별함 
     
   - 쿠키는 이름(name)과 값(value)으로 구성된 자료를 저장   
@@ -58,8 +58,31 @@
       
     - 쿠키 수명 주기 
       - cookie.setMaxAge(10*60);
+       
+- session 객체의 메소드들 
+  - getAttribute()
+  - getAttributenames()
+  - getCreationTime()
+  - getId()
+  - getMaxinactiveInterval()
+  - removeAttribute(java.lang.String name)
+  - setAttribute(java.lang.String name, java.lang.Object value)
+  - 12장PPT p.21
+  
+  - 세션 인터페이스 
+    - 세션 생성 
+      - session.setAttribute("mySession", "session vlue');
       
-    - 
-- 
-  
-  
+    - 세션의 유지시간 설정 
+      - session.setMaxinactiveInterval(5*60)
+      
+    - 세션 속성 삭제 
+      - session.temoveAttribute("mySession");
+      
+    - 세션 삭제 
+      - session.invalidate();
+      
+      
+      
+      
+      
