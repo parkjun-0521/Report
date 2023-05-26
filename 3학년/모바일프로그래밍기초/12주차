@@ -1,0 +1,84 @@
+- 0526
+- 12주차 필기 
+
+- 안드로이드 기말 ( 6장까지 예정 ) 
+
+- WebView
+  - WebKit 엔진 이용 
+  - 웹페이지를 화면에 디스플레이하는 뷰 
+  - 사용자가 자신의 웹브라우저를 만드는 기반 
+  - 액티비티 안의 온라인 콘텐츠 표시 가능 
+  - 줌인, 줌아웃, 텍스트 탐색 등의 기능 지원 
+  
+  - webview는 기본적으로 id가 없기 때문에 id를 반드시 줘야한다. 
+  - 웹뷰 시험 범위 확인 ( 권한 부여, 웹뷰 생성, 웹뷰 다운로드 ) 
+  
+- 매뉴를 생성하는 방법 
+  - Option 메뉴
+  - Context 메뉴 
+  
+package com.example.myapplication;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+
+    // 메뉴만드는데 무조건 알아야할 2개의 필수 메소드
+    // onCreateOptionsMenu, onOptionsItemSelected
+
+    // 메뉴를 만드는 부분
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // 그룹번호, 아이템필드 번호, 나오는 순서, text
+        // itemId 는 아이템을 구분하는 번호 ( 절대 같은 번호를 사용하면 안됨 )
+        // order 번호는 등장순서를 말한다. ( 메뉴의 순서는 메뉴2, 메뉴3, 메뉴1 )
+
+        menu.add(0, 1, 2, "메뉴1");
+        menu.add(0, 2,0,"메뉴2");
+        menu.add(0,3,1,"메뉴3");
+
+        SubMenu etc = menu.addSubMenu("sub Menu");
+        etc.add(0,4,1,"sub Menu1");
+        etc.add(0,5,0,"sub Menu2");
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    // 옵션의 아이템을 선택했을 때
+    // 한마디로 처리하는 부분
+    // 옵션 메뉴를 선택하였을 때 불리는 메소드
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // case에 쓴 숫자는 menu의 itemId 번호를 의미한다.
+        switch(item.getItemId()){
+            case 1 :
+                Toast.makeText(this, "1번", Toast.LENGTH_SHORT).show();
+                break;
+            case 2 :
+                Toast.makeText(this, "2번", Toast.LENGTH_SHORT).show();
+                break;
+            case 3 :
+                Toast.makeText(this, "3번", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
+}
+==== 메뉴바 java코드 
+  
