@@ -1,1 +1,417 @@
-- 
+- 0527
+
+- 8장 서블릿 
+
+- 서블릿이란 
+  - JSP 이전에 동적인 웹페이지 콘텐츠를 생성하는 기술로 제공 
+  - 자바의 많은 장점을 이용할 수 있음 
+  - HTML, CSS 및 자바스크립트 그리고 웹디자인과 연동하기에 단점이 많음 
+  - 서블릿의 존재 이유 
+    - JSP에는 없는 서버 측 프로그램의 기능 
+    - 대규모 프로젝트에 사용되는 프레임워크의 기술을 사용 
+    
+- 서블릿의 주요 클래스 
+  - HttpServlet         : 서블릿을 만들기 위해 반드시 상속해야 할 필수 클래스 
+  - HttpServletRequest  : 클라이언트가 데이터를 입력하거나 또는 클라이언트의 정보에 대한 요청 값을 가지고 있는 클래스 
+  - HttpServletResponse : 클라이언트가 요청한 정보를 처리하고 다시 응답하기 위한 정보를 담고 있는 클래스 
+  - HttpSession         : 클라이언트가 세션의 정보를 저장하고 세션 기능을 유지하기 위해서 제공되는 클래스 
+  
+- SttpServlet 의 주요 클래스 
+  - void init()     : 서블릿의 객체가 생성 될 때 호출되는 메소드 
+  - void destroy()  : 서블릿의 객체가 메모리에서 사라질 때 호출되는 메소드
+  - void service()  : 서블릿의 요청이 있을 때 호출되는 메소드 
+  - void doGet()    : html에서 form의 메소드가 get일 때 호출되는 메소드 
+  - void doPost()   : html에서 form의 메소드가 post일 때 호출되는 메소드 
+  
+- HttpServletRequest, HttpSession의 공통 메소드 
+  - setAttribute()      : 주어진 key에 속성값을 연결합니다. 
+  - getAttribute()      : 주어진 key에 연결된 속성값을 얻어냅니다.
+  - removeAttribute()   : 주어진 key에 연결된 속성값을 제거합니다.
+  - getAttributeNames() : 모든 속성의 이름을 얻어냅니다. 
+  
+- 서블릿의 라이프 사이클 
+  - 클라이언트 서블릿 요청 -> init() 최초한번 호출 -> setvice, doGet, doPost 가 반복적으로 호출 -> destroy() 마지막 한번 호출 
+    - init()    : 서블릿이 처음으로 요청되어 객체가 생성될 때 호출되는 메소드 ( 초기화 담당 ) 
+    - service() : 클라이언트가 요청이 있을 때 마다 호출되는 메소드 
+    - destroy() : 서블릿 서비스의 종료 및 재시작 그리고 서블릿 코드가 수정이 될 때 호출되는 메소드 
+    - doGet()   : 클라이언트 요청 할 때 form의 method가 get방식일 때 호출되는 메소드 
+    - doPost()  : 클라이언트 요청 할 때 form의 method가 post방식일 때 호출되는 메소드 
+    
+===========================================================================================================================
+- 9장 JavaBeans
+
+- 자바 빈즈란 
+  - 프로그램은 로직 부분과 프리젠테이션 부분으로 구성 
+  - Java Beans란 자바 프로그램에서 로직을 수행하는 클래스로서 javabeans 규약을 따름 
+  - Java Beans란 java로 작성되어진 일종의 컴포넌트 
+  
+- JSP에서 자바 빈즈의 필요성 
+  - JSP 페이지는 HTML과 복잡한 java 코드들이 섞여 있으므로 JSP 페이지를 이해하기 어려움
+  - JSP 페이지 내에 작성된 프로그램 코드를 재사용하기 어려움 
+
+- 자바 빈즈의 사용 목적 
+  - JSP가 복잡한 자바코드로 구성되는 것을 피하고 JSP 페이지에는 HTML과 쉽고 간단한 java코드로 구성하도록 하기 위함 
+  - 로직 부분을 처리하는 복잡한 java 코드는 자바 빈즈로 분리 
+  
+- 자바 빈즈 사용의 장점 
+  - 비즈니스 로직 코드를 자바빈즈와 같은 컴포넌트 기술을 이용하여 작성함으로써 '효율성, 재사용성' 등의 장점을 가짐 
+  
+- 자바 빈즈 만드는 법
+  - 맴버 변수가 boolean 타입일 경우 : get대신 is사용 
+  - boolean passed; 
+  - boolean isPassed(){ return passed; } 
+  
+  - private int num;
+  - public void setNum(int num) { this.num = num; } 
+  - public int getNum() { return num; } 
+  
+  - private String str;
+  - public void setNum(Stirng str) { this.str = str; } 
+  - public String getNum() { return str; } 
+  
+- Java Beam 사용하는 JSP 프로그래밍
+  - <jsp:useBean id=" " class=" " scope=" "/>           : 빈을 생성  
+      - scope의 종류
+      - page        : 해당 JSP 페이지 내에서만 존재함 
+      - request     : 사용자의 요청을 처리하는 동안 존재합니다.
+      - session     : 사용자가 최초에 접속하여 세션이 종료되기까지 존재합니다. 
+      - application : 해당 어플리케이션이 살아 있는 동안 함께 존재합니다. 
+  - <jsp:setProperty name=" " property=" " value=" "/>  : 빈에 값을 저장 
+  - <jsp:getProperty name=" " property=" "/>            : 빈에 값을 가져옴 
+
+- 빈 생성하기 
+  - <jsp:useBean id="myBean" class="ch09.SimpleBean" scope="page"/>
+  
+  - id    : 생성할 자바 빈즈 객체 이름 
+  - class : 패키지명을 포함한 자바 빈즈 클래스 이름 
+  - scope : 자바 빈즈의 유효 범위 ( 기본값 : page ) 
+  
+- 빈에 값 넣기 
+  - <jsp:useBean id="myBean" class="ch09.SimpleBean" scope="page"/>
+  - <jsp:setProperty name="myBean" property="massage" value="hi"/>
+  
+  - name      : useBean의 id 값과 반드시 동일한 값이여야 함 
+  - property  : 지정된 이름을 갖는 메소드 setter 호출 ( 호출할 setter가 setMessage()라면 Property="massage" ) 
+  - value     : 호출할 setter의 인자 값 
+  
+- 빈의 값 가져오기 
+  - <jsp:useBean id="myBean" class="ch09.SimpleBean" scope="page"/>
+  - <jsp:setProperty name="myBean" property="massage" value="hi"/>
+  - <jsp:getProperty name="myBean" property="massage"/> 
+  
+  - name      : useBean의 id 값과 반드시 동일한 값이여야 함 
+  - property  : 호출할 getter 이름이 getMassage() 라면 property="massage"
+===========================================================================================================================
+- 11장 JDBC
+
+- JDBC란 
+  - 데이터베이스를 다루기 위한 자바 ( API ) 
+  - JDBC를 통해서 DBMS의 종류와 관계없이 질의문을 던져서 데이터를 수신 
+  - 각 데이터베이스의 접속에 대한 상세한 정보가 불필요 
+  
+- JDBC
+  - JDBC API : 프로그래머에게 쉬운 데이터베이스와 연동되는 프로그램을 작성할 수 있게 하는 도구 
+  - JDBC 드라이버 매니저 : JDBC 드라이버 관리 
+  - JDBC 드라이버 : JDBC 인터페이스를 구현하고 실제로 DBMS를 작동시켜 질의를 던지고 결과를 받음 
+  
+- JDBC 프로그래밍 
+  - JDBC API를 이용하여 데이터의 추가, 삭제, 수정, 검색 등을 할 수 있는 자바 응용프로그램을 작성하는 것 
+  - JDBC API 
+    - DriverManager     : 드라이버를 로드하고 데이터베이스에 연결 
+    - Connection        : 특정 데이터베이스와 연결 
+    - Statement         : SQL문을 실행해 작성된 결과를 반환 
+    - PreparedStatement : 사전에 컴파일 된 SQL문을 실행 
+    - ResultSet         : SQL의 Select문의 실행 결과를 얻어올 때 사용 
+    
+- JDBC 프로그래밍 순서 
+  - 1. JDBC 드라이버를 로딩하여 인스턴스 생성 
+      - Class.forName("드라이버 이름") 
+      
+  - 2. DBMS에 대한 연결 생성 
+      - Connection conn = DriverManager.getConnection("DB주소", "계정", "패스워드")
+      
+  - 3. Statement 생성 
+      - Statement stmt = conn.createStatement();
+      
+  - 4. 질의문 실행 ( Select 문일 때, ResultSet으로 결과를 받음 )
+      - ResultSet rs = stmt.executeQuery(" SQL 문장 ");
+      
+  - 5. ResultSet 해지 
+      - rs.close(); 
+      
+  - 6. Statement 해지 
+      - stmt.close();
+      
+  - 7. 데이터베이스 연결 해지
+      - conn.close(); 
+      
+      
+- 1. JDBC 드라이버를 로딩하여 인스턴스 생성 
+  - Class.forName("드라이버 이름") 
+  - 지정한 JDBC 드라이버를 실행시간에 메모리에 적재 
+  - MySQL JDBC 드라이버 이름 
+    - com.mysql.cj.jdbc.Driver
+    
+  - try {
+        Class.forName("com.mysql.cj.jdbc.Driver”); 
+    } catch (ClassNotFoundException e) {
+        System.out.println("JDBC 드라이버 로드 오류");
+    }
+
+- 2. DBMS에 대한 연결 생성 
+  - DriverManager.getConnection("DB주소", "계정", "패스워드")
+  
+  - String dbURL = "jdbc:mysql://localhost:3306/sampledb";      // mysql 주소가 이럴때 
+  - Connection conn = DriverManager.getConnection( dbURL, "root", "1234" );
+  
+- 3. Statement 생성 
+  - Connection 객체를 이용해서 SQL 문을 실행하고 그 결과를 반환 받을 수 있는 객체 생성 
+  
+  - Statement 
+    - 단순한 sql문장 보낼 때 사용 
+    - 성능과 효율성이 낮음 
+      - Statement stmt = conn.createStatement();
+
+  - PreparedStatement 
+    - 여러번 반복해서 사용되는 SQL을 다룰 때 편리 
+      - PreparedStatement pstmt = conn.prepareStatement(SQL);
+
+- 4. 질의문 실행 
+  - Statement 객체에서 제공하는 메소드를 이용 
+  - ResultSet executeQuery(SQL)
+    - DB의 구조와 테이블의 내용에 영향을 미치지 않는 질의에 적합 
+    - select 문
+    - 반환값 : Result 객체 
+      - ResultSet result = stmt.executeQuery( "select * from student" );
+
+  - int executeUpdate(SQL)
+    - DB의 구조와 테이블의 내용에 영향을 미치는 질의에 적합 
+    - create, drop, insert, delete, update 문 
+    - 반환값 : create, drop -> 0 
+              insert, delete, update -> sql문 실행으로 영향을 받음 
+              
+      - int rowCount = stmt.executeUpdate( "delete from student where name = '김철수'");
+
+  - ResultSet 
+    - ResultSet은 테이블 형태의 결과를 추상화한 인터페이스 
+    - rs.getString("id") 또는 rs.getStirng(1) 
+      - 행의 위치에 따라서 숫자로 표기 가능 
+      
+    - 관련 메소드 
+      - first()     : 커서를 첫번째 행으로 이동 
+      - last()      : 커서를 마지막 행으로 이동  
+      - next()      : 커서를 다음행으로 이동 
+      - previous()  : 커서를 이전행으로 이동 
+      - get(String) : 현재 행에서 지정된 열이름(columnLable) 에 해당하는 데이터를 반환
+      - get(int )   : 현재 행에서 지정된 열인덱스(columnindex) 에 해당하는 데이터를 반환 
+
+
+- ConnectionPool을 사용한 데이터베이스 연결 기능 향상 
+  - 기존 데이터베이스 연동 방법의 문제점 : Connection 객체는 새롭게 생성될 때 많은시스템 자원이 요구됨 
+      - 메모리에 객체를 할당할 자리를 만들고, 객체가 사용할 여러 자원들에 대한 초기화 작업 등에 많은 시간이 소모됨 
+      
+  - ConnectionPool을 사용해서 보다 효율적으로 데이터베이스에 연동 ( Pooling 기법 ) 
+    - Connection 객체의 연결 요청이 있을 때 마다 매번 생성, 사용, 해제하지 않고 미리 Connection 객체들을 여러개 만들어 두고 계속 재사용 
+    
+- ConnectionPool을 사용한 데이타베이스 연결 
+  - 1. 데이터베이스 연결 Pool 객체를 얻는다.  
+    - DBConnectionMgr pool = DBConnectionMgr.getInstance();
+
+  - 2. 얻어진 pool 객체를 이용해 Connection 객체를 얻는다. 
+    - Connection conn = pool.getConnection();
+  
+  - 3. 얻어진 Connection 객체를 사용해 DB에 질의를 던지고, 질의 결과를 처리 
+  
+  - 4. 사용된 Connection 객체를 pool에 반환, Statement객체, ResultSet 객체 
+    - pool.freeConnection(conn, stmt, rs);
+
+
+- PreparedStatement 사용하기 
+  - 반복되는 질의문 수행에 효율적
+  - 미리 컴파일된 SQl문을 사용하기 때문에 Statement에 비해 싱행속도가 빠름 
+  - SQL의 틀을 미리 정해놓고, 나중에 값을 지정하는 방식 
+  
+  - PreparedStatement 객체생성 
+    - String sql = "select * from member where id = ?";
+    - PreparedStatement pstmt = conn.preparedStatement(sql);
+    
+  - 질의문 실행 
+    - pstmt.setString(1,"asd");     // 첫번째 ? 자리에 들어가는 값 
+    - pstmt.executeQuery();
+  
+  - PreparedStatement 객체 종료 
+    - pstmt.close();
+===========================================================================================================================
+- 12장 세션과 쿠키 
+
+- 세션과 쿠키의 사용 목적 
+  - 상태가 없는 프로토콜인 HTTP에서 상태 정보를 우지하기 위해서 사용 
+    - HTTP는 작업을 마치면 연결을 해제하는 방식으로 동작 
+    - Connection의 지속성이 없으므로 자신에게 접속한 클라이언트를 구분 못함 
+    - 서로 연관 없는 페이지를 접속할 때 효율적 
+
+  - HTTP의 비연결성을 보완하기 위해서 클라이언트와 서버간에 연결을 유지하기 위한 방법이 필요
+    - 쿠키  
+      - 클라이언트의 상태정보를 클라이언트의 컴퓨터에 저장 
+      - 저장된 정보를 다른 사람 또는 시스템이 볼 수 있는 단점 
+      - 유효시간이 지나면 사라짐 
+      
+    - 세션 
+      - 서버의 메모리에 클라이언트의 상태 정보를 저장 
+      - 서버가 종료되거나 유효시간이 지나면 사라짐 
+      
+- 쿠키과 세션의 차이점 
+  - 쿠키 
+    - 저장되는 곳 : 클라이언트 
+    - 저장되는 형식 : text
+    - 만료시점 : 쿠키 저장 시 설정 가능 
+    - 리소스 : 클라이언트의 리소스 사용 
+    - 용량 제한 : 한 도메인 당 20개, 쿠키 하나당 4KB, 총 300개 
+    
+  - 세션 
+    - 저장되는 곳 : 서버 
+    - 저장되는 형식 : Object
+    - 만료시점 : 클라이언트가 로그아웃 하거나 설정한 시간 동안 반응이 없을 경우 
+    - 리소스 : 서버의 리소스 사용 
+    - 용량 제한 : 서버가 허용하는 용량
+
+
+- 쿠키 
+  - 쿠키는 서버에서 만들어진 작은 정보의 단위로 서버가 클라이언트에 전송하여 저장 
+  
+  - 쿠키 동작 방법
+    - 쿠키는 서버에서 생성함 
+    - 서버에서 클라이언트의 브라우저로 전송되어 클라이언트의 컴퓨터에 저장됨 
+    - 저장된 쿠키는 다시 해당하는 웹페이지에 접속할 때, 요청정보에 실려 클라이언트에서 서버로 전송됨 
+    - 서버는 쿠키를 읽어서 클라이언트를 분별함 
+    
+  - 쿠키는 이름(name) 과 값(value) 으로 구성된 자료를 저장 
+  
+- 쿠키를 구현할 수 있는 쿠키 클래스 
+  - 쿠키 생성 
+    - Cookie myCookie = new cookie("쿠키이름", "쿠키 값");
+    
+  - 쿠키 셋팅 
+    - myCookie.setValue("값");
+    
+  - 쿠키 전달 
+    - response.addCookie(myCookie);
+    
+  - 쿠키 읽기 
+    - Cookie[] cookie = request.getCookies();
+    - cookie[i].getName()       // 쿠키 이름 읽기
+    - cookie[i].getValue()      // 쿠키의 값 가져오기 
+    
+  - 쿠키 수명주기 
+    - cookie.setMaxAge(10*60);
+    - 만료시간을 초단위로 설정 
+    
+- 쿠키 사이클 
+  - 서버에서 쿠키생성 
+  - 클라이언트에 쿠키를 저장 
+  - 클라이언트에 보관된 쿠키정보를 사용하여 서버에서 쿠키 조회 
+  
+  
+- 세션 
+  - javax.servlet.http.HttpSession
+  - 세션의 동작 
+    - 클라이언트가 처음 접속했을 때 세션 ID를 부여하고, 서버에 세션 ID를 저장하고 메모리 공간을 확보 
+    - 다시 클라이언트가 접속했을 때 부여된 세션 ID를 이용해서 클라이언트를 구분 
+    - 세션 메모리 공간에 세션 속성과 값들을 저장하고 검색 
+    
+- 세션 객체의 메소드 
+  - getAttribute(java.lang.String name)
+      - name이란 이름에 해당되는 속성값을 Object 타입으로 반환합니다. 해당되는 이름이 없을 경우에는 null을 반환합니다. 
+      
+  - getAttributeNames() 
+      - 속성의 이름들을 Enummeration 타입으로 반환합니다. 
+      
+  - getCreationTime()
+      - 현재 세션이 생성된 시간까지 지난 시간을 계산하여 반환 
+      
+  - getId()
+      - 세션에 할당된 유일한 식별자(id)를String 타입으로 반환합니다.
+      
+  - getMaxInactiveInterval()
+      - 현재 생성된 세션을 유지하기 위해 설정된 최대 시간을 정수형으로 반환합니다. 
+      
+  - invalidate()
+      - 현재 생성된 세션을 무효화 합니다
+      
+  - removeAttribute(java.lang.String name)
+      - name으로 지정한 속성의 값을 지웁니다. 
+      
+  - setAttribute( java.lang.String name, java.lang.Object value )
+      - name으로 지정한 이름에 value 값을 할당합니다. 
+      
+  - setMaxInactiveInterval(int interval)
+      - 세션의 최대 유지시간을 초 단위로 설정합니다. 
+  
+  
+- 세션 인터페이스 
+  - 세션 생성 
+    - session.setAttribute("세션이름", "세션 값");
+    
+  - 세션의 유지시간 설정 
+    - session.setMaxInactiveinterval(5*60)
+      - 세션의 유지 시간은 기본 값으로 30분 설정, 30분 이상 서버에 전혀 반응을 보이지 않으면 세션이 자동으로 끊어짐 
+      
+  - 세션 속성 삭제 
+    - session.removeAttribute("세션 이름")
+    
+  - 세션 삭제
+    - session.invalidate(); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
