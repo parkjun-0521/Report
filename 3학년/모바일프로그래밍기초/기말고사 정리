@@ -85,33 +85,311 @@
            app:layout_constraintGuide_percent="0.20" />     // 가이드 라인 위치 ( 위에 기준으로 20퍼 위치 ) 
     
     
-  - 코드 작성
+  - 실습 코드 해석 
     - private  static final String LOCAL_FILE = "memo_data.txt";
-      - // 
+      - // 상수로 앱 내부에 저장할 로컬 파일의 이름을 선언 
+      
+    - InputStream in;         
+      - // InputStream : 입력 스트림 클래스들의 최상위 클래스 객체 생성 ( 스트림 객체를 나타낸다 ) 
+      
+    - BufferedReader reader;  
+      - // BufferedReader : Reader 스트림에 버퍼링 기능을 추가한 입력 스트림 클래스 객체
     
+    - in = openFileInput(LOCAL_FILE);
+      - // LOCAL_FILE 파일의 입력 스트림을 열고 이렇게 열린 입력 스트림을 in 변수에 할당
+      
+    - in = getResources().openRawResource(R.raw.raw_data);
+      - // raw_data라는 이름의 원시 리소스 파일의 입력 스트림을 가져와서 in 변수에 할당
     
+    - reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+      - // in이 가지고 있는 입력스트림을 UTF-8 문자 인코딩으로 읽을 수 있는 BufferedReader 객체인 reader 생성합니다. 
     
+    - while ((s = reader.readLine()) != null) {
+                edit01.append(s);
+                edit01.append("\n");
+            }
+      - // s 변수에 문자 라인이 null이 아닐때 까지 반복한다. 한마디로 문장의 줄 수 만큼 반복을 한다. 
+      - // 반복 할 때 마다 EditText에 한줄씩 추가를 하고 줄바꿈을 한다. 
+      
+    - onPause() => 생명주기임 
+      - 절전 상태 혹은 새로운 액티비티가 시작될 경우 ( 초점 상실 ) 
+      - 재개( resume ) 되기 전 데이터 저장, 애니메이션 중지, 프로세서를 소비하는 작업 중단 
+      
+      - super.onPause()
+        - // 상위 클래스에 있는 onPause()를 실행한다. 
+        - // 이후 내가 추가하고 싶은 기능을 추가한다. 
+        
+      -  OutputStream out = openFileOutput(LOCAL_FILE, MODE_PRIVATE);
+        - // 앱의 내부 저장소에 파일을 생성하고 해당 파일에 대한 출력 스트림을 반환한다. 
+        
+      - PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+        - // OutputStream 객체를 문자 기반의 출력 스트림으로 변환, 인코딩 방식은 UTF-8로 지정 
+        - // 이렇게 PrintWriter 객체를 생성 
+        
+      - writer.append(s);
+        - // 문자열 s를 출력스트림에 추가 
+        
+      - writer.close();
+        - // 출력 스트림 닫기 
+      
+
+
+- 5장 ( 기능/실습 9,10 ) 
+
+- 기능/실습 9 
+  - 사용자간의 상호작용을 위한 간단한 이벤트 처리 과정 
+  - 기본 이벤트 종류 ( 인터페이스 ) 
+    - 클릭 : OnClickListener
+    - 포커스 변경 : OnFocusChangeListener
+    - 롱 클릭 : OnLongClickListener
+    - 키 : OnKeyListener
+    - 터치 : OnTouchListener
     
+  
+  - 실습 코드 해석 
+    - btn01 = (Button) findViewById(R.id.button01);
+      btn01.setOnLongClickListener(this);
+      
+      - // 버튼을 생성하고 그 버튼을 클릭리스너에 등록 
+
+    - edit01 = (EditText) findViewById(R.id.editText01);
+      edit01.setOnFocusChangeListener(this);
+      
+      - // EditText를 생성하고 포커스 리스너에 등록 
+      
+    - setOnLongClickListener 
+      - // 롱 클릭리스너에 등록 
+      
+    - setOnTouchListener 
+      - // 터치 리스너에 등록 
+      
+    - public void onClick(View v) { } 
+      - // 클릭 이벤트가 발생하였을 때 구현을 해야하는 메소드 ( 반드시 구현을 해야 한다. ) 
+      
+    - public boolean onLongClick(View v) {
+        Toast.makeText( this, "onLongClick", Toast.LENGTH_LONG).show();
+        return false;
+      }
+     
+      - // 롱 클릭 이벤트가 발생했을 때 구현해야하는 메소드 ( 반환값은 boolean, 반드시 구현 ) 
+      - // Toast : 토스트 알림 출력 ( " " 에는 출력할 문구 적기 , Toast.LENGTH_LONG 또는 Toast.LENGTH_SHORT 로 메시지 길이 설정 ) 
+      
+    - public void onFocusChange( View v, boolean hasFocus) {
+        if( hasFocus ) {
+            
+        } 
+        else {
+            s = edit01.getText().toString();
+            edit01.setText( s + " + fouce change " );
+        }
+      }
+      
+      - // 포커스 이벤트가 발생 하였을 때 호출 
+      - // if( hasFocus ) : 포커스를 얻은 경우에 if문을 실행하여라 
+      - // else : 포커스를 잃은 경우 출력을 해라   
+      
+    - public boolean onKey(View v, int keyCode, KeyEvenet event) {
+          if(keyCode == KeyEvent.KEYCODE_BACK) {
+          
+          }
+          return false;
+      }
     
+      - // 키 이벤트가 발생하였을 때 호출 
+      - // keyCode : 무슨 키를 누른지 비교할 때 사용 
+      - // event : 내가 어떤 키를 눌렀는지 값을 받는다. 
     
+    - public boolean onTouch(View v, MotionEvent event) { 
+          if( event.getAction() == MotionEvent.ACTION_DOWN) {}
+          
+          return false;
+      }
+      
+      - // 터치 이벤트 발생시 호출 
+      - // ACTION_DOWN : 터치할 때 ( 누를 때 ) 
+      - // ACTION_MOVE : 터치를 한 상태로 마우스를 움직일 때 
+      - // ACTION_UP : 떼는 경우 
     
+    - 여기서 가장 큰 문제점 
+      - 뭐가 클릭이고 뭐가 터치고 무엇이 롱클릭인가 
+      - 한번 누를 때 클릭과 터치 둘다 아닌가? 
+      - 롱클릭 이후 마우스를 떼면 ACTION_UP 이 실행 된다. 이러면 클릭의 값을 두번 받게 되는데 이때는 어떻게 하는가 
+      
+      - boolean 타입으로 값을 반환하는 메소드를 보면 리턴 값이 다 false 이다.
+      - 이말은 즉 값을 리턴하고 다음 이벤트를 실행하여라 라는 의미이다. 
+      - 따라서 롱클릭 이후에 터치 나 클릭 이벤트가 발생 하는것 
+      - return true; 로 해주게 되면 다음 이벤트를 실행하지 않게 된다. 
     
+    - public boolean onKeyDown( int keyCode, KeyEvent event ) { 
+          return super.onKeyDown(keyCode, event);
+      } 
+      
+      - // 키를 눌렀을 때 동작하는 메소드 
+      - // 어느 위치에 작성해도 내가 설정한 데로 작동을 한다. 
+      - // View v 를 딱히 지정해주지 않았기 때문에 
+      
+    - public vodi onBackPreassed() { super.onBackPressed(); } 
+      - // 뒤로가기 버튼 ( back 버튼 구현 ) 
+      - // 현재의 백버튼을 오버라이딩하여 사용한다. 
+      - // 내부 로직을 주석처리할 시 작동하지 않는다. ( super.onBackPressed(); )
+      - // back키를 제어하는 메소드 
+      - // 원래 back키를 누르면 어플이 종료가 되었는데 이것을 활용하면 종료되지 않고 뒤로 갈 수 있고 또는 팝업창을 띄울 수 있다.
+      
+    - protected void onUserLeaveHint() { super.onUserLeaveHint(); )
+      - // 휴대폰의 홈키를 제어할 수 있는 메소드 
+      - // 현재는 홈키를 안먹게 만들 수 없다. 
+      
+    - int x = (int)event.getX();
+      int y = (int)event.getY();
+      
+      - // 상대 좌표로 x,y 값 가져오기 
+
     
+    - int rawX = (int)event.getRawX();
+      int rawY = (int)event.getRawY();
+      
+      - // 절대 좌표로 x,y 값 가져오기 
+      - // 왼쪽 상단이 0,0
+          
     
+- 기능/실습 10 
+  - WebView 엔진 이용 
+  - 웹페이지를 화면에 디스플레이하는 뷰 
+  
+  
+  - 실습 코드 해석 
+    - AndroidManifest.xml 수정 
+      - <uses-permission android:name="android.permission.INTERNET"/> 추가
+        - // 해당 앱에 사용될 권한을 지정
+        - // 인터넷을 사용하겠다는 권한
+        - // 앱에서 쓰는 권한이면 무조건 추가를 해야한다.
+      
+      - android:usesCleartextTraffic="true" 추가 
+        - // ERR_CLEARTEXT_NOT_PERMITTED 해결 관련 추가 코드 
+        
+        
+    - 메인 스크립트 
+      - Webview web01;                                  // 웹뷰 객체 생성 
+      - web01 = (WebView) findViewById(R.id.webView01); // 레이아웃에 객체 연결 
+        - // 위 방식은 전의 오브젝트들과 동일 
+      
+      - web01.setWebViewClient(new WebViewClient()); 
+        - // 웹뷰의 기본 기능을 변경하기 위해서 WebViewClient 클래스 사용 
+        
+      - web01.getSettings().setJavaScriptEnabled(true);
+        - // 웹뷰의 자바스크립트 활성화 
+        
+      - web01.getSettings().setBuiltInZoomControls(true); 
+        - // 줌 컨트롤러 
+        
+      - web01.clearCache(true);  
+        - // 캐시 제거가 필요한 경우
+        
+      - web01.clearHistory();
+        - // 필요에 따라 기타 추가 설정
+       
+      - web01.loadUrl("http://www.naver.com");
+        - // 웹뷰에 띄워줄 URL을 적는다. 
+        
+      - @Override
+        public boolean onKeyDown(int keyCode, KeyEvent event) {
+            if((keyCode == KeyEvent.KEYCODE_BACK) && web01.canGoBack()){
+                web01.goBack();
+                return true;
+            }
+            return super.onKeyDown(keyCode, event);
+        }
+        
+        - // Back 키를 눌렀을 때 이전 페이지로 돌아갈 수 있으면 이전 페이지로 돌아감 
+        - // web01.canGoBack() : WebView 객체에서 뒤로 가기 기능을 수행할 수 있는지 여부
+        - // back 키를 누르고  뒤로 갈 수 있는지 확인 후 웹뷰를 이전 페이지로 이동시킨다. 
+        - // back 버튼을 누른 후에는 이후 이벤트를 반환하지 않기 위해서 return true; 로 리턴값을 준다. 
+      
+      - web01.setDownloadListener(this);
+        - // 다운로드 리스너 설정
+       
+      - @Override
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+            Toast.makeText(this, "download", Toast.LENGTH_SHORT).show();
+            Intent intent01 = new Intent(Intent.ACTION_VIEW);
+            intent01.setData(Uri.parse(url));
+            startActivity(intent01);
+        }
+        
+        - // 웹뷰에서 다운로드를 할 수 있게 해준다.
+        - // 급할 때 간단히 구현 할 수 있는 방법이다. 
+        - // 보안에 좀 취약하다. 
+        - // intent 를 사용하여 다운로드를 한다. 
+        
+        
+- 6장 ( 기능/실습 11,12 )    
+
+- 기능/실습 11
+  - 메뉴를 생성하는 과정 및 활용 방법
+  - Option 메뉴 생성 
+  
+  - 실습 코드 해석 
+    - public boolean onCreateOptionMenu(Menu menu) { 
+          menu.add(0,1,2,"메뉴1");
+          menu.add(0,2,0,"메뉴2");
+          menu.add(0,3,1,"메뉴3");
+          
+          SubMenu etc = menu.addSubMenu( "subMenu" );
+          etc.add(0,4,1,"sub Menu1");
+          etc.add(0,5,0,"sub Menu2");
+          
+          return super.onCreateOptionsMenu(menu);
+      }
+      
+      - // 메뉴를 만드는 메소드 onCreateOptionMenu 
+      - // menu.add( 아이디( 보통 0을 많이 씀), itemId, order, text );
+        - // itemId는 다른 것과 절대 겹치면 안된다. 
+        - // order는 나오는 순서를 말한다. ( 위 로직 같은 경우 메뉴2, 메뉴3, 메뉴1 순서 대로 등장을 한다. ) 
+        - // text는 메뉴바에 표시해 줄 text를 의미한다. 
+        
+      - // SubMenu etc = menu.addSubMenu( text ); 를 하면 중간에 서브메뉴가 달린 메뉴바가 나온다. 
+        - // etc.add(아이디( 보통 0을 많이 씀), itemId, order, text );  
+        - // 서브 메뉴에 메뉴바를 부착하는 방법 
+        
+        
+    - public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+          switch(item.getItemId()){
+              case 1 :
+                 Toast.makeText(this, "1번", Toast.LENGTH_SHORT).show();
+                 break;
+              case 2 :
+                 Toast.makeText(this, "2번", Toast.LENGTH_SHORT).show();
+                 break;
+              case 3 :
+                 Toast.makeText(this, "3번", Toast.LENGTH_SHORT).show();
+                 break;
+          }
+          return super.onOptionsItemSelected(item);
+      }
+      
+      - // onOptionsItemSelected 메소드는 메뉴들의 동작을 작성하는 부분이다. 
+      - // 각 메뉴바를 눌렀을 때 발생하는 이벤트는 switch문이나 if문을 활용하여 작성한다. 
+      - // case에 쓴 숫자는 menu의 itemId 번호를 의미한다.
+      - // 각 메뉴를 눌렀을 때 토스트팝업 창으로 text를 띄워준다. 
+     
+  - 메뉴바를 만들 때 가장 자주 쓰는 메소드 2개 
+    - onCreateOptionMenu
+    - onOptionsItemSelected
+   
+
+- 기능/실습 12
+  - 메뉴를 생성하는 방법 중에 XML을 이용하는 방법 
+  
+  - XML 레이아웃 
+    - 레이아웃에서 ToolBar를 꺼내서 필드에 올린다. 
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    - values -> themes -> themes.xml 에서 
+      - <style name="Theme.Custom" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+       
+        </style>
+        
+        - // Theme.MaterialComponents.DayNight.NoActionBar 이렇게 NoActionBar를 사용하면 
+        - // 기본으로 설정 되어있는 액션바가 사라지고 내가 xml에 디자인한 ToolBar가 최상단으로 올라간다. 
+      
     
     
