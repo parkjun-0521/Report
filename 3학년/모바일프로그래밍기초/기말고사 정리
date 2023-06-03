@@ -1,0 +1,117 @@
+- 0603
+- 기말고사 정리 
+
+- 4장 ( 기능/실습 6,7 ) 
+
+- 기능/실습 6
+  - 데이터 입력, 설정, 정보저장 혹은 전달한 데이터를 저장, 관리하기 위한 데이터를 다루는 기술 
+  
+  - 프레퍼런스 
+    - 제일 단순한 저장 형태 
+    - 각 애플리케션에 고유한 설정값을 지정 
+    - < 키, 값 >의 조합으로 데이터 저장 
+      - 값에 이름을 부여하여 저장 
+      - 환경설정에 유용 
+    - 주요 메소드 
+      - SHaredPreferences 인터페이스 
+        - getSharedPreferences() 
+          - 에 의해 반환된 프레퍼런스 객체를 접근/수정 제공 
+        - SharedPreferences.Editor editor = pref.edit() 
+          - 프레퍼런스 객체를 수정 후, commit() 또는 apply() 연산으로 배치 처리 
+          
+  - 파일 
+    - 디바이스나 저장 매체에 직접적으로 파일을 저장
+    - 데이터 읽기 
+      - Context.openFileinput() 메소드 호출, FileInputStream 오브젝트를 얻어서 처리 
+    - 데이터 쓰기 
+      - Context.openFileOutput() 메소드 호출, FileOutputStream 오브젝트를 얻어서 처리 
+      
+    - 작성된 파일을 패키지에 포함시키는 방법 
+      - 파일 위치 : res/raw 
+      - 특징 : 읽기만 가능 
+      - Resource 클래스의 openRawResource() 메소드를 호출, 매개변수로 파일명 대신 리소스 ID를 지정하여 이용 
+      
+  - 실습 코드 해석 
+    - SharedPreferences spref;
+      - // 프레퍼런스를 사용하기 위한 객체 생성 
+      - // getSharePreference()에 의해 반환된 프레퍼런스 객체를 접근/수정 제공 ( SharedPreferences 객체 생성 ) 
+
+    - SharedPreferences.Editor editor;
+      - // 데이터를 저장하기 위해서 Editor 객체를 받아 옵니다. ( 객체의 값을 수정하는데 사용됨 ) 
+      - // 프레퍼런스 객체를 수정 후, commit() 또는 apply()로 연산을 처리한다. 
+      
+    - spref = getSharedPreferences(name, MODE_PRIVATE); 
+      - // 이 함수를 통하여 SharedPrefrence 객체를 받아온다. 
+      - // 첫번째 인자에 해당하는 name은 SharedPrefrences의 이름이다. 특정이름으로 생성할 수 있고 해당 이름으로 XML파일이 생성된다.
+      - // 두번째 인자에 해당하는 mode는 읽고 쓰기 권한에 관련된 인자로 MODE_PRIVATE일 시 나만 쓰고 읽을 수 있다.
+      
+    - String temp1 = spref.getString("editText01", "1");
+      - // 첫번째 인자값은 put 함수의 프레퍼런스를 구별하기 위한 key, 두번째 인자값을 defValue 값을 의미한다. 
+      - // defValue란 기본 값을 가져오는 것을 말한다. 
+      - // editText01이란 key값을 가진 것의 값이 없으면 1이라는 값을 temp1에 저장을 한다. 
+      - // editText01이란 key값을 가진 것에 사용자가 입력한 값이 있다면 사용자가 입력한 값을 temp1에 저장한다. 
+        
+    - editor = spref.edit();
+      - // SharedPreferences의 값을 수정하기 위해 Editor 객체를 얻는 것 
+      - // commit() 과 apply()를 호출하여 값을 저장할 수 있다. 
+      
+    - editor.putString("editText01", txt01);
+      - // 프레퍼런스를 구분하기 위한 key값이다. 
+      - // put 함수를 사용하여 문자열을 저장하는 코드 인자값은 ( key, value ) 를 의미한다. 
+      - // "editText01"이라는 키로 txt01에 저장된 문자열 값을 SharedPreferences에 저장하는 것 
+      
+    - eidtor.apply();
+      - // put 함수만 써서는 값이 반영이 되지 않는다. ( apply() 나 commit()을 해줘야 한다. ) 
+      - // 리턴값이 void
+      - // apply()를 사용해도 되지만 commit()을 사용해도 상관없다. ( commit()은 리턴 값이 boolean이다. ) 
+      
+    -  editor.remove("editText01");
+      - // 프레퍼런스의 값을 삭제한다.
+      - // key값이 "editText01" 인것의 값을 삭제한다.
+      - // 이후에 editor.apply();를 해줘야 삭제된 값이 적용이 된다. 
+       
+    
+- 기능/실습 7 
+  - 액티비티 간의 실행, 데이터 전달, 수정 등의 작업이 수행될 때 필수적인 데이터 저장 관리를 위함 
+  - 메모장과 같이 작성한 내용을 저장할 수 있도록 함 
+  
+  - 레이아웃 작성 
+    - GuidLine 만들기 
+      <androidx.constraintlayout.widget.Guideline
+           android:id="@+id/h_gline"                        // 가이드 라인 ID 선언 
+           android:layout_width="wrap_content"              // 가이드 라인 가로 길이 
+           android:layout_height="wrap_content"             // 가이드 라인 세로 길이 
+           android:orientation="horizontal"                 // 가이드라인 방향 ( 가로 : horizontal, 세로 : vertical )
+           app:layout_constraintGuide_percent="0.20" />     // 가이드 라인 위치 ( 위에 기준으로 20퍼 위치 ) 
+    
+    
+  - 코드 작성
+    - private  static final String LOCAL_FILE = "memo_data.txt";
+      - // 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
