@@ -393,9 +393,47 @@
          
     -  <item android:id="@+id/item1" android:title="Menu1" app:showAsAction="always"
             android:icon="@drawable/outline_dashboard_white_48"/>
-        <item android:id="@+id/item2" android:title="Menu2" app:sho
       
       - // 아이템을 생성하는 코드
       - // 아이템에 디자인을 입히기 위해서는 icon=" 경로 " 를 사용해서 이미지를 입힌다. 
-      - // 폴더의 위치가 res와 같을 경우에는 @로 바로 접근이 가능하고 만약 다른 쪽에서 접근한다면 R.id로 접근해야한다. 
+      - // 폴더의 위치가 res와 같을 경우에는 @로 바로 접근이 가능하고 만약 다른 쪽에서 접근한다면 R. 으로 접근해야한다. 
+      - // app:showAsAction="always" => 항상 액션아이템으로 표시하겠다.
+      - // 이렇게 하면 메뉴의 목차들이 밖으로 나오게 된다. ( 기본은 text 형식이다 ) 
+      
+      - // setShowAsAction() 
+      - 옵션 속성 
+        - // never : 항상 액션 아이템으로 표시하지 않음 ( 기본값 ) 
+        - // ifRoom : 액션 아이템을 표시할 수 있는 공간이 있다면 액션 아이템을 표시함
+        - // withText : 메뉴 항목의 텍스트를 함께 액션 아이템으로 표시 
+        - // always : 항상 액션 아이템으로 표시 
+      
+    - getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      - // 뒤로가기 버튼을 활성화 할꺼냐 true면 활성화 false면 활성화 하지 않겠다는 의미 
     
+    - getSupportActionBar().setDisplayShowTitleEnabled(false);
+      - // 액션바 라든가 Toolbar 에 title을 표시하겠냐 true면 활성화 false면 비활성화 
+        
+    - getSupportActionBar().setHomeAsUpIndicator(R.drawable.outline_list_white_24);
+      - // 뒤로가기 버튼에 내가 원하는 이미지를 넣기위한 로직 
+      - // res와 다른 폴더인 java 폴더에 있는 스크립트이기 때문에 R. 으로 접근하여 이미지를 가져온다.
+      
+    - getMenuInflater().inflate(R.menu.option_menu1,menu);
+      - // option_menu1.xml 이라는 스크립트를 불러온다. 
+      - // onCreateOptionMenu() 메소드에서 작성하고 실행한다. 
+      - // 어플 실행시 처음으로 호출이 된다. 
+      - // invalidateOptionsMenu() 메소드 실행시 onCreateOptionMenu() 메소드가 실행이 된다. 
+      - // ( res 폴더에 있는 menu 폴더에 있는 option_menu1.xml 스크립트를 가져옴, android.view.Menu ) 
+    
+    - invalidateOptionsMenu() 를 실행한다.
+      - // onCreateoptionMenu를 바꾸는 방법 ( flag만 바뀌면 숫자만 바뀌고 메뉴바는 바뀌지 않는다. )
+      - // 위 함수를 불러와야 menu 화면을 변경할 수 있다. 
+      
+    
+
+
+
+
+
+
+
+
