@@ -390,6 +390,12 @@
         
         - // Theme.MaterialComponents.DayNight.NoActionBar 이렇게 NoActionBar를 사용하면 
         - // 기본으로 설정 되어있는 액션바가 사라지고 내가 xml에 디자인한 ToolBar가 최상단으로 올라간다. 
+         
+    -  <item android:id="@+id/item1" android:title="Menu1" app:showAsAction="always"
+            android:icon="@drawable/outline_dashboard_white_48"/>
+        <item android:id="@+id/item2" android:title="Menu2" app:sho
       
-    
+      - // 아이템을 생성하는 코드
+      - // 아이템에 디자인을 입히기 위해서는 icon=" 경로 " 를 사용해서 이미지를 입힌다. 
+      - // 폴더의 위치가 res와 같을 경우에는 @로 바로 접근이 가능하고 만약 다른 쪽에서 접근한다면 R.id로 접근해야한다. 
     
