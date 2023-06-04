@@ -13,7 +13,7 @@
       - 값에 이름을 부여하여 저장 
       - 환경설정에 유용 
     - 주요 메소드 
-      - SaredPreferences 인터페이스 
+      - SharedPreferences 인터페이스 
         - getSharedPreferences() 
           - 에 의해 반환된 프레퍼런스 객체를 접근/수정 제공 
         - SharedPreferences.Editor editor = pref.edit() 
