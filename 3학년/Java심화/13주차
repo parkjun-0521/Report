@@ -37,4 +37,38 @@
     - 생성자에 파일 경로명을 주어 File 객체 생성  : File f = new File(" 경로 ");
     - 디렉터리와 파일명을 나누어 생성자 호출       :  File f = new File("경로", "파일명" );
     
-  - 
+
+- 람다식
+  - 람다식은 JAVA8에 도입된 문법으로 익명 함수 
+  - 객체 지향 언어보다는 함수 지향 언어에 가까움 
+  
+- 매개변수로 정수를 받아 출력 ( 두가지 방법 ) 
+  - (int x, int y) -> { System.out.println(x + y); }
+  - (x, y) -> System.out.println(x + y);
+  
+- Return 문을 가징 람다식 
+  - (x, y) -> { return x + y; }   // { } 생략 안됨 
+  - (x, y) -> x + y;
+  
+- 람다식은 함수형 인터페이스를 구현하는 객체임 
+  - 함수형 인터페이스 작성 
+    - 함수형 인터페이스랑 추상 메소드 하나만 있는 인터페이스 
+    - 람다식은 추상 메소드가 반드시 하나만 있어야 한다. 
+    
+  - 함수형 인터페이스의 추상 메소드를 람다식으로 구현
+    - 함수형 인터페이스 변수 = 람다식; 
+    - (x, y) -> { return x + y; }
+    - MyFunction f = (x, y) -> { return x + y; } 
+    - int calc(int x, int y) { return x + y; } 
+    
+    - 람다식 호출 
+      - System.out.println(f.calc(1, 2));
+  
+  
+  
+  
+  
+  
+  
+  
+  
