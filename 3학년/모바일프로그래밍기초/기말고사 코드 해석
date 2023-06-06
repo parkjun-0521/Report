@@ -1,0 +1,347 @@
+- 0606
+- 기말 코드 해석 
+
+// 프레퍼런스를 사용하기 위한 객체 생성 
+SharedPreferences spref;
+
+// 데이터를 수정하기 위한 Editor 객체 가져오기 
+// 데이터를 수정 변경 하고 commit(), apply()를 하기 위해서 Editor 객체 생성 
+SharedPreferences.Editor editor;
+
+// EditText를 레이아웃에 연결 
+edit01 = (EditText) findViewById(R.id.editText01);
+
+// 버튼을 클릭이벤트와 연결 
+btn01.setOnClickListener(this);
+
+// SharedPreferences 객체를 가져온다. 
+// Mode를 Private로 설정 하여 앱에서 나만 볼 수 있도록 설정한다. 
+// name이 gpref로 xml파일 이름이 gpref로 만들어진다.
+spref = getSharedPreferences("gpref",MODE_PRIVATE);
+
+// SharedPreferences의 객체를 수정하고 변경하기 위해서 editor 객체를 가져온다.
+editor = spref.edit();
+
+// temp1 변수에 텍스트를 할당한다. 
+// 첫번째 인자는 id를 의미한다. editText01 이라는 id의 값을 가져온다. 
+// 두번째 인자는 가져올 text가 없을 때 기본으로 가져오는 text로 여기서는 1을 가져온다.
+String temp1 = spref.getString("editText01", "1");
+
+// put 함수는 데이터를 가져온다.
+// 첫번째 인자인 id는 editText01로 지정 
+// 두번째 인자인 value는 text01이라는 String 변수의 값을 가져온다. 
+editor.putString("editText01", text01);
+
+// 가져온 값을 반영하기 위해서 작성하는 코드이다.
+// 수정하거나 삭제할 때 꼭 작성해줘야 값이 반영이된다. 
+// apply() 또는 commit()을 사용하여 값을 반영한다. 
+editor.apply();
+
+// id가 editText01인 것의 값을 삭제한다. 
+// 이후에 editor.apply() 를 해주어야 값이 반영이 된다. 
+editor.remove("editText01");
+
+
+// 가이드라인을 그리는 xml 스크립트 코드 
+// id가 h_gline 
+// 가로, 세로 길이를 개발자가 지정한 만큼으로 지정 
+// orientation 을 horizontal로 지정하여 가로로 가이드 라인이 그려진다. vertical은 세로로 가이드 라인을 그린다. 
+// 위에서 부터 20퍼 위치에 선을 그린다. 
+<androidx.constraintlayout.widget.Guideline
+        android:id="@+id/h_gline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.20"
+/>
+
+// 상수로 시스템 내에 파일 경로를 지정한다. 
+private  static final String LOCAL_FILE = "memo_data.txt";
+
+// 입력스트림의 최상위 클래스 객체 생성
+InputStream in;
+
+// Reader 스트림에 버퍼 기능을 추가한 입력 스트림 객체 생성
+BufferedReader reader;
+
+
+// in이 열수 있는 파일이 있으면 해당 파일의 입력 스트림을 가져와서 할당 
+// 없다면 원시 리소스 파일인 raw_data 라는 파일의 입력 스트림을 가져와서 할당 
+try{
+      in = openFileInput(LOCAL_FILE);
+} catch (FileNotFoundException e){
+      in = getResources().openRawResource(R.raw.raw_data);
+}
+
+// in 이 가지고 있는 입력스트림을 UTF-8 인코딩으로 읽을 수 있는 BufferedReader 객체인 reder를 생성 
+reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+
+// edit01 오브젝트에 s가 가지고 있는 값을 추가 
+edit01.append(s);
+
+// 안드로이드의 생명주기에 해당하는 onPause() 메소드를 오버라이드 하여 가져온다. 
+protected void onPause() {
+}
+
+// 파일에 내용이 하나도 적혀 있지 않으면 해당 경로에 있는 파일을 삭제해라 
+if(s.length() == 0){
+    deleteFile(LOCAL_FILE);
+    return;
+}
+
+// 출력 객체 선언 
+//LOCAL_FILE 의 경로에 있는 파일에 대한 출력 스트림을 반환 
+OutputStream out = openFileOutput(LOCAL_FILE, MODE_PRIVATE);
+
+// out이라는 객체를 문자열 기반 출력 스트림으로 변환, UTF-8로 반환하여 writer 객체에 할당 
+PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+
+// 문자열 s를 출력스트림에 추가 
+writer.append(s);
+
+// 출력 스트림을 닫는다. 
+writer.close();
+
+// Toast는 작은 메시지 창을 띄워주는 함수이다.
+// 띄워줄 메시지는 onClick 이라는 문자열이다. 
+// 메시지의 길이는 LENGTH_LONG으로 지정 SHORT도 있다. 
+// .show로 보여준다. 
+Toast.makeText(this, "onClick", Toast.LENGTH_LONG).show();
+
+// 롱클릭 이벤트 작성 
+// 롱클릭시 onLongClick 메시지를 띄워준다. 
+// 이후에 추가적인 이벤트를 호출하지 않기 위해서 
+// return 값을 false가 아닌 true로 하여 이후 이벤트를 실행 시키지 않는다. 
+@Override 
+public boolean onLongClick(View v) {
+  Toast.makeText(this, "onLongClick", Toast.LENGTH_LONG).show();
+  return true;
+}
+
+// 마우스가 가리키는 위치가 달라졌을 때 발생하는 이벤트 ( 포커스 이벤트 ) 
+// hasFocus는 이벤트 리스너가 등록되어있는 오브젝트의 상태를 가져오는것 ( 해당 오브젝트가 마우스에 의해 활성화 되었을 때 )  
+// else문은 오브젝트가 활성화 되지 않았을 경우 
+@Override
+public void onFocusChange(View v, boolean hasFocus) {
+  String s = "";
+  if(hasFocus) {
+    ((EditText) v).setText("");
+  } else {
+    s = edit01.getText().toString();
+    edit01.setText(s + " + focus change");
+  }
+}
+
+// onKeyDown 메소드는 뒤로가기 버튼을 제어하는데 필요한 메소드이다. 
+// 어디서든 뒤로가기 버튼을 누르면 동작을 한다.
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+  Toast.makeText(this, "키를눌렀음", Toast.LENGTH_LONG).show();
+  return super.onKeyDown(keyCode, event);
+}
+
+// 뒤로가기 버튼을 눌렀을 때 그것의 기능을 제어하기 위한 메소드이다. 
+// 내부의 super.onBackPressed();를 주석 처리할 경우 
+// 뒤로가기 버튼을 눌러도 동작하지 않는다. 
+@Override
+public void onBackPressed() {
+  super.onBackPressed();
+}
+
+
+// 터치 이벤트 작성 
+// ACTION_DOWN 는 마우스를 눌렀을 때, ACTION_MOVE는 마우스르 누르고 움직였을 때, ACTION_UP는 마우스를 때었을 때 동작하는 로직이다. 
+// int x = (int)event.getX(); 는 상대 좌표를 의미한다. ( 해당 이벤트가 등록이된 오브젝트의 왼쪽 상단이 0, 0 즉, 기준점이 된다 ) 
+// int rawX = (int)event.getRawX(); 는 절대 좌표를 의미한다. ( 해당 애뮬레이터의 왼쪽 상단이 0, 0 기준점이 된다. ) 
+@Override
+public boolean onTouch(View v, MotionEvent event) {
+  if(event.getAction() == MotionEvent.ACTION_DOWN) {
+    return true;
+  }
+  if(event.getAction() == MotionEvent.ACTION_MOVE) {
+    int x = (int)event.getX();
+    int y = (int)event.getY();
+
+    int rawX = (int)event.getRawX();
+    int rawY = (int)event.getRawY();
+
+    return true;
+  }
+  if(event.getAction() == MotionEvent.ACTION_UP) {
+    return true;
+  }
+  return false;
+}
+
+// 웹뷰를 사용하기 위해서는 인터넷의 권한을 부여해주어야 한다. 
+// uses-permission는 권한을 부여하는 것이고 
+// android.permission.INTERNET는 인터넷의 권한을 말한다. 
+<uses-permission android:name="android.permission.INTERNET"/>
+
+// 웹뷰에서 파일을 다운로드 하기 위해서 부여해줘야할 권한이다. 
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+// 웹뷰의 오류를 잡아줄 코드 한줄 ( 내부적인건 정확히 모르겠음 ) 
+android:usesCleartextTraffic="true"
+
+// 웹뷰의 기본 기능을 변경하기 위해서 WebViewClient 클래스를 사용
+web01.setWebViewClient(new WebViewClient());
+
+// 웹뷰에서 자바스크립트 기능 허용 여부 ( true : 허용, false : 비허용 ) 
+web01.getSettings().setJavaScriptEnabled(true);
+
+// 웹뷰에 줌 기능을 사용하겠다. 
+web01.getSettings().setBuiltInZoomControls(true);
+
+// 캐시 제거가 필요한 경우 
+web01.clearCache(true);
+
+// 웹 페이지가 항상 캐시 없이 서버에서 새로운 데이터를 가져오도록 동작 
+web01.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+
+// 필요에 따라 기타 추가 설정
+web01.clearHistory();
+
+// 다운로드 리스너 설정
+web01.setDownloadListener(this);
+
+// 웹뷰의 URL 지정
+web01.loadUrl("http://www.naver.com");
+
+// 뒤로가기 버튼을 눌렀을 때 동작하는 메소드
+// 뒤로가기 버튼을 누르고 현재 웹뷰가 뒤로갈 수 있는 상태라면 goBack() 메소드로 뒤로가기 
+@Override
+public boolean onKeyDown(int keyCode, KeyEvent event) {
+  if((keyCode == KeyEvent.KEYCODE_BACK) && web01.canGoBack()){
+    web01.goBack();
+    return true;
+  }
+  return super.onKeyDown(keyCode, event);
+}
+
+// JAVA 파일에서 메뉴바 만들기 
+// onCreateOptionsMenu 메소드와 onOptionsItemSelected 메소드는
+// 메뉴바를 만들 때 꼭 필요한 메소드이다. 
+public boolean onCreateOptionsMenu(Menu menu) {
+  return super.onCreateOptionsMenu(menu);
+}
+ public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+  return super.onOptionsItemSelected(item);
+}
+
+// 메뉴 만들기 
+// 인자는 ( 그룹번호, ItemID, 순서, Text ) 
+// 그룹번호는 보통 0을 많이 사용한다. 
+// ItemID는 다른 것과 겹치면 안된다. 
+// 3번째 인자는 화면에서 보여질 때 나오는 순서를 말한다. 0부터 위쪽에 나온다. 
+// 4번째 인자는 메뉴바의 Text에 해당한다. 
+menu.add(0, 1, 2, "메뉴1");
+menu.add(0, 2,0,"메뉴2");
+
+// 서브 메뉴 만들기 
+// 서브 메뉴바의 Text는 sub Menu 이다. 
+// 서브 메뉴에도 add 함수를 이용하여 추가적인 메뉴바를 붙인다. 
+// 서브 메뉴의 인자 값도 Menu와 동일 
+SubMenu etc = menu.addSubMenu("sub Menu");
+etc.add(0,4,1,"sub Menu1");
+
+// case에 적인 숫자는 메뉴바의 ItemId에 해당한. 
+// 여기에 각 메뉴바의 동작 로직을 적어주면 된다. 
+// if문으로 구현해도 된다. 
+// 현재는 각 메뉴 버튼을 눌렀을 때 Toast 로 메시지만 띄워주도록 하였다. 
+switch(item.getItemId()){
+  case 1 :
+    Toast.makeText(this, "1번", Toast.LENGTH_SHORT).show();
+    break;
+  case 2 :
+    Toast.makeText(this, "2번", Toast.LENGTH_SHORT).show();
+    break;
+  case 3 :
+    Toast.makeText(this, "3번", Toast.LENGTH_SHORT).show();
+    break;
+}
+
+
+// themes.xml 에 새로운 style을 만들었을 때 
+// name은 겹치지 않도록 작성한다.
+// NoActionbar를 사용하면 안드로이드 화면의 기본적인 액션바가 사라진다. 
+// 이 style을 적용시키고 싶다면 AndroidManifest 파일에서 적용 시켜줘야 한다. 
+<style name="Theme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar"> </style>
+
+// AndroidManifest 파일에서 theme 부분의 style을 교체해주어야 한다. 
+android:theme="@style/Theme.NoActionBar"
+
+// XML로 툴바 만들기 
+<androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+// XML로 메뉴만들기 
+// always 속성은 메뉴를 밖으로 항상 빼 놓기 위해서 사용한다. 
+// 보통은 메뉴가 들어가 있는데 always를 사용하면 툴바 위로 메뉴가 바로 올라온다. 
+// res 에서 우클릭으로 menu를 만들어서 거기서 코딩한다. 
+<item android:id="@+id/item1" android:title="Menu 1" app:showAsAction="always"/>
+
+// 툴바 사용 설정 ( 내가 설정한 툴바를 사용하겠다. 레이아웃에 등록 시키는 것 )
+setSupportActionBar(toolbar);
+
+// title에 적혀 있는 Text를 지우겠다. 
+getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+// 툴바에 뒤로가기 버튼을 추가 
+getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+// 메뉴바를 만들기 위해서 필요한 메소드이다. 
+// getMenuInflater().inflate(R.menu.main_options, menu);
+// XML로 메뉴를 만들 때 작성해 주는 로직 
+// 다른 객체의 메소드를 불러올때 사용된다. 
+// 내가 직접 만든 메뉴를 사용하기 위해서 사용 
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+  getMenuInflater().inflate(R.menu.main_options, menu);
+  return super.onCreateOptionsMenu(menu);
+}
+
+// 메뉴바를 선택하였을 때 동작하는 로직을 작성하기 위해서 필요한 메소드 이다. 
+// id 로 선택한 아이템의 id값을 가져와서 아이템을 판별한다. 
+// if으로 분기를 나눠서 각각 아이템의 동작을 제어한다.
+public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+  int id = item.getItemId();
+  if(id == android.R.id.home){
+    Toast.makeText(this, "메뉴 버튼입니다.", Toast.LENGTH_SHORT).show();
+  }
+  if(id == R.id.item1){
+    Toast.makeText(this, "item1", Toast.LENGTH_LONG).show();
+  }
+  return super.onOptionsItemSelected(item);
+}
+
+// XML 메뉴 스크립트로 변경하는 롲기 
+// res 밑늬 menu에 있는 option_menu1 스크립트를 열어라 
+getMenuInflater().inflate(R.menu.option_menu1,menu);
+
+// 메뉴를 변경하기 위해서는 onCreateOptionMenu가 이벤트 마다 실행이 되야 바뀌는데 
+// 이벤트를 변경사항이 있을 때 마다 실행 시키는 것이 이 메소드 이다. 
+// 시스템이 onCreateOptionsMenu() 를 호출하도록 요청함
+invalidateOptionsMenu();
+
+
+
+
+
+
+
+
+
+
+
+
