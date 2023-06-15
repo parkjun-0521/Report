@@ -1,11 +1,11 @@
 - 0606
 - 기말 코드 해석 
 
-// 프레퍼런스를 사용하기 위한 객체 생성 
+// 프레퍼런스를 사용하기 위해 객체 선언 
 SharedPreferences spref;
 
 // 데이터를 수정하기 위한 Editor 객체 가져오기 
-// 데이터를 수정 변경 하고 commit(), apply()를 하기 위해서 Editor 객체 생성 
+// 데이터를 수정 변경 하고 commit(), apply()를 하기 위해서 Editor 객체 선언
 SharedPreferences.Editor editor;
 
 // EditText를 레이아웃에 연결 
@@ -112,6 +112,7 @@ Toast.makeText(this, "onClick", Toast.LENGTH_LONG).show();
 // 롱클릭시 onLongClick 메시지를 띄워준다. 
 // 이후에 추가적인 이벤트를 호출하지 않기 위해서 
 // return 값을 false가 아닌 true로 하여 이후 이벤트를 실행 시키지 않는다. 
+// 이후의 값은 클릭이벤트에서 마우스를 때었을 때 발생하는 이벤트인데 이것을 동작시키지 않는다. 
 @Override 
 public boolean onLongClick(View v) {
   Toast.makeText(this, "onLongClick", Toast.LENGTH_LONG).show();
@@ -200,7 +201,7 @@ web01.clearCache(true);
 // 웹 페이지가 항상 캐시 없이 서버에서 새로운 데이터를 가져오도록 동작 
 web01.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-// 필요에 따라 기타 추가 설정
+// 히스토리 제거 
 web01.clearHistory();
 
 // 다운로드 리스너 설정
