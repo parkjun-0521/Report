@@ -459,3 +459,218 @@ public class TextCopy {
       fo.close();
       System.out.print("파일을 복사하였습니다");
     }
+
+
+==========================================================================================================
+- 네트워크 
+- TCP/IP 프로토콜 
+  - 두 시스템 간에 신뢰성 있는 데이터의 전송을 관장하는 프로토콜 
+
+- IP 
+  - 패킷 교환 네트워크에서 송신 호스트와 수신 호스트가 데이터를 주고 받는 것을 관장하는 프로토콜 
+  - TCP보다 하위 레벨 프로토콜 
+
+- IP 주소 
+  - 네트워크 상에서 유일하게 식별될 수 있는 컴퓨터 주소 
+  - 숫자로 된 주소는 기억하기 어려우므로 도메인 이름으로 바꿔서 사용 
+  - 현재는 32비트의 IP 버전4 가 사용되고 있음 
+    - IP 주소 고갈로 인해 128비트의 IP 버전6 이 점점 사용되는 추세 
+
+  - 내 컴퓨터 IP 주소 확인 
+    - ipconfig 명령 수행 
+
+- 포트 
+  - 통신하는 프로그램 간에 가상의 연결단 포트 생성  
+    - IP 주소는 네트워크 상의 컴퓨터 또는 시스템을 식별하는 주소 
+    - 포트번호를 이용하여 통신할 응용프로그램 식별 
+  - 모든 응용프로그램은 하나 이상의 포트 생성 가능
+    - 포트를 이용하여 상대방 응용프로그램과 데이터 교환 
+
+- 소켓 프로그래밍 
+  - TCP/IP 네트워크를 이용하여 쉽게 통신 프로그램을 작성하도록 지원하는 기반 기술 
+  - 소켓 
+    - 두 응용프로그램 간의 양방향 통신 링크의 한쪽 끝 단 
+    - 소켓끼리 데이터를 주고받음
+    - 소켓은 특정 IP 포트 번호와 결합 
+  - 자바로 소켓 통신할 수 있는 라이브러리 지원 
+  - 소켓 종류 : 서버 소켓과 클라이언트 소켓 
+
+============================================================================================================
+- 클라리언트에서 소켓으로 서버에 접속하는 코드 
+  - 클라이언트 소켓 생성 및 서버에 접속 
+    - Socket clientSocket = new Socket("128.1.1.1", 5555);
+    - 소켓 객체가 생성되면 곧 바로 128.1.1.1의 IP 주소의 5555포트에 자동으로 접속 
+
+  - 소켓으로부터 데이터를 전송할 입출력 스트림 생성 
+    - BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+    - BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+
+  - 서버로 데이터 전송 
+    - out.write("hello" + "\n");
+    - out.flush();
+      - flush()를 호출하면 스트림 속에 데이터를 남기지 않고 모두 전송 
+
+  - 서버로부터 데이터 수신 
+    - String line = in.readline(); 
+
+  - 네트워크 접속 종료 
+    - clientSocket.close();
+============================================================================================================
+- 서버가 클라이언트와 통신하는 과정 
+  - 서버 소켓 생성 
+    - ServerSocket serverSocket = new ServerSocket(5555);
+
+  - 클라이언트로부터 접속 기다림 
+    - Socket socket = serverSocket.accept();
+
+  - 네트워크 입출력 스트림 생성 
+    - BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    - BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+------- 실시간 체팅 프로그래밍1 ( PPT에서 빈칸 코딩하기 ) -------
+// 포트번호 9999의 서버 소켓 생성 
+ServerSocket serverSocket = new ServerSocket(9999);
+
+// 클라이언트로부터 연결 요청 대기 
+Socket socket = serverSocket.accept();
+
+// 클라이언트 소켓 생성, 서버에 연결 
+Socket clientSocket = new Socket("128.1.1.1", 9999);
+
+// 네트워크 입출력 스트림 생성 
+in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+
+------- 실시간 체팅 프로그래밍2 ( PPT에서 빈칸 코딩하기 ) -------
+// 서버 소켓 생성
+// 클라이언트로부터 연결 요청 대기
+ServerSocket serverSocket = new ServerSocket("내 PC IP주소", 9999);
+Socket socket = serverSocket.acept();
+
+// 클라이언트로부터의 입력 스트림
+// 클라이언트로의 출력 스트림
+BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+BufferedWriter out = new BufferedWriter(new OutputStreamReader(socket.getOutputStream()));
+
+// 상대로부터 한 행의 문자열 받기
+msg = in.readLine(); 
+
+// 문자열 전송
+out.write(msg+"\n"); 
+
+- 자바의 람다식 
+  - 람다식 이란 
+  - ( ) -> { /*함수 코드 작성*/ } 
+  - ( ) : 매개변수 리스트
+  - -> : 화살표 연산자 
+  - { } : 함수의 바디 
+
+- (int age) -> { System.out.println(age); }
+- (age) -> { System.out.ptintln(age); }      // 자료형 생략 
+- age -> System.out.ptintln(age);            // () 와 {} 생략 
+
+- (int x, int y) -> { System.out.ptintln(x, y); }
+- ( x, y ) -> System.out.ptintln(x,y);
+
+- return 문을 가진 람다식 
+- (x, y) -> { return x + y; }   // 합을 리턴 하는 람다식 
+- (x, y) -> return x + y;       // 오류 발생 ( {} 는 생략할 수 없다 )  
+- (x, y) -> x + y;              // return 생략 가능 
+
+
+- 람다식 만들고 호출하기 
+  - 람다식은 함수형 인터페이스를 구현한 객체임 
+  - 함수형 인터페이스란 추상 메소드가 하나만 있는 인터페이스 
+    - interface MyFunction {
+        int calc(int x, int y);
+      }
+  - 함수형 인터페이스의 추상 메소드를 람다식으로 구현 
+    - ( x, y ) -> { return x + y; } 
+    - MyFunction f = ( x, y ) -> { return x + y; } 
+    - int calc(int x, int y) { return x + y; }
+
+  - 람다식 호출 
+    - System.out.println(f.calc(1,2));
+
+=============================================================================
+interface MyFunction {
+  int calc(int x, int y);
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    MyFunction add = ( x, y ) -> { return x + y; };
+    MyFunction minus = ( x, y ) -> { return x - y; };
+
+    System.out.println(add.calc(1,2));          // 결과 3
+    System.out.println(minus.calc(1,2));        // 결과 -1
+  }
+}
+=============================================================================
+interface MyFunction {
+  int calc(int num);
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    MyFunction sqare = ( x ) -> { return x * x; };
+    System.out.println(sqare.calc(2));     
+  }
+}
+=============================================================================
+interface MyFunction {
+  int calc(int num);
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    MyFunction sqare = ( x ) -> { 
+      int result = x;
+      for ( int i = x - 1; i > 0; i--){
+        result = result * i;
+      }
+      return result;
+    };
+    System.out.println(sqare.calc(5));     
+  }
+}
+=============================================================================
+interface MyFunction {
+  int print();
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    MyFunction a = ( ) -> { System.out.print("안녕"); };
+    a.print();     
+    a = () -> System.out.println("반가워");
+    a.print();  
+  }
+}
+=============================================================================
+interface MyFunction {
+  int calc(int num1, int num2);
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    printMultiply(3,4, (x,y)->x*y);
+  }
+  static void printMultiply( int x, int y, MyFunction f){
+    System.out.println(f.calc(x,y));
+  }
+}
+=============================================================================
+@FunctionalInterface
+interface MyFunction {
+  int calc(int num1, int num2);
+}
+// 컴파일러에세 함수형 인터페이스를 작성을 알릴수 있다. 
+=============================================================================
+interface MyFunction<T> {
+  int print(T x);
+}
+public class LambdaEx1 {
+  public static void main(String[] args) {
+    MyFunction<String> a1 = (x) -> { System.out.print(x.toString()); };
+    a1.print("안녕하세요");     
+
+    MyFunction<Integer> a2 = (x) -> { System.out.print(x.toString()); };
+    a2.print(Integer.valueOf(100));       
+  }
+}
