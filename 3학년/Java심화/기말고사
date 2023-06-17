@@ -1,0 +1,461 @@
+- 0617
+- 기말고사 정리
+
+- JDBC 데이터 변경  
+  - 레코드 추가 : stmt.executeUpdate("insert into studen ( name, id, dept ) values ( '아무개', '123456', '컴퓨터공학');");
+  - 데이터 수정 : stmt.executeUpdate("update student set id='123456' where name='아무개'");
+  - 레코드 삭제 : stmt.executeUpdate("delete from student where name='아무개'");
+
+- 자바 스레드의 기초 
+  - TimerThread 상속 
+  - TimerThread th = new TimerThread(timerLable);
+  - th.start(); 
+
+  - class TimerThread extends Thread {
+      JLabel timerLabel;
+      public TimerTread(JLabel timerLabel){
+        this.timerLabel = timerLabel;
+      }
+
+      public void run(){
+        int n = 0;
+        while(true){
+          timerLabel.setText(Integer.toString(n));
+          n++;
+          try{
+            Thread.sleep(1000);  // 1초 뒤에 실행할 수 있도록 간격을 준다. 
+          } catch(InteruptedException e) { return e; }
+        }
+      }
+    }
+
+  - Runnable 인터페이스 
+  - TimerRunnable runnable = new TimerRunnable(timerLabel);
+  - Thread th = new Thread(runnable);
+  - th.start();
+
+  - class TimerRunnable implements Runnable { 
+      JLabel timerLabel;
+      public TimerTread(JLabel timerLabel){
+        this.timerLabel = timerLabel;
+      }
+
+      public void run(){
+        int n = 0;
+        while(true){
+          timerLabel.setText(Integer.toString(n));
+          n++;
+          try{
+            Thread.sleep(1000);  // 1초 뒤에 실행할 수 있도록 간격을 준다. 
+          } catch(InteruptedException e) { return; }
+        }
+      }
+    }
+
+- main 스레드 확인과 스레드 정보를 알아내는 코드 
+- public class ThreadMainEx {
+    public static void main(String[] args) {
+      long id = Thread.currentThread().getId();
+      String name = Thread.currentThread().getName();
+      int priority = Thread.currentThread().getPriority();
+      Tread.State s = Thread.currentThread().getState();
+
+      System.out.println("현재 스레드 이름 : " + name );
+      System.out.println("현재 스레드 ID : " + id );
+      System.out.println("현재 스레드 우선순위 값 : " + priority );
+      System.out.println("현재 스레드 상태 : " + s );
+    }
+  }
+
+- 스레드 종료와 타 스레드 강제 종료 ( th.interrupt(); ) 
+  - Thread th;
+  - // 마우스의 클릭이 있을 경우 처리 
+  - if(!th.isAlive())
+      return;
+    th.interrupt();
+  - th = new Thread(this);
+  - th.start();
+  
+  - public void run() {
+      Random r = new Random();
+      while(true){
+        try{
+          Thread.sleep(20); // 0.02초 
+        } catch(InteruptedException e) { return; }
+        // x,y 좌표 변하는 로직 작성 하면됨 
+      }
+    }
+
+- Synchronization ( 동기화 ) 
+  - synchronized 키워드로 동기화 블록 지정 
+  - wait()-notify() 메소드로 스레드의 실행 순저 제어 
+
+- wait()-notify() 예제 
+  class MyLabel extends JLabel {
+  	int barSize = 0; // 바의 크기
+  	int maxBarSize;
+  	
+  	MyLabel(int maxBarSize) { 
+  		this.maxBarSize = maxBarSize;
+  	}
+  	
+  	public void paintComponent(Graphics g) {
+  		super.paintComponent(g);
+  		g.setColor(Color.MAGENTA);
+  		int width = (int)(((double)(this.getWidth()))/maxBarSize*barSize);
+  		if(width==0) return; 
+  		g.fillRect(0, 0, width, this.getHeight());
+  	}
+  	
+  	synchronized void fill() {
+  		if(barSize == maxBarSize) {
+  			try {
+  				wait(); 
+  			} catch (InterruptedException e) { return; }
+  		}
+  		barSize++;
+  		repaint(); // 바 다시 그리기
+  		notify(); 
+  	}
+  	synchronized void consume() {
+  		if(barSize == 0) {
+  			try {
+  				wait(); 
+  			} catch (InterruptedException e)
+  				 { return; }
+  		}
+  		barSize--;
+  		repaint(); // 바 다시 그리기
+  		notify(); 
+  	}	
+  }
+  
+  class ConsumerThread extends Thread {
+  	MyLabel bar;
+  	
+  	ConsumerThread(MyLabel bar) {
+  		this.bar = bar;
+  	}
+  	public void run() {
+  		while(true) {
+  			try {
+  				sleep(200);
+  				bar.consume(); 
+  			} catch (InterruptedException e)
+  			 { return; }
+  		}
+  	}
+  }
+  public class TabAndThreadEx  extends JFrame {
+  	MyLabel bar = new MyLabel(100); 	
+  	TabAndThreadEx(String title) {
+  		super(title);
+  		this.setDefaultCloseOperation
+  				(JFrame.EXIT_ON_CLOSE);
+  		Container c = getContentPane();
+  		c.setLayout(null);
+  		bar.setBackground(Color.ORANGE);
+  		bar.setOpaque(true);
+  		bar.setLocation(20,  50);
+  		bar.setSize(300, 20); 
+  		c.add(bar);
+  		
+  		c.addKeyListener(new KeyAdapter() {
+  			public void keyPressed(KeyEvent e) 
+  			{
+  				bar.fill(); 
+  			}
+  		});
+  		setSize(350,200);
+  		setVisible(true);
+  		
+  		c.requestFocus(); 
+  		ConsumerThread th = new ConsumerThread(bar); 
+  		th.start(); // 스레드 시작
+  	}
+  
+  	public static void main(String[] args) {
+  		new TabAndThreadEx("아무키나 빨리 눌러 바 채우기");
+  	}
+  }
+
+- 입출력 스트림과 파일 입출력 
+  - 스트림 연결 ( 여러개의 스트림을 연결하여 사용할 수 있음 ) 
+  - InputStreamReader rd = new InputStreamReader(System.in);
+  - while(true){
+      int c = rd.read();    // 입력 스트림으로부터 키 입력. c는 입력된 키 문자값 
+      if( c == -1 )         // 입력 스트림의 끝을 만나는 경우 
+        break;              // 입력 종료 
+    }
+- 문자 스트림으로 텍스트 파일 읽기 
+  - 텍스트 파일을 읽기 위해 문자 스트림 FileReader 클래스 이용 
+  - 파일 입력 스트림 생성 ( 파일 열기 ) 
+    - 스트림을 생성하고 파일을 열어 스트림과 연결 
+    - FileReader fin = new FileReader("파일 경로");
+  
+  - 파일 읽기 
+    - read()로 문자 하나 씩 파일에서 읽음 
+    - int c; 
+    - while( c = fin.read() != -1 ){  // 문자 하나씩 읽어와서 스트림의 끝이 아닌 경우에는 print로 출력 
+        System.out.print((char)c);
+      }
+
+  - 스트림 닫기   
+    - 스트림이 더 이상 필요 없으면 닫아야 함. 닫힌 스트림에서는 읽을 수 없음 
+    - close()로 스트림 닫기 
+    - fin.close();
+
+  - 파일 입출력과 예외 처리 
+    - 스트림 생성 동안 : FileNotFoundException 발생 가능 
+    - 파일 읽기, 쓰기, 닫기를 하는 동안 : IOException 발생 가능 
+
+    - try-catch 블록으로 반드시 예외처리를 해줘야 한다. 
+    - try{ 
+        FileReader fin = new FileReader("파일 경로");
+
+        int c = fin.read();
+
+        fin.close();
+      } catch(FileNoFoundException e){
+        System.out.println("파일을 열수 없음");
+      } catch(IOException e) {
+        System.out.println("입출력 오류");
+      }
+
+- FileReader로 텍스트 파일 읽기 
+public class FileReaderEx{
+  public static void main(String[] agrs){
+    FileReader in = null;
+    try{
+      in = new FileReader("파일 경로");
+      int c;
+      while((c = in.read()) != -1){
+        System.out.print((chat)c);
+      }
+      in.close();
+    } catch(IOException e){
+      System.out.println("입출력 오류");
+    }
+  }
+}
+
+- 문자 스트림으로 텍스트 파일 쓰기 
+  - 파일 출력 스트림 생성 
+    - FileWriter fout = new FileWeiter("파일 경로");
+
+  - 파일 쓰기 
+    - 문자 하나씩 파일에 기록 
+    - fout.write('A');
+
+    - 블록 단위로 쓰기 가능 
+    - char[] buf = new char[1024];
+    - fout.write(buf, 0, buf.length);  // 버퍼[0] 부터 버퍼의 크기 만큼 쓰기 
+
+  - 스트림 닫기 
+    - close()로 스트림 닫기 
+    - fout.close() 
+
+- FileWriter를 이용하여 텍스트 파일 쓰기 
+public class FileWriterEx{
+  public static void main(String[] args){
+    InputStreamReader in = new InputStreamReader(System.in);
+    Scanner s = Scanner(System.in);
+    String str; int c;
+    try{
+      FileWriter fout = new FileWriter("파일 경로");
+      while (true){
+        System.out.ptintln("아무 글이나 입력하세요");
+        str = s.nextLine();
+        if(str.equals("그만"))
+          break;
+        fout.write(str);
+        fout.write("\n");
+      }
+      in.close();
+      fout.close();
+    } catch(IOException e){
+      System.out.println("입출력 오류");
+    }
+  }
+}
+
+- 바이트 스트림으로 바이너리 파일 쓰기 
+  - 바이너리 값을 파일에 저장하기 
+    - FileOutputStream 클래스 이용 
+
+  - 파일 출력 스트림 생성 (파일 열기)
+    - FileOutputStream fout = new FileOutputStream("파일 경로");
+
+  - 파일 쓰기 
+    - write()로 문자 하나 씩 파일에 기록 
+    - byte b[] = {1,2,3,4,5,6};
+    - for(int i = 0; i < b.length; i++)
+        fout.write(b[i]);
+  
+  - 스트림 닫기 
+    - close()로 스트릴 닫기 
+
+- FileOutputStream으로 바이너리 파일 쓰기 
+public class FileOutputStreamEx {
+  public static void main(String[] args) {
+    byte b[] = {1,2,3,4,5,6};
+
+    try{
+      FileOutputStream fout = new FileOutputStream("파일 경로");
+      for(int i = 0; i < b.length; i++)
+        fout.write(b[i]);
+      fout.close();
+    } catch(IOException e){ }
+    System.out.println("파일을 저장하였습니다");
+  }
+}
+
+- 바이트 스트림으로 바이너리 파일 읽기 
+  - 파일 입력 스트림 생성( 파일 열기 ) 
+    - FileInputStream fin = new FileInputStream("파일 경로");
+
+  - 파일 읽기 
+    - read()로 문자 하나씩 파일에서 읽기 
+    int n = 0;
+    int c;
+    while((c = fin.read()) != -1){
+      b[n] = (byte)c;
+      n++;
+    }
+
+    - 블록 단위로 읽기 가능 
+    fin.read(b);
+
+  - 스트림 닫기 
+    - close()로 스트림 닫기 
+    
+- FileinputStream으로 바이너리 파일 읽기 
+public class FileInputStreamEx {
+  public static void main(String[] args) {
+    byte b[] = new byte[6];
+    try{
+      FileInputStream fin = new FileInputStream("파일 경로");
+      int n = 0;
+      int c;
+      while((c = fin.read()) != -1){
+        b[n] = (byte)c;
+        n++;
+      }
+      System.out.println("파일에서 읽은 배열을 출력합니다.");
+      for(int i = 0; i < b.length; i++)
+        System.out.print(b[i] + " ");
+      System.out.println();
+
+      fin.close();
+    } catch(IOException e) { } 
+  }
+}
+    
+- File 클래스 
+  - 파일의 경로명 및 속성을다루는 클래스 ( java.io.File ) 
+  - 파일 이름 변경, 삭제, 디렉터리 생성, 크기 등 파일 관리 
+  - File 객체에는 파일 읽기/쓰기 기능 없음 
+- File 객체 생성 
+  - 생성자에 파일 경로명을 주어 File 객체 생성 
+    - File f = new File("파일 경로 ( 파일명 포함 )");
+
+  - 디렉터리와 파일명을 나누어 생성자 호출 
+    - File f = new File("파일 경로", "파일 명");
+
+- File 클래스 활용 
+  - 파일 크기 
+    - long size = f.length();
+
+  - 파일 경로명 
+    - File f = new File("C:\\windows\\system.ini");
+    - String filename = f.getName();      // "system.ini"  파일의 이름을 리턴 
+    - String path = f.getPath();          // "C:\\windows\\system.ini"  경로명 전체를 문자열로 변환하여 리턴 
+    - String parent = f.getParent();      // "C:\\windows"  부모 디렉터리 이름 리턴 
+
+  - 파일 타입 
+    if(f.isFile())
+      System.out.println(f.getPath() + "는 파일입니다");    // 파일 
+    else if(f.isDirectory())
+      System.out.println(f.getPath() + "는 디렉터리입니다"); // 디렉터리 
+
+  - 디렉터리 파일 리스트얻기 
+    File f = new File("파일 경로");
+    File[] subfiles = f.listFiles();            // 서브 디렉터리 리스트 얻기 
+
+    for(int i = 0; i < filenames.length; i++){
+      System.out.print(subfiles[i].getName());  // 서브 파일명 출력 
+      System.out.println("\t 파일크기 : " + subfiles[i].length());  // 서브 파일크기 출력 
+    }
+
+- 텍스트 파일 복사 
+public class TextCopy {
+  public static void main(String[] args) {
+    File src = new File("원본 파일 경로명");
+    File dest = new File("복사 파일 경로명");
+    int c;
+    try {
+      FileReader fr = new FileReafer(src);
+      FileWriter fw = new FileWriter(dest);
+      while((c = fr.read()) != -1)
+        fw.write((char)c);
+
+      fr.close();
+      fw.close();
+      System.out.print("파일을 복사하였습니다");
+    } catch (IOException e) {
+      System.out.println("파일 복사 오류");
+    }
+  }
+}
+
+- 바이너리 파일 복사 
+public class TextCopy {
+  public static void main(String[] args) {
+    File src = new File("원본 바이너리파일 경로명");
+    File dest = new File("복사 바이너리파일 경로명");
+    int c;
+    try {
+      FileInputStream fi = new FileInputStream(src);
+      FileOutputStream fo = new FileOutputStream(dest);
+      while((c = fi.read()) != -1)
+        fo.write((char)c);
+
+      fi.close();
+      fo.close();
+      System.out.print("파일을 복사하였습니다");
+    } catch (IOException e) {
+      System.out.println("파일 복사 오류");
+    }
+  }
+}
+
+
+- 일반적인 복사 방법 
+ try {
+      FileInputStream fi = new FileInputStream(src);
+      FileOutputStream fo = new FileOutputStream(dest);
+      while((c = fi.read()) != -1)
+        fo.write((char)c);
+
+      fi.close();
+      fo.close();
+      System.out.print("파일을 복사하였습니다");
+    }
+
+- 빠르게 복사하는 방법 
+ try {
+      FileInputStream fi = new FileInputStream(src);
+      FileOutputStream fo = new FileOutputStream(dest);
+
+      byte[] buf = new byte[1024*10];
+      while(true){
+        int n = fi.read(buf);
+        fo.write(buf, 0, n);
+        if(n < buf.length)
+          break;
+      }
+
+      fi.close();
+      fo.close();
+      System.out.print("파일을 복사하였습니다");
+    }
