@@ -28,7 +28,42 @@
   - 데이터베이스인 경우 CusorAdapter
   - XML을 포함한 정적 데이터인 경우 SimpleAdapter 사용 
 
-  - 자바의 배열이나 java.util.List의 인스턴스를 주는 것으로 어댑터를 사용하기 위한 준비가 끝남 
+  - 자바의 배열이나 java.util.List의 인스턴스를 주는 것으로 어댑터를 사용하기 위한 준비가 끝남
 
 - 자동화 되어있는 애들을 Id가 고정이 되어있다. 
+
+- ListView ( setOnItemClicklistener() 메소드로 호출 ) 
+  - 공간이 비어있기 때문에 외부에서 데이터를 가져와서 체워넣는다. 
+  - 안드로이드에서 리스트박스를 구현하기 위하여 제공해주는 클래스 
+  - Adapter를 이용하여 데이터 연결 
+
+  - 진행 과정
+    - 레이아웃에서 ListView 추가 
+    - ListView 객체를 얻어 옴 
+    - ListView 객체로 setAdapter() 메소드의 매개변수로 화면에 출력하고자 하는 데이터를 지정하여 호출 
+      - 쉽게 말해서 setAdapter(0 메소드가 화면에 출력하고 하는 데이터를 지정하여 호출 
+    - setOnItemClicklistener() 메소드로 리스너와 연결 
+
+- 최신버전일 경우 
+  - Empty view Activity로 만들기 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
