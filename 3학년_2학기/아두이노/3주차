@@ -7,4 +7,8 @@
     - loop() 이후에 나오는 영역 
   - void setup() { },  void loop() { } 
 
-  - 
+  - Serial.begin =>   print 와 같은 출력문장이다. 
+  - 아두이노에서도 input과 output이 있으며 output은 'Serial모니터'를 의미한다. 
+
+- 변수 
+  - 변수타입 변수명 ( 일반적인 변수 선언과 동일하다 ) 
