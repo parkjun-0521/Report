@@ -2,4 +2,16 @@
 - 3주차 필기
 
 - TextMeshPro 한글 깨짐 해결 방법 
-  - 
+  - window -> TextMeshPro -> Font Asset Creator 에서 
+  - Character Sequence에 시리얼 코드 추가 
+
+- material 깨짐 현상 해결 
+  - window -> Rendering -> Render Pipeline COnverter
+  - Built-in to 설정 
+  - Rendering Settings, Material Upgrade 체크 후 Initilize -> Convert Assets 으로 적용 
+
+- 충돌 관련 이벤트 컴포넌트 
+  - Collider 
+
+- 이동 및 움직임 관련 컴포넌트 
+  - Rigidbody 
