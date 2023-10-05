@@ -45,3 +45,18 @@
 - 파란색은 무조건 GND
 - LED 구별법 : 짧은 부분과 긴 부분을 알수 있는데 짧은 부분이 빨간색즉(LED 내부를 확인하였을 때), 디지털 신호에 연결한다. 
 - 긴 부분의 파란색은 GND 아무곳이나 연결하면 된다. 
+
+- 아누이노 IDE 에서 
+- File -> Examples -> Basics -> Blink 에서 코드 수정 ( 여기에서 8은 내가 연결한 디지털 신호 번호이다. ) 
+  void setup() {
+    // initialize digital pin LED_BUILTIN as an output.
+    pinMode(8, OUTPUT);
+  }
+  
+  // the loop function runs over and over again forever
+  void loop() {
+    digitalWrite(8, HIGH);  // turn the LED on (HIGH is the voltage level)
+    delay(1000);                      // wait for a second
+    digitalWrite(8, LOW);   // turn the LED off by making the voltage LOW
+    delay(1000);                      // wait for a second
+  }
