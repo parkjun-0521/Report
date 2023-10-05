@@ -60,3 +60,8 @@
     digitalWrite(8, LOW);   // turn the LED off by making the voltage LOW
     delay(1000);                      // wait for a second
   }
+
+
+입출력 ( 푸시버튼 ) 
+- 버튼을 눌렀을 때 접선이되고 
+- 버튼을 땠을 때 연결이 끊어지는 방식 
