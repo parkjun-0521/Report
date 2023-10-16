@@ -1,0 +1,18 @@
+- 1016
+- 7주차 보강 필기 ( 중간 평가에 포함안됨 ) 
+
+- RecyclerView 구성 
+  - 목적 
+    - 각 아이쳄을 목록형태로 화면에 나타내는데 사용되며 대량이 데이터를 효율적으로 표시하기 위해서 사용 
+  
+  - RecylerView 구현
+    - 1. RecyclerView를 가진 Layout 구성 
+    - 2. 각 데이터 아이템을 표현하기 위한 레이아웃 구성 
+    - 3. RecyclerView 표현 정의 ( LayoutManager 객체 이용 ) 
+    - 4. RecyclerView 어댑터 구현
+      - 생성자를 통해서 데이터를 전달받도록 구현 
+      - 사용자 ViewHolder 구현
+      - 3개의 메소드를 구현 ( 오버라이딩으로 구현 ) 
+        - OnCreateViewHolder() : ViewHolder 객체를 생성하고 초기화 
+        - onBindViewHolder() : 데이터를 가져와 ViewHolder 안의 내용을 체움 
+        - getItemCount() : 총 데이터 개수를 반환
