@@ -16,3 +16,6 @@
         - OnCreateViewHolder() : ViewHolder 객체를 생성하고 초기화 
         - onBindViewHolder() : 데이터를 가져와 ViewHolder 안의 내용을 체움 
         - getItemCount() : 총 데이터 개수를 반환
+
+- SQLite
+  -
