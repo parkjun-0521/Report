@@ -1,0 +1,42 @@
+- 1016
+- 6주차 필기 
+
+- 이력서에 내가 한것을 주절주절 쓰는것이 아닌
+- 뭐 했다. 여기에 무슨 무슨 기술이 필요하고 
+- 내가 이런 부분을 담당해서 만들었다. 
+- 간략하게 ( 불필요한것은 짧게 ) 
+
+- GridView ( 프로젝트 확인 ) 
+  - android:verticalSpacing
+  - 항목 간에 상하 여백을 얼마나 줄 것인가를 결정
+
+  - android:horizotalSpacing
+  - 항목 간의 좌우 여백을 얼마나 줄 것인가를 결정
+
+  - android:columnWidth
+  - 컬럼의 너비 지정
+
+  - android:numCoumns
+  - 한 줄에 표시되는 컬럼 수, auto_fit으로 하면 자동 조절
+
+  - 레이아웃 
+    - numColums : 한페이지에 몇개를 배치할 것인가. 
+
+- 내가 만든 디자인을 사용하기 위해서 필요한 3가지 ( 기억하기 )
+  - LayoutInflater inflater; 
+  - inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+  - view = inflater.inflate(R.layout.data_layout, null);
+
+- ImageView
+  - 아이콘 등과 같은 임의의 이미지를 출력함 
+  - TextView 클래스를 확장한 거으로 이미지를 표시할 수 있는 TextView라고 생각할 수 있음 
+
+  - 속성 
+    - android : src, app:srcCompat  ->  출력 대상이 되는 이미지명 입력, drawable 폴더에 있는 이미지를 지정함 
+    - android:tint  -> 이미지 배경 색상 
+
+- 반투명 테마 
+  - android:theme="@android:style/Theme.Translucent.NoTitleBar"
+  - 테마를 변경할때는 아무거나 골라서 사용할 수 없다. 
+  - 엑티비티에서 적용할 수 있는 테마를 사용해야한다. 
+  - 테마를 변경할때는 그에 맞는 엑티비티를 사용해야 테마를 변경할 수 있다. 
