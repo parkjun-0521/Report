@@ -1,0 +1,17 @@
+- 1016
+- 6주차 필기 
+
+- AR추가하기 
+  - Hierarchy -> +버튼 -> XR -> AR Session Origin
+
+- Scene 이동 
+  - 
+
+- 2D 프로젝트 필기 
+  - 2D는 Canvas에 Render Mode를 Screen Space - Camera 로 지정 
+  - Render Camera로 메인카메라를 적용 
+  - 이렇게 해줘야 카메라가 UI에 맞게 조절됨 
+
+  - 터치 이벤트는 Event Trigger 컴포넌트가 필요 
+  - 누르는 동안 PointDown 
+  - 눌렀다 땠을 때 PointUp
