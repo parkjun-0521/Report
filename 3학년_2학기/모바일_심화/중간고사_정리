@@ -1,0 +1,109 @@
+- 1017
+- 중간고사 정리 
+- 코드해석으로 필기 할 예정 
+
+- 어댑터 
+  - 어댑터 뷰
+    - GridView, ListView, Gallery, Spinner
+    - 어댑터를 이용한 데이터로 레이아웃을 구성 
+    - 사용자에 의한 항목 선택 이벤트 처리
+
+  - ArrayAdapter
+    - 공통 인터페이스 어댑터를 제공 
+    - 어댑터뷰와 데이터 소스 사이를 연결하고 데이터 항목을 관리 
+    - 어댑터는 여러 계층으로 구성 
+
+  - 데이터소스가 배열인 경우 : ArrayAdapter
+  - 데이터베이스인 경우 : CursorAdapter
+  - Xml을 포함한 정적 데이터인 경우 : SimpleAdapter
+
+- ListView
+    <!--리스트 뷰 오브젝트
+        아이디는 list01이다.
+        가로 세로 길이를 0dp로 주어 꽉 체우도록한다.
+        아래쪽의 기준을 버튼01의 위부분으로 지정
+        오른쪽 기준을 부모의 오른쪽으로 지정
+        왼쪽 기준을 부모의 왼쪽으로 지정
+        위 부분을 부모의 위 부분으로 지정-->
+    <ListView
+        android:id="@+id/list01"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+- Spinner ( 아이템 선택 박스 )
+  < android:entries="@array/colors" /> 
+  // 화면에 출력할 항목을 지정 
+  // array.xml 파일에서 name이 colors 인 것을 실행하는 코드 
+
+  - OnItemSelectedListener : 아이템 선택을 처리하기 위한 리스너 Spinner에서 아이템 처리는 이것을 사용한다. 
+  - Spinner spin; // 스피너 선언 
+  - spin = (Spinner) findViewById(R.id.spinner); // 스피너 초기화 
+  - spin.setOnItemSelectedListener(this);     // 선택한 히스트 항목을 알아내기 위해 리스너에 연결 
+
+  // 항목선택시 호출되는 메소드 
+  // 데이터가 선택되었을 때 데이터의 text를 변경해라 
+  // OnItemSelectedListener 인터페이스 구현 
+  - public void onItemSelected( AdapterView<?> parent, View view, int position, long id) {
+      if(conut != spin.getSelectItemId()){
+        TextView temp - (TextView) spin.getSelectedView();
+        text01.setText(temp.getText());
+      }
+      else 
+        test01.setText("");
+    }
+
+  // 연결 해제 시 호출되는 메소드 
+  // OnItemSelectedListener 인터페이스 구현 
+  - public void onNothingSelected(AdapterView<?> parnet) { }
+
+- GridView
+
+  // 원래는 Xml문서에서 설정을 해주지만 
+  // 코드로 설정을 한 모습니다. 
+        grid01.setNumColumns(3);                    // android:numColumns = "auto_fit" 과 같은 의미지만 auto_fit 대신 3이라는 정수 값을 줌
+        grid01.setColumnWidth(GridView.AUTO_FIT);   //  android:columnWidth = "90dp" 과 같은 의미 단, 넓이는 오토로 지정
+        grid01.setVerticalSpacing(10);
+        grid01.setHorizontalSpacing(10);
+        grid01.setGravity(Gravity.CENTER);
+        grid01.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+
+  - 위 코드를 순서대로 설명하자면 
+    - 1번 라인 : setNumColumns는 XMl의 numColumns와 같은 로직이다. 
+                3이라는 정수를 주면서 한줄에 3개의 이미지를 띄워주라는 것과 같은 의미이다. 
+                XMl 에서는 auto_fit을 주면서 화면의 크기에 맞게 자동으로 설정되도록 한다. 
+
+    - 2번 라인 : setColumnWidth는 XML의 columnWidth와 같은 로직이다.  
+                 각 열의 넓이를 지정하는 로직이다. 여기서 같은 경우는 자동으로 넓이가 맞춰지도록 로직을 적었다. 
+                 XML에서는 40dp, 90dp 같이 크기를 지정하여 열의 넓이를 지정할 수 있다. 
+
+    - 3번 라인 : setVerticalSpacing은 XML의 verticalSpacing과 같은 로직이다. 
+                 항목간의 상하 여백을 의미한다. 10이라는 정수로 되어있으면 10dp만큼의 상하 여백을 지정하라는 의미이다. 
+
+    - 4번 라인 : setHorizontalSpacing은 XML의 horizontalSpacing과 같은 로직이다.  
+                 항목간의 좌우 여백을 의미한다. 10이라는 정수로 되어있으면 10dp만큼의 좌우 여백을 지정하라는 의미이다. 
+
+    - 5번 라인 : setGravity는 XML의 gravity와 같은 로직이다. 
+                정렬을 하는 로직이고 CENTER는 가운데 정렬을 하는 로직이다. 
+
+    - 6번 라인 : setStretchMode는 XML의 stretchMode와 같은 로직이다. 
+                남은 공간 배정을 의미하며 STRETCH_COLUMN_WIDTH는 현재 컬럼의 setColumnWidth 의 길이만큼 남은 공간을 배정하라는 로직
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
