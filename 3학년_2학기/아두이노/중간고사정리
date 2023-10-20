@@ -14,4 +14,5 @@
   - 빵판에 있는 GND라인에 선을 연결하여 GND를 재사용할 수 있음 
 
 - 로직 부분 
-  - Flie
+  - File -> Examples -> Basics -> Blink 에서 코드를 작성 
+  - 
