@@ -1,2 +1,11 @@
 - 1030
 - 8주차 필기 
+
+- AR 명함 만들기 
+- AR Foundation : Apple, Google에서 동작하려면 기본적으로 필요한 Package Manager 이다. 
+- ARCore XR Plugin : AR 동작에 필요한 Package Manager 이다. 
+
+- Build Settings 에서 설정 
+- Packge Name : com.회사이름.프로젝트이름 으로 키가 생성된다. 
+- Physics Raycaster : 카메라 관련 Component, 카메라가 보여주는 화면을 터치하여 이벤트를 발생하기 위해 추가  
+- AR Camera manager Component에서 Facing Direction을 User로 바꿔주면 전면카메라로 바뀐다. 
