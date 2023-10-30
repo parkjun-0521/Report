@@ -34,7 +34,57 @@
   - 행 만들기 
     - 기준은 한 행에 가장 많은 데이터 값을 가지고 있는 행을 기준으로 MAX행 길이가 정해진다. 
     - <TableRow> </TableRow> 사용 
-    - android:layout_column= " " 을 이용해서 위젯의 배치되는 컬럼의 위치를 결정 
+    ★ android:layout_column= " " 을 이용해서 위젯의 배치되는 컬럼의 위치를 결정 
       - 내가 원하는 위치에 배치시킬 수 있다. ex) android:layout_column= "2" 현재 속성을 테이블 2행에 위치하도록 함 
-    - android:layout_span= " " 을 이용해서 여러컬럼에 걸쳐서 배치하는것이 가능 ( 합치기 ) 
+    ★ android:layout_span= " " 을 이용해서 여러컬럼에 걸쳐서 배치하는것이 가능 ( 합치기 ) 
       - android:layout_span= "2" 행을 2칸을 잡아먹어라 ( 행 합치기 ) 
+
+  - 행 사이의 거리를 두기 위해서 
+    - View 태그를 사용하여 높이를 줘서 테이블 간 거리를 벌린다.
+    - 거리를 주지 않을 경우 테이블 끼리 딱 붙는다. 
+
+  ★ android:textAllCaps="false" 
+    - false일 경우 대소문자를 구별한다. 
+    - true일 경우 전부다 대문자로 표기 
+
+- 데이터베이스 생성 
+  - 안드로이드 DB는 각각 앱에 따로 생성되어 붙는다. 
+    - 자기가 만든 DB를 나만 쓸 수 있는 구조 
+    - 이런 구조를 '샌드박스 구조'라고한다. 
+
+  - SQLiteOpenHelper 
+    - 데이터베이스의 오픈을 실행하기 위해 상속받아서 작성 
+    - super(context, DATABASE_NAME, null, DATABASE_VERSION);
+      - 생성자에서 데이터베이스 파일명과 버전을 지정 
+      - 여기서 말하는 데이터베이스 버전은 : 내가 만든 DB 버전 ( 내가 임의로 숫자를 지정하는 것 ) 
+      - 내가 DB를 변경했을 때 그 변경하는 DB를 반영하기 위해 그 버전을 표기 
+      - 테이블을 드랍한 다음 새로운 테이블을 적용시키기 때문에 데이터가 다 날아간다. 
+        이 데이터를 이미 세이브 하고 DB버전을 바꾼후 값을 다시 적용 
+      - DB 버전은 점점 올라가야한다. ( 내려가는 건 없다 ) 
+
+  - onCreate()
+    - SQLiteOpenHelper의 서브클래스에서 onCreate()메소드를 오버라이딩 
+    - 데이터베이스가 없는 상태에서 데이터베이스를 오픈하려고 하는 경우 onCreate() 메소드가 호출 ( 1번 호출 )  
+    - execSQL : 쿼리문을 실행시키는 메소드 
+    - execSQL 메소드를 사용하여 테이블을 작성하거나 초기 설정 등을 실행 
+    - create table notes(_id integer primary key autoincrement,title text not null, body text not null);
+      - 1행 키값( autoincrement : 자동으로 증가 ) , 2행 text를 받는데 null을 혀용하지 않음, 3행도 마찬가지 
+
+  - onUpgrade()
+    - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
