@@ -7,5 +7,17 @@
 
 - Build Settings 에서 설정 
 - Packge Name : com.회사이름.프로젝트이름 으로 키가 생성된다. 
-- Physics Raycaster : 카메라 관련 Component, 카메라가 보여주는 화면을 터치하여 이벤트를 발생하기 위해 추가  
+★ Physics Raycaster : 카메라 관련 Component, 카메라가 보여주는 화면을 터치하여 이벤트를 발생하기 위해 추가  
 - AR Camera manager Component에서 Facing Direction을 User로 바꿔주면 전면카메라로 바뀐다. 
+
+- XR에서 Create로 ReferenceImageLibrary 를 만들고 add image 해서 내가 인식할 이미지를 넣어준다.
+- size는 0.089, 0.0519101 로 Runtime 체크 
+
+- AR Tracked Image Manager에 ReferenceImageLibrary를 연결 
+- ReferenceImageLibrary의 이미지를 확인했을 때 Tracked image Prefab 으로 띄워줄 화면을 보여준다. 
+
+- 투명도 이미지 만들기 
+- Material에서 Shader를 Sprites -> Default로 변경하면 PNG 이미지의 배경을 투명으로 해주는 Material이 된다. 
+
+★ EventSystem이 추가 되어야 이벤트가 동작한다. 
+
