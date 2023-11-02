@@ -1,0 +1,110 @@
+- 1102
+- 8주차 필기 
+
+- 디지털 핀 제어
+  - 0 ~ 13번 핀 사용가능 ( UNO 보드 기준 ) 
+  - 0V, 5V 출력 입력 가능 
+
+- 디지털 핀 제어 방법 
+  - 디지털 핀 초기화     : pinMode(pinNumber, mode)
+  - 디지털 핀 입력 체크  : digitalRead(pinNumber)
+  - 디지털 핀 출력       : digitalwrite(pinNumber, HIGH or LOW )
+
+- 실습 코드 
+-------------------------------------------------------------------------------------------------------
+( 작은 별 노래 로직 )
+int speakerPin = 8;
+
+int length = 15;
+
+char notes[] = "ccggaag ffeeddc ggffeed ggffeed ccggaag ffeeddc "; 
+int beats[] = { 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 4 };
+int tempo = 300;
+
+void playTone(int tone, int duration) {
+  for (long i = 0; i < duration * 1000L; i += tone * 2) {
+    digitalWrite(speakerPin, HIGH);
+    delayMicroseconds(tone);
+    digitalWrite(speakerPin, LOW);
+    delayMicroseconds(tone);
+  }
+}
+
+void playNote(char note, int duration) {
+  char names[] = { 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C' };
+  int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
+  
+  for (int i = 0; i < 8; i++) {
+    if (names[i] == note) {
+      playTone(tones[i], duration);
+    }
+  }
+}
+
+void setup() {
+  pinMode(speakerPin, OUTPUT);
+}
+
+void loop() {
+  for (int i = 0; i < length; i++) {
+    if (notes[i] == ' ') {
+      delay(beats[i] * tempo);
+    } else {
+      playNote(notes[i], beats[i] * tempo);
+    }
+    delay(tempo / 2); 
+  }
+}
+-------------------------------------------------------------------------------------------------------
+( 버튼으로 소리 나오도록 하는 로직 ) 
+int piezo = 12;//핀과 각 버튼을 설정한다. 이때 아두이노와 함께 번호 설정
+
+void setup()// 위에 대한 setup
+{
+  pinMode( piezo,OUTPUT);
+  pinMode (4, OUTPUT);
+   pinMode (5, OUTPUT);
+    pinMode (2, OUTPUT);
+     pinMode (7, OUTPUT);
+      pinMode (8, OUTPUT);
+       pinMode (9, OUTPUT);
+        pinMode (10, OUTPUT);
+           pinMode (11, OUTPUT);
+}
+
+void loop()
+{
+    tone(piezo, 262);              // 도
+    digitalWrite(4,HIGH);
+     delay(200);
+       digitalWrite(4,LOW);
+      tone(piezo, 294);            // 레
+         digitalWrite(5,HIGH);
+     delay(200);
+     digitalWrite(5,LOW);
+ tone(piezo, 330);                 // 미
+  digitalWrite(2,HIGH);
+     delay(200);
+     digitalWrite(2,LOW);
+       tone(piezo, 349);           // 파
+       digitalWrite(7,HIGH);
+     delay(200);
+     digitalWrite(7,LOW);
+       tone(piezo, 392);          // 솔
+    digitalWrite(8,HIGH);
+     delay(200);
+     digitalWrite(8,LOW);
+     tone(piezo, 440);             // 라
+     digitalWrite(9,HIGH);
+     delay(200);
+     digitalWrite(9,LOW);
+      tone(piezo, 494);            // 시
+    digitalWrite(10,HIGH);
+     delay(200);
+     digitalWrite(10,LOW);
+        tone(piezo, 523);          // 도
+     digitalWrite(11,HIGH);
+     delay(200);
+     digitalWrite(11,LOW);
+}
+     
