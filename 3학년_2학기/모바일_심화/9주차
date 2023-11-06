@@ -69,3 +69,4 @@
     - Cursor가 물고 있는 데이터 정보를 받아와서 실시간으로 정보를 갱신한다. ( notifyDataSetChanged ) 
 
 
+ 
