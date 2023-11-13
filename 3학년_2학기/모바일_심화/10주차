@@ -1,0 +1,51 @@
+- 1113
+- 10주차 필기 
+
+- 안드로이드 DB는 샌드박스 구조 
+- UI에 스크롤을 추가하면 자동으로 스크롤 기능이 동작 
+
+- 안드로이드 4대 Component 
+  - Activity ( 실제로 하는 역할은 UI ) 
+  - Content Provider  ( App 간의 데이터를 공유해주는 기능 ) 
+  - Broadcast Receiver 
+  - Service ( background 서비스, 뒤에서 돌아가는 서비스 )
+
+- Content Provider 
+  - Audio(미디어)
+    - 애플리케이션이 보유하고 있는 데이터를 다른 애플리케이션에서 공유하도록 공개하기 위한 모듈 
+    ★ 2가지가 존재 
+      - 기본적으로 제공되는 : 컨텐트 프로바이더 ( 기본적으로 오픈이 되어있는 DB 정보? ) 
+      - 원하는 것을 직접 개발 하는 : 커스텀 프로바이더 ( 어느정도로 오픈할지 설정할 수 있다. ) 
+
+    - CallLog : 통화 기록 
+    - Browser : 브라우저의 북마크, 히스토리 ( 지금은 사라진 기능 ) 
+    - Contacts : 연락처 
+    - MediaStore : 외부 매체에 저장된 오디오, 비디오 ....
+    - UserDictionary : 사용자 정의 단어 사전    
+    ★ sdk 타켓 버전을 6.0 이상으로 하는 경우, 권한 부여에 대한 처리가 추가로 필요 
+      - 일반권한 : 기본적인 권한 
+      - 위험권한 : 네크워크 사용이 가능한 권한, 위치 정보, 연락 정보 등등 ( 사용자에게 직접적인 허가를 받아야 사용이 가능 )
+    
+    ★ 컨텐트 프로바이더를 사용하기 
+      - 사용하기 위해서는 해당 컨텐트 '프로바이더의 주소'를 알아야한다.
+      - 컨텐트 프로바이더에 접근할 때, '컨텐트 리졸버'가 필요함 
+
+      - CallLog.Calls.CONTENT_URL : 통화기록 
+      - ContactsContract.Contacts.CONTENT_URL : 연락처 목록 
+
+    - Mediastore.Audio.Media 클래스 
+      - 오디오 파일을 관리하는 클래스 
+      - 오디오 파일의 제목이나 재생 길이 등을 얻는 것이 가능 
+
+    ★ ActivityCompat.requestPermissions( this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE }, MODE_PRIVATE );
+      - 사용자에게 원한 요청 부분 ( 권한 확인을 통해 필요 시 동작하도록 구현 )
+
+    - getContentResolver()
+      - 컨텐트 리졸버를 가져온다 ( 안드로이드 시스템에 이미 있기때문에 new로 가져오지 않는다. ) 
+
+    - 
+    
+
+
+  - 통화
+    -
