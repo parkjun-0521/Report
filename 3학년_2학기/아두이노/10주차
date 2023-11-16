@@ -1,0 +1,108 @@
+- 1116
+- 10주차 필기 
+
+- 버저에서 기말 한문제 나온다. 
+- 버저 
+  - 단순하게 소리를 내는 스피커 같은 장치 
+  - 간단하게 소리를 생성 가능 
+  - 아두이노 디지털 핀에 연결해서 디지털 출력으로 제어 가능 
+
+  - 음 -> 음파의 주파수 
+  - 주파수에 맞게 신호를 생성 
+  - tone() 함수 -> 주파수에 맞는 신호를 생성해주는 함수 
+
+- 모션감지 센서 
+  - PIR 센서 
+  - 아두이노 디지털 핀에 연결해서 디지털 입력으로 감지 
+
+- 가스센서 
+  - MQ-135 공기질 센서 
+  - 공기를 가열해서 기화된 기체를 측정
+  - 아날로그 입력 기능 사용 
+
+- RGB LED 
+  - 3색 LED가 합쳐진 형태 
+  - 다양한 색상을 표현 ( 3색만 만들 수 있다 ) 
+  - 아날로그 출력 기능 사용 
+
+- 서브 모터 
+  - DC 모터 
+    - 가장 흔한 모터, 입력 전류 방향으로 회전 방향 제어 
+    - 고회전에 유리, RC카, 쿼드콥터 등 광범위하게 사용 
+    - 회전수와 방향 제어를 위해서는 드라이버 모듈이 필요 
+
+  - 서보 모터 
+    - 보통 0~180 사이를 움직이며 위치를 정확히 제어가능
+    - RC카의 방향타, 로봇 관절 등 회전각 제어에 적합 
+    - PWM 신호로 간단히 위치 제어 가능 
+
+  - 스텝 모터 
+    - 회전 방향 뿐 아니라 회전각을 정밀히 제어할 수 있음 
+    - DC 모터와 서보모터의 장점을 합친 모터 
+    - 상대적으로 고회전이 요하기 않고 정밀한 제어가 필요한 경우 
+    - 3D 프린터의 핵심 모터 
+    - 제어가 복잡하므로 스텝모터 드라이버 모듈을 이용해서 제어 
+
+- 서보 모터 
+  - PWM 신호를 이용해서 팔의 각도를 자유롭게 조절 가능 
+  - 
+
+- keypad 로직 
+#include <Keypad.h>
+
+const byte ROWS = 4;
+const byte COLS = 4;
+char keys[ROWS][COLS] = {
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
+
+byte rowPins[ROWS] = {6, 7, 8, 9};
+byte colPins[COLS] = {5, 4, 3, 2};
+
+Keypad keypad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  char key = keypad.getKey();
+
+  if(key){
+    Serial.println(key);
+  }
+}
+
+
+- 마이크 감지 센서 로직 
+int m_min = 72;
+int m_max = 0;
+
+void setup(){
+  Serial.begin(9600);
+}
+
+void loop(){
+  int SoundSensor = analogRead(A0);
+  if(SoundSensor < m_min) m_min = SoundSensor;
+  if(SoundSensor > m_max) m_max = SoundSensor;
+
+  Serial.print(m_min);
+  Serial.print("   :   ");
+  Serial.println(m_max);
+  delay(50);
+}
+
+  
+
+
+
+
+
+
+  
