@@ -1,0 +1,10 @@
+- 1120
+- 11주차 필기 
+
+- 싱글톤 
+- public static GameManager instance;
+- void Awake(){
+    instance = this;
+  }
+
+- 
