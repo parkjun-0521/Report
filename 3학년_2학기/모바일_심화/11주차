@@ -1,0 +1,53 @@
+- 1120 
+- 11주차 필기 
+
+- Content Provider ( 통화 ) 
+  - 문자나 통화를 확인하기 위해서는 동일한 API 버전을 사용해야 한다. 
+  
+  - 스크롤 기능이 필요하다면 UI에서 스크롤을 추가하는 방법이 좋다. 
+
+- 권한 추가 
+  - android.permission.READ_CALL_LOG 
+  - 권한 추가 뿐만 아니라 권한에 따라서 권한 허용을 위한 처리코드가 필요 
+
+- 코드분석 
+  - 스크롤 기능 추가 ( TextView에 스크롤 기능 ) 
+    - text.setMovementMethod(new ScrollingMovementMethod()) // 스크롤 기능
+
+  - 사용자에게 권한 요청 부분 
+    - ActivityCompat.requestPermission(  ) 
+
+  - 사용자가 권한을 획득하였는지 확인 
+    - getContentResolver() ( 컨텐트 프로바이더에 접근하는데 필요 ) 
+
+  - 요청한 권한을 확인하는 로직 ( 권한을 체크하지 않았을 때 발생할 이벤트 ) 
+    - if( ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG 
+          != PackageManager.PERMISSION_GRANTED) { return; }
+
+  - 컬럼 명칭을 알고있으면 쿼리문 정렬 조건에 바로 적어줘도 된다.
+    - query( URL, 조회할 컬럼, 선택할 줄, 선택 조건, '정렬 조건' ( ex. "dete desc") );
+
+- 실습 코드 
+  - 연락처에 있는 전화번호만 가져오는 권한
+    - <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+  - 내 폰의 정보도 같이 보내는 권한 (29버전까지)
+    - <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+  - SDK가 30버전일 때 바뀌는 권한
+    - <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+
+
+
+
+
+
+컨텐트 프로바이더 ( 당연한 시험 범위 )
+
+컨텐트 프로바이더가 뭐냐 
+
+사용하려면 필수로 등장하는 코드가 뭐냐 => 권한부여, 권한 부여를 어떻게 하는가
+
+서로 다른 버전 마다 코드를 어떻게 처리하는가 
+
+
