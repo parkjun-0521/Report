@@ -19,14 +19,39 @@
   - 일을 처리하는 용량에 제한이 있다. 
   - 방대한 양의 파일 데이터 등을 받아서 실행할 수 없다. 
 
-- intent.addFalgs 
-  - Activity Stac을 제어하는 것 
-  - 계속 쌓이는 Activity Stack 때문에 10번의 작업을 실행하면 10번 쌓이게 된다. ( 5번째로 돌아가려면 5번 뒤로가기해야됨 )
+- Receiver
+  - intent.addFalgs 
+    - Activity Stac을 제어하는 것 
+    - 계속 쌓이는 Activity Stack 때문에 10번의 작업을 실행하면 10번 쌓이게 된다. ( 5번째로 돌아가려면 5번 뒤로가기해야됨 )
+  
+  - Itent.FLAG_ACTIVITY_NEW_TASK
+    - task가 없으면 생성해라 
+  - Itent.FLAG_ACTIVITY_CLEAR_TASK
+    - task를 다 지워라 
+  - Itent.FLAG_ACTIVITY_CLEAR_TOP
+    - task를 지우고 위로 올려라 
+  - 위의 3조건을 만족하면  조건에 맞게 생성하고 아니면 그냥 생성해라 
 
-- Itent.FLAG_ACTIVITY_NEW_TASK
-  - task가 없으면 생성해라 
-- Itent.FLAG_ACTIVITY_CLEAR_TASK
-  - task를 다 지워라 
-- Itent.FLAG_ACTIVITY_CLEAR_TOP
-  - task를 지우고 위로 올려라 
-- 위의 3조건을 만족하면  조건에 맞게 생성하고 아니면 그냥 생성해라 
+- 태스크 
+  - 액티비티 : 같은 애플리케이션 내에 존재하는 액티비티 뿐만 아니라 다른 애플리케이션 내에 존재하는 액티비티까지 호출 가능 
+  - 태스크 : 사용자가 실질적으로 하나의 애플리케이션처럼 느끼는 액티비티들의 집합임. 
+  - 작업은 태스크 단위로 관리를 한다.
+
+- 액티비티 플래그 ( 구현할 때 반드시 필요한 작업 ) 기말 시험 범위 
+  - Itent.FLAG_ACTIVITY_SINGLE_TOP
+    - 재호출 하는 경우, 액티비티를 재사용 
+    - 같은 액티비티를 재호출 하는 경우 작업이 하나만 쌓여라 
+
+  - FLAG_ACTIVITY_NO_HISTORY
+    - 액티비티의 사용 기록을 남기지 않음 
+    - 스택상에 기록이 남지 않는다. 
+
+  - FLAG_ACTIVITY_REORDER_TO_FRONT
+    - 기존의 액티비티를 가장 앞으로 가져온다.
+    - 스택상에 있는 액티비티를 실행하면 그 액티비티를 스택상에서 최상위로 올려서 사용한다. 
+
+  - FLAG_ACTIVITY_CLEAR_TOP
+    - 액티비티가 존재하는 경우, 상위 액티비티 모두 제거 
+  
+  - FLAG_ACTIVITY_CLEAR_TESK
+    - 액티비티에 존재하는 모든 것을 날려버린다. 
