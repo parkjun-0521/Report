@@ -3,3 +3,32 @@
 
 - 수업자료 10번 (기능/실습 20/21 컨텐트 프로바이더 관련)
 - 수업자료 11번 (기능/실습 22/23/24 브로드케스트리시버, 인텐트플래그, 알림)
+
+- 10장 정리 
+- Content Provider - Audio(미디어) ( 기능 실습 20 )
+
+- Mediastore.Audio.Media 클래스 
+  - 오디오 파일을 관리하는 클래스 
+  - 오디오 파일의 제목이나 재생 길이 등을 얻는 것이 가능 
+
+- android:fillViewport="true"
+  - 오디오 정보를 출력할 TextView에 스크롤 기능추가 
+
+- <user-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  - 외부 저장소 사용 권한 추가 
+  - 안드로이드 버전에 따른 권한 변경이 있음 
+  - 6.0 이상이 타겟인 버전인 경우, 권한 추가 뿐만 아니라 권한에 따라서 권한 허용을 위한 처리 코드가 별도로 필요 
+
+- ActivityCompat.requestPermissions(activity:this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, MODE_PRIVATE );
+  - 사용자에게 권한 요청 부분 
+  - 권한 확인을 통해 필요 시 동작하도록 구현 
+
+- ContentResolver cr = getContentResolver(); 
+  - 컨텐트 리졸버 
+  - 결과를 반환해주는 브릿지 역할을 해준다
+
+- Cursor c = cr.query ( 컨텐트 프로바이더 URL, 조회할 컬럼, 선택할 줄, 선택 조건, 정렬 조건 )  
+  - 쿼리(질의) 결과로 나온 레코드들을 가리키는 것을 말한다. 
+  - 인자 값에 맞는 레코드를 가리킨다. 
+
+- 
