@@ -1,0 +1,49 @@
+- 1216
+- 기말고사 정리 
+- 8, 14,15,16은 포함 안됨 
+
+- 3D 문서 생성 
+  - Projects -> New project 
+
+- Material 오류 해결 
+  - Renderign -> Render Pipeline Converter
+  -> Built-in to URP 이후 모든 사항에 체크 -> Initialize Converters -> Convert Assets
+
+- URP
+  - Unity에서 제작한 사전 빌드된 스크립터블 랜더 파이프라인
+
+- 콜라이더 설정
+  - 캐릭터와 충돌을 하려면 Collider가 필요 
+  - 단, 이때 플레이어 와 충돌할 물체는 서로 Collider를 가지고 있어야 한다. 
+
+  - 모양이 서로 다른 오브젝트일 경우 Mesh Collider를 사용해야 모양에 맞게 Collider가 생성된다. 
+
+- 프리팹 해제 
+  - Unpack Completely 로 프리팹을 해제할 수 있다  
+
+- 믹사모를 활용하여 애니메이션 적용 
+  - https://www.mixamo.com
+  - 페이지에서 다운로드 후 적용 
+  - 애니메이션을 다운로드 하면 Animation이 들어가있다. Animator에서 생성후 Parameter 추가 후 동작하게 하면된다.
+
+- UI 추가
+  - Canvas 에서 UI를 만든다. 
+
+- Metarial 색 변경 
+  - Surface Inputs -> Base Map 에서 색상을 변경해 주면된다. 
+
+- 씬 이동 매니저 
+  - using UnityEngine.SceneManagent;   //네임스페이스를 불러온다. 
+  - SceneManager.LoadScene("이동할 씬이름"); 
+
+- 캐릭터 충돌 이벤트 구현 
+  - OnControllerConlliderHit() 에서 구현한다. 
+  - 원래는 그냥 OnColliderHit() 에서 구현을 해도 되는 것으로 알고 있다. 
+
+
+
+
+
+
+
+
