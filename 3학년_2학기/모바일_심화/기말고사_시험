@@ -149,14 +149,58 @@
   - 알림 메시지를 표시하는데 필요한 각종 정보를 담고 있음 
   - 재생하는 오디오 타입, 소리, 진동, 점멸의 기존 통지 방법 등 다양한 필드가 있어 여러 기능을 갖는 알림 서비스를 만들 수 있다. 
 
+- 알림 이미지 준비 
+  - 5.0 이후에는 알파값이 있는 단색 아이콘이어야 정상적으로 표현 
 
+- 프로젝트 구조 
+  - Notification을 생성할 Activity 1개 
+  - 발생한 알림을 선택할 때, 해당 정보를 표시할 Activity 1개 
+  - 각 ACtivity에 대한 레이아웃 
+  - Notifications에 사용할 이미지 1개 이상 
 
+- <user-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  - Notification 기능 활성화를 위한 권한 
 
+- getSystemService(Context.NOTIFICATION_SERVICE);
+  - Notification 표시할 객체 생성 
 
+- if( Build.VERSION.SDK_INT >= uild.VERSION_CODES.OS코드명) {
+    ActivityCompat.requestPermissions(activity:this, new String[] {Manifest.permission.POST_NOTIFICATIONS}, MODE_PRIVATE ); 
+  }
+  - Notification 기능을 관련 권한 요청 
+  - 현재 장치의 OS 버전이 특정 OS 버전보다 높거나 같을 때 권한 요청을 해라 
 
+  - Build.VERSION.SDK_INT
+    - 앱이 구동되고 있는 장치의 안드로이드 OS 버전
+  
+  - Build.VERSION_CODES.OS코드명 
+    - 각 OS 버전 
 
+- new Intent ( 현재Activity.this, 데이터를 넘겨줄Activity.class );
+  - 현재 액티비티는 this, 데이터를 넘겨줄 Activity는 class 로 구별한다. 
 
+- PendingIntent.getActivity( MainActivity.this, 0, toLaunch, PendingIntent.FLAG_IMMUTABLE );
+  - 인자값 ( 현재 Activity, 0, Intent, PendingIntent 옵션 )
+  - 다른 어플리케이션의 권한을 허가하여, 가지고 있는 Intent를 마치 본인 앱의 프로세스에서 실행하는 것처럼 사용한는 것
+  - Intent를 바로 실행하는 것이 아닌, 특정 시점에 수행하도록 하는 역할 
 
+  - Activity/Service 등과 같은 특정 Component가 Intent를 생성한 후에 해당 Intent를 바로 사용하는 대신에 
+    다른 Component가 해당 Intent를 사용 할 수 있도록 할 때 사용하는 클래스 
 
-
-
+- 버전에 따라서 구현하는 로직이 달라진다. ↓
+- if( Build.VERSION.SDK_INT < uild.VERSION_CODES.OS코드명) {
+     notify = new Notification.Builder(getApplication())                          - Notification 생성
+              .setContentTitle(expandedtitle)                                     - 확장 상태바 제목 
+              .setContentText(expandedText)                                       - 확장 상태바 표시 내용 
+              .setSmallIcon(R.drawable.baseline_notifications_none_white_24)      - 아이콘
+              .setAutoCancle(true)                                                - 확인 시 사라지게 함 
+              .setContentIntent(intentBack)                                       - 선택시 동작할 인텐트 지정 
+              .setWhen(System.currentTimeMillis())                                - 설정한 값을 기반으로 생성 
+              .build();
+  }
+- if( Build.VERSION.SDK_INT >= uild.VERSION_CODES.OS코드명) { 
+    
+  }
+  
+- notifier.notify(NOTIFY_1, notify);
+  - NotificationManager를 통한 notification 실행 
