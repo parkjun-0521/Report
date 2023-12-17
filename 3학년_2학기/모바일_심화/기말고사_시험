@@ -40,7 +40,7 @@
 
 =====================================================================================================
 - 10장 
-- ontent Provider - 통화 ( 기능 실습 21 )
+- Content Provider - 통화 ( 기능 실습 21 )
 
 - <user-permission android:name="android.permission.READ_CALL_LOG" />
   - 통화 로그 권한 추가 
