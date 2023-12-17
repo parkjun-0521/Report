@@ -76,7 +76,7 @@
   - 여러 가지 속성들에 대해 시스템에 미리 정해진 형식에 따라 한번에 설정하도록 만들어주는 속성
 
 - <user-permission android:name="android.permission.RECEIVE_COOT_COMPLETED" />
-  - 부팅 완료 시정을 알아내기 위한 권한 설정 
+  - 부팅 완료 시점을 알아내기 위한 권한 설정 
 
 - <receiver 
     android:name=".MyReceiver"
