@@ -169,54 +169,30 @@
   - 관계형 DBMS의 데이터를 관리하기 위해 설계된 비절차적 언어 
   - 자연어와 매우 유사하고 간단, 명료한 것이 특징 
 
-- 데이터 정의 언어 (DDL)
+★ 데이터 정의 언어 (DDL)
   - 데이터베이스 객체를 관리하는 SQL 명령어 집합 
   - CREATE 생성 , ALTER 수정 , DROP 삭제 , RENAME
-  - TRUNCATE 를 하면 ROLLBACK 할 수 없다. => TRUNCATE 테이블이 삭제되도 구조는 남아있는 것 
+  - 'Auto Commit'이 되기 때문에 'ROLLBACK'을 할 수 없다.
+  ★ TRUNCATE 를 하면 ROLLBACK 할 수 없다. => TRUNCATE 테이블이 삭제되도 구조는 남아있는 것 
 
-- 데이터 조작 언어 (DML)
+★ 데이터 조작 언어 (DML)
   - 데이터를 조작하는 SQL 명령어 집합 
-  - INSERT 삽입 , UPDATE 수정 , DELETE 삭제 , SELECT 검색 
+  ★ INSERT 삽입 , UPDATE 수정 , DELETE 삭제 , SELECT 검색 
 
-- 데이터 제어 언어 (DCL)
+★ 데이터 제어 언어 (DCL)
   - 사용자 권한을 통제하는 SQL 명령어 집합 
   - GRANT 부여 , REVOKE 회수 
 
   - DDL언어로 ROLL 규칙을 만들어 GRANT로 부여할 수 있다. 
   - ROLL 은 DDL에서 DREATE로 미리 만들어야 사용할 수 있다. 
 
-- 트랜잭션 제어 언어 (TCL) 
+  - 'Auto commit'이 되기때문에 'ROLLBACK'으로 돌아갈 수 없다. 
+
+★ 트랜잭션 제어 언어 (TCL) 
   - 논리적인 작업 단위를 묶어서 DML에 의해 조작된 결과 제어 
   - COMMIT : 저장 같은것
-  - ROLLBACK : 마지막으로 COMMIT한 부분으로 돌아간다.
+  ★ ROLLBACK : 마지막으로 COMMIT한 부분으로 돌아간다.
   - SAVEPOINT : 저장한 위치로 돌아갈 수 있도록 SAVE 지점을 만드는 것 ( ROLLBACK으로 이동할 수 있다 ) 
+    - commit을 하면 savepoint를 사용할 수 없다. 
 
   - oracle의 left 조인은 오른쪽 테이블에 (+), right 조인은 왼쪽 테이블에 (+)
-  - 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
