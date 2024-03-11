@@ -194,5 +194,6 @@
   ★ ROLLBACK : 마지막으로 COMMIT한 부분으로 돌아간다.
   - SAVEPOINT : 저장한 위치로 돌아갈 수 있도록 SAVE 지점을 만드는 것 ( ROLLBACK으로 이동할 수 있다 ) 
     - commit을 하면 savepoint를 사용할 수 없다. 
+    - 이전 savepoint로 돌아갈 수 없다. 
 
   - oracle의 left 조인은 오른쪽 테이블에 (+), right 조인은 왼쪽 테이블에 (+)
