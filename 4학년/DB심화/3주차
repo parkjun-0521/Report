@@ -26,4 +26,48 @@
       - 따라서 'ABC' 와 'ABC '는 다른 값이다. 
 
     - NUMBER : 정수, 실수 숫자 정보 
-    - DATE : 
+    - DATE : 날짜와 시간 정보 
+
+- Unique 는 서로 다른 값이면 된다, NULL은 같아도 된다. 
+
+- | ( or, pipe )
+  - or의 의미를 가지고 있다. 
+
+- Not Null : 널 값을 포함하면 안된다. 
+- null : 널 값이 있어도 된다. 
+
+- ALTER ( 테이블 수정 ) 
+  - 생성된 테이블에 컬럼을 추가, 수정 ( 이름, 데이터 타입, 제약조건 ) 또는 삭제하는 명령 
+
+- 테이블 삭제 DROP
+  - 존재하는 테이블을 스키마에서 삭제 
+  - 삭제할 테이블의 모든 데이터가 소실, 복구 불가 연산으로 각별한 주의가 요구 
+
+
+- 데이터 조작 언어 DML
+  - 정의된 테이블에 레코드를 삽입 / 수정 / 삭제 및 검색하는 사용되는 명령어의 집합 
+
+  - 명령어 종류   
+    - insert : 레코드 삽입 ( insert into 테이블명(컬럼1, 컬럼2 ...) values (값1,값2...) )
+    - update : 레코드 수정 ( update set 컬럼1 = 값1 .... where 조건 )
+    - delete : 레코드 삭제 ( delete from 테이블 where 조건 ) 
+    - select : 레코드 조회 ( select from where ) 
+
+- select 문 실행 순서 
+  - FROM => WHERE => GROUP BY => HAVING => SELECT => ORDER BY
+
+- 조건 질의문 
+  - 산술 – 연결 – 비교 – IN, LIKE, BETWEEN, IS NULL – NOT – AND – OR
+
+- 특수 연산 조건 질의문 
+  - _ : 한글자를 찾고 싶을 떄 
+  - % : 0개이상을 찾고 싶을 때 
+
+- NATURAL JOIN : 조인 조건 생략 시 두 테이블에 같은 이름으로 연결 
+- INNSER JOIN : 조인 조건에 성립하는 데이터만 출력 
+- CROSS JOIN : 조인 조건 생략 두 테이블에서 발생 가능한 모든 행을 출력 
+- LEFT OUTER JOIN : 왼쪽 기준 오른쪽 모두 출력 ( oracle 은 오른쪽에 (+) 
+- RIGHT OUTER JOIN : 오른쪽 기준 왼쪽 모두 출력 ( oracle은 왼쪽에 (+) 
+
+- 부속 질의문 
+  - select : 스칼라 form 인라인 뷰 
