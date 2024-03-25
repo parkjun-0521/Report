@@ -40,3 +40,26 @@
 
     - ex ) length('hello'), lengthb('hello') : 영어로 입력하면 둘다 5가 나옴 
     - ex ) length('하이'), lengthb('하이') : length는 2, lengthb는 6을 출력함 ( 오라클에서는 한글 3바이트 )
+
+- substr(job, 2) : job에서 두번째 글자부터 끝까지 
+- substr(job, 2, 4) : 2번째 부터 4글자 
+- substr(job, -4) : 뒤에서 4번째 부터 끝까지 ( 문자열 길이를 넘어가면 NULL을 반환 한다 ) 
+- subdtr(job, -4, 2) : 뒤에서 4번째 부터 2글자 까지  ( 문자열 길이를 넘어가면 NULL을 반환 한다 ) 
+
+- INSTR : 문자열 데이터 내 특정 문자 위치 찾기 
+  - instr('HELLO, ORACLE!', 'L')          : H'L' => 이 L의 위치를 찾는다
+  - instr('HELLO, ORACLE!', 'L', 5)        : 5번째 이후 등장하는 L의 위치를 찾는다. 
+  - instr('HELLO, ORACLE!', 'L', 2, 2)     : 2번째 이후 등장하는 L 중에서 2번째 L을 찾는다. 
+
+- LPAD : 남은 빈 공간을 왼쪽에 채우기 
+- RPAD : 남은 빈 공간을 오른쪽에 채우기 
+
+- round : 반올림 함수 
+- trunc : 버림 
+
+- CEIL : 가장 가까운 큰 정수. 
+- floor : 지정된 숫자와 가장 가까운 작은 정수 
+- mod : 숫자를 나눈 나머지 
+
+
+
