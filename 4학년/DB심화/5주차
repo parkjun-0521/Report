@@ -10,4 +10,113 @@
 
 - ADD_MONTHS : 몇 개월 이후 날짜 
 - sysdate : 현재 날짜 
-- 
+- NEXT_DAY : 돌아오는 요일의 날짜 
+- LAST_DAY : 달의 마지막 날짜 
+
+- NULL 처리 함수 
+  - comm 이 NULL 이면 연산 결과 NULL 임 
+
+  - NVL : NULL이 아니면 그대로 NULL이면 지정한 값 
+  - NVL( 널이아닌 값, 널일 때의 값 ) 
+    - MSSQL 에서는 ISNULL( comm, 0 ) 으로 작성한다. 
+
+  - NVL2 : NULL이 아닐 때와 NULL일 때 각각 지정한 값 
+    - nvl2( comm, 'O', 'X' ) 
+
+  - NULLIF ( A, B )
+    - 판단 대상 A와 비교 대상 B가 같으면 NULL
+    - 다르면 판단 대상 A 출력 
+    - null 과 null을 비교하면 오류 발생 ( null은 비교할 수 없다 )
+      - NULL은 값이 존재하지 않는것 이므로 비교가 성립하지 않는다. 
+
+  - NULL 연산식 
+    - NULL과 산술연산 : 무조건 NULL
+    - 비교연산 경우 NULL은 제외
+    - 함수 인수에 NULL을 넣는 경우 결과는 NULL
+
+  - NULL 처리 함수 
+    - COALESCE ( A, B, C, ... ) 
+      - NULL이 아닌 최초의 표현식 출력 
+      - 모두 NULL인 경우 NULL 출력 
+
+  - DECODE  
+    - 기준 데이터를 지정 
+    - 기준 데이터에 따라 반환할 데이터 지정 
+    - if else 문과 유사하다. 
+
+  - case
+    - 기준 데이터를 지정하는 방식 
+    - switch case 문과 같은 방식 
+    - case when end; ( 문법 형식 ) 
+//============================================================== 단일행 함수 ========//
+
+
+
+- 다중행 함수 
+
+- SUM() : 합계 
+- COUNT : 데이터 개수
+- MAx : 최대값 
+- MIN : 최소값 
+- AVG : 평균값
+
+- SUM () 
+  - 합계 결과값 
+  - DISTINCT : 중복값을 제외 하고 합계를 계산한다. 
+
+- count () : 데이터 개수 
+  - null 값은 제외하고 출력한다. 
+  - is not null 또는 is null을 where 절에 사용해도 null값을 포함하지 않는다.
+
+- MAX() 
+  - 최대 값을 출력하는 함수 
+
+- MIN () 
+  - MAX의 반대 가장 작은 값 출력 
+
+- AVG () 
+  - 평균 값을 출력 
+
+- DISTINCT를 사용하면 같은 결과 값을 가진 데이터를 한번만 사용한다. 
+
+- GROUP BY
+  - 결과 값을 원하는 열로 묶어 출력하는 절 
+  - HAVING을 사용하여 GROUP BY에 조건을 줄 수 있다.
+
+- ROLLUP() : 그룹화 데이터의 부분 합계
+  - GROUP BY 의 합계를 출력 
+  - 각 그룹의 합을 출력해서 보여준다. 
+
+- CUBE() : 그룹화 데이터 부분 합계 
+  - ROLLUP 과 비슷하지만 
+  - 마지막 결과를 세분화해서 보여준다. 
+  - 각 그룹의 합계를 출력해서 보여준다. 
+
+- GROUPING SETS() : 가장 빠르다. 
+  - 지정한 각 열별 그룹
+  - CUBE의 결과 값만 보여준다. 
+
+- CUBE( ) 를 GROUPING SETS( ) 으로 표현
+  - group by  cube( deptno , job )  order by  deptno , job; 
+  - 위 부분을 
+  - group by grouping sets( (deptno , job) , deptno , job ) order by deptno , job ;
+  - 이렇게 수정 하면 같은 결과값을 출력한다. 단, 결과 값은 출력하지 않는다.
+  - (deptno , job) 이 부분으로 각 그룹의 합계를 계산하고 deptno , job 이부분은 조건을 따로 또 준것 
+
+- HAVING 
+  - 그룹에 조건을 주고 싶을 때 사용한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
