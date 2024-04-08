@@ -35,6 +35,9 @@
   - 가장 처음 나오는 컬럼 값은 natural 조인을 할 때 사용한 컬럼을 말한다. 
   - select * from emp natural join dept; => 문법 사용 
 
+  - select E.ename , E.deptno , D.deptno , D.dname from  emp E  natural join  dept D
+    - 오류 발생 ( 동일한 컬럼은 출력할 수 없다. )
+
 - cross join
   - 관련이 아무것도 없는 테이블을 조인해준다. 
   - 테이블 간 조인 조건이 없는 경우에도 조인을 한다. 
@@ -47,7 +50,23 @@
   - 조인 조건에서 동일한 값이 없는 행도 결과 집합에 포함 
   - NULL 인것 도 결과에 포함 시킨다. 
 
+  - Left Outer Join ( 왼쪽 외부 조인 )
+    - 왼쪽 테이블의 값을 전부다 출력 ( 오른쪽에 값이 없어도 출력 ) 
+    - 오라클은 오른쪽 테이블에 (+) 기호를 추가한다. 
+
+  - Right Outer Join ( 오른쪽 외부 조인 ) 
+    - 오른쪽 테이블의 값을 전부다 출력 ( 왼쪽에 값이 없어도 출력 )
+    - 오라클은 왼쪽 테이블에 (+) 기호를 추가한다.
+
+  ★ using(컬럼명) : 양쪽에 같은 컬럼값이 있을 때 사용할 수 있다. 
+  ★ join ~ on : 을 사용해서 where 절 대신에 on 이후에 조건절을 사용할 수 있다. 
+
+  - Full Outer Join ( 전체 외부 조인 )
+    - 
+
 - SQL문의 동작 순서 
   - from -> where -> group by -> having -> select -> order by 
 
-
+- self 조인 
+  - 하나의 테이블을 여러 테이블처럼 사용하는 것 
+  - 조인의 where문에 순서가 있다 
