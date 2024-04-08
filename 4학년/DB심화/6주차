@@ -49,3 +49,5 @@
 
 - SQL문의 동작 순서 
   - from -> where -> group by -> having -> select -> order by 
+
+
