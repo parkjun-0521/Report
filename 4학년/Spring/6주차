@@ -46,8 +46,15 @@
 
 - 책 85. 86 은 넘어갔음 
 
-- 트랙젝션 
-  - 
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"/>
+</bean>
+- dataSource 를 위 dataSource로 id 준 곳에 담아라 
+- 근데 dataSource가 hikari DB네 
+- hikariConfig로 가서 DB에 접근 함 
+
+- 위 3줄로 DB에 접근??? 맞나 비슷한듯 
+
 
 
 
