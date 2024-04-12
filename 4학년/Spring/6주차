@@ -1,0 +1,14 @@
+- 0412
+- 6주차 필기 
+
+- 오라클 기본 세션 256
+- lapper에서 service로 넘어갈 때 DB와 Connection을 끊어 버린다. 
+
+- connection pool
+  - Spring - DB
+    - 채널을 미리 만들어 놓고 할당 해준다 
+    - 할당이 끝나면 채널을 없애는게 아니라 비활성화?
+    - Object Pooling 이랑 비슷하다고 생각하면 됨
+
+- hikari maven
+  - 
