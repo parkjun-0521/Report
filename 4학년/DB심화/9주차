@@ -1,0 +1,58 @@
+- 0429
+- 9주차 필기 
+
+- 윈도우 함수 
+  - 순위 함수 
+    - ROW_NUMBER( ) : 순위를 매기면서 동일한 값이라도 각기 다른 순위를 부여
+    - RANK( ) : 순위를 매기면서 같은 순위가 존재하면 존재하는 수만큼 다음 순위를 건너뛴다
+    - DENSE_RANK( ) : 순위를 매기면서 같은 순위가 존재하더라도 다음 순위를 건너뛰지 않고 이어서 매긴다
+
+    - over() 안에 order by 를 적어준다. 
+  
+  - 집계 함수 
+    - over(partition by 컬럼명) : 컬럼을 그룹? 처럼 묶어서 보여준다. 그룹과 다른점은 단일행처럼 보여준다. 
+    - over( partition by 컬럼명 order by 컬럼명 ) :  그룹별로 누적합을 보여준다.
+
+  - 행 순서 함수 
+    - RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+      - 처음부터 현재 행까지, RANGE UNBOUNDED PRECEDING 과 같은 의미
+
+    - first_value( 컬럼명 ) 
+      - 정렬에 따른 가장 첫번째 값을 가져온다. 
+
+    - last_value( 컬럼명 ) 
+      - windowing 절은 기본값이 range unbounded preceding 이기 때문에 
+      - 파티션의 범위가 맨 위 끝 행부터 현재 행까지 ( 누적합과 비슷한거 ) 
+
+    - lag( 컬럼명, index ) 
+      - 특정 index 만큼 앞선 데이터를 구하는 함수 
+      - index 만큼 앞에 데이터는 null로 표시 
+
+      - select deptno , sal , lag( sal, 3 ) over( partition by deptno order by sal ) as lag from emp ;
+      - 각 부서별로 3번째 앞선 데이터를 구함 
+
+    - lead( 컬럼명, index )
+      - 특정 index 만큰 뒤에 있는 데이터를 구하는 함수 
+      - index 만큼 뒤에 있는 데이터는 null로 표기 
+
+  - 비율 함수 
+    - ratio_to_report ( 컬럼명 ) 
+      - 합계에서 각 값이 차지하는 비율 
+      - 총합은 1로 계산, 각 값이 1에서 어느정도 비율을 차지하는지 알려줌 
+
+      - 값을 over ( partition by 컬럼명) 으로 묶어서 그룹 처럼 만들 시 각 그룹의 총 합을 1로 계산하여 각 그룹에서 비율이 어느정도 되는지 계산 
+
+    - percent_rank()
+      - 처음 값은 0, 마지막 값은 1 고정 
+      - 사이에 값은 n으로 나눠서 각 값이 차지하는 비율을 표시 
+
+    - 
+
+
+
+
+
+
+
+
+  
