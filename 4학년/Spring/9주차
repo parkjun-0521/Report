@@ -1,4 +1,30 @@
 - 0503
 - 9주차 필기 
 
+- MVC 화면과 관련된 것들 
+- 클릭을 했을 때 화면에 보여지도록 하는 MVC
+
+- return을 할 때 화면이 나오는데 return 하는 값에 따라서 화면이 달라진다. 
+
+- 실제 실무에 가면 Tiles 쓰는데 이제 못씀 
+- 그래서 Thymeleaf를 사용한다. 
+- 기본으로는 InternalResourceViewResolver를 사용하여 화면에 보여줌 
+
+
+- 전치 /WEB-INF/views
+  중간에 나오는거에 따라 
+  - 이 중간에 return 값이 붙는거 
+  @RequestMapping("/board/*") 를 사용하게 되면 중간에 /board/...(블라블라) 로 적게됨 
+- 후치 .jsp
+
+
+- 기본적인 원리가 
+- jsp 페이지 하나당 Controller 하나를 만듬 
+- controller에서 return 값으로 jsp 페이지의 이름을 리턴하면 그 리턴 값에 맞는 화면이 출력이됨 
+- 페이지에 넘길 값은 model에 담아서 addAttribute("변수명", 데이터) 로 값을 넘긴다. 
+- 해당 페이지에서는 ${ 변수명 } 으로 값을 가져와서 사용가능하다
+
+
+- 리턴 값이 void 형식이면 
+- URL에 맞는 jsp 파일을 실행한다. 없으면 오류가 나겠지 
 - 
