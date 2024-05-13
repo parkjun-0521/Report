@@ -1,0 +1,78 @@
+- 0513
+- 11주차 필기 
+
+- 셀프 쿼리 
+  - 데이터의 깊이를 찾기 위해서 몇번의 셀프 조인을 해야할지 알 수가 없음 
+  - 이러한 단점 때문에 나온 계층쿼리를 알아볼꺼임 
+  
+- 계층 쿼리 
+  - 각 계층의 깊이를 알기 쉽게 정렬해준다. 
+  - select  mgr , ename , empno from  emp  start with  mgr is null connect by  prior  empno = mgr;  
+    - start with : 경로가 시작되는 루트 노드 
+    - connect by : 루트로부터 자식 노드를 생성 조건 
+    - prior : 바로 앞에 있는 부모 노드 반환 
+
+  - select  level , sys_connect_by_path( ename , '>' ) from  emp  start with  mgr is null connect by  prior  empno = mgr ;
+    - sys_connect_by_path( 컬럼 , 구분자 ) : 루트 노드부터 현재 노드까지의 경로 출력 
+      - start with에서 사용한 최상위 루트노드를 의미한다. 
+
+  - select  connect_by_root empno , mgr , ename , empno , connect_by_isleaf from  emp  start with  mgr is null  connect by  prior  empno = mgr ;
+    - connect_by_root 컬럼 : 루트 노드의 주어진 컬럼 값
+    - connect_by_isleaf : 가장 하위 노드인 경우 1, 그외 0
+
+  - 순방향 : 루트 => 리프 구조 ( 상위에서 하위 구조 )  
+    - connect by  prior empno = mgr ; 처럼 쓴다. 
+  - 역방향 : 리프 => 루트 구조 ( 하위에서 상위 구조 ) 
+    - connect by  empno = prior mgr ; 처럼 쓴다. ( prior 의 위치가 다르다. ) 
+
+  - siblings : 형제 행 끼리 정렬을 해준다.
+
+- 트랜잭션 
+  - 원자성 : 트랜잭션으로 묶인 동작들은 모두 성공하거나 모두 실패  
+  - 일관성 : 트랜잭션 완료 후 데이터베이스가 가진 데이터는 변화 없어야 한다. 
+  - 고립성 : 하나의 트랜잭션A가 수행되는 동안 다른 트랜잭션B는 트랜잭션A가 끝나기를 기다린다.
+  - 지속성 : 트랜잭션이 성공적으로 수행되면 데이터는 영구적으로 저장되어야 한다. 
+
+  - Commit : DB에 영구 반영하는 명령어 
+    - insert / delete / update 후 변경된 내용을 확정 
+
+    - commit을 실행하지 않으면 
+      - 메모리까지만 반영 
+      - 언제든 사라질 수 있다.
+      - 다른 사용자는 변경된 값을 조회 할 수 없다. 
+
+    - commit을 실행해야 
+      - 최종적으로 기록 됨 
+      - 트랜잭션이 완료 
+
+  - ROLLBACK
+    - 마지막 commit 까지 취소 
+    - update 란 뒤 오랜 시간 동안 commit / rollback을 하지 않으면 lock에 걸려 다른 사용자는 사용 불가 
+
+  - savepoint
+    - rollback을 수핼할 때 전체 작업을 되돌리지 않고 일부만 되돌릴 수 있게 하는 기능 
+
+    - 과거로만 갈 수 있다 
+    - 9주차 PPT 6쪽 보면 무슨말인지 알 꺼임 
+
+    -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
